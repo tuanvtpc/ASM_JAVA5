@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Endless Love</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <header>
+	    <div class="menu-main">
+	      <div class="contact-numbers">HOTLINE: 1900 633 045 | 0865 160 360</div>
+	      <div class="nav-items">
+	      	<a href="/profile" class="customeText">
+	            <i class="fa-solid fa-user" style="color: #4f4f4f"></i>Tài khoản
+	        </a>
+	        <a href="/shopping-cart" class="customeText">
+	            <i class="fa-solid fa-cart-shopping" style="color: #4f4f4f"></i>Giỏ hàng
+	        </a>
+	        <a href="/login" class="customeText">
+	        	<i class="fa-solid fa-right-to-bracket" style="color: #4f4f4f"></i>Đăng nhập
+	        </a>
+	      </div>
+	    </div>
+	  </header>
+
+    <div class="header-container">
+        <div class="social-media">
+            <a href="">
+                <i class="fa-brands fa-facebook fa-2xl" style="color: #3b5998"></i>
+            </a>
+            <a href="">
+                <i class="fa-brands fa-twitter fa-2xl" style="color: #38a1f3"></i>
+            </a>
+            <a href="">
+                <i class="fa-brands fa-instagram fa-2xl" style="color: #cd486b"></i>
+            </a>
+        </div>
+
+        <div class="logo-shop">
+            <a href="index.html">
+                <img src="https://www.flowercorner.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
+                    title="FlowerCorner.vn - Shop hoa tươi" alt="FlowerCorner.vn - Shop hoa tươi" class="img-fluid"
+                    width="300" height="62" />
+            </a>
+        </div>
+
+        <div class="purchase-bar">
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm" class="text-control" />
+                <button type="button" class="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+
+            <div class="buy-bar">
+                <div class="buy-icon" onclick="toggleCartDropdown()">
+                    <button type="button" class="btn btn-inverse btn-block">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </button>
+                    <span id="cart-count" class="mini-cart-count">0</span>
+                </div>
+                <div id="cart-dropdown">
+                    <div id="cart-items"></div>
+                    <div id="cart-total"></div>
+                    <div class="cart-actions">
+                        <a href="checkout.html" class="">
+                            <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                        </a>
+                        <span class="line-cart">|</span>
+                        <a href="checkout.html" class="">
+                            <i class="fa-solid fa-share"></i> Thanh toán
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-menu">
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="hoa-sinh-nhat.html" class="drop">HOA SINH NHẬT</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">HOA SINH NHẬT SANG TRỌNG</a></li>
+                        <li><a href="#">HOA SINH NHẬT GIÁ RẺ</a></li>
+                        <li><a href="#">HOA TẶNG SINH NHẬT NGƯỜI YÊU</a></li>
+                        <li><a href="#">HOA TẶNG SINH NHẬT MẸ</a></li>
+                        <li><a href="#">HOA TẶNG SINH NHẬT BẠN</a></li>
+                        <li><a href="#">LẴNG HOA TẶNG SINH NHẬT</a></li>
+                        <li><a href="#">HOA HỒNG TẶNG SINH NHẬT</a></li>
+                        <li><a href="#">GIỎ HOA SINH NHẬT</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="hoa-khai-truong.html" class="drop">HOA KHAI TRƯƠNG</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">HOA KHAI TRƯƠNG ĐỂ BÀN</a></li>
+                        <li><a href="#">KỆ HOA KHAI TRƯƠNG</a></li>
+                        <li><a href="#">KỆ HOA KHAI TRƯƠNG HIỆN ĐẠI</a></li>
+                        <li><a href="#">HOA KHAI TRƯƠNG GIÁ RẺ</a></li>
+                        <li><a href="#">LẴNG HOA 2 TẦNG MỪNG KHAI TRƯƠNG</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="lan-ho-diep.html" class="drop">LAN HỒ ĐIỆP</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">LAN HỒ ĐIỆP MINI</a></li>
+                        <li><a href="#">LAN HỒ ĐIỆP VÀNG</a></li>
+                        <li><a href="#">LAN HỒ ĐIỆP TRẮNG</a></li>
+                        <li><a href="#">LAN HỒ ĐIỆP TÍM</a></li>
+                        <li><a href="#">CHẬU LAN HỒ ĐIỆP 3 CÀNH</a></li>
+                        <li><a href="#">CHẬU LAN HỒ ĐIỆP 5 CÀNH</a></li>
+                        <li><a href="#">CHẬU LAN HỒ ĐIỆP 10 CÀNH</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="drop">CHỦ ĐỀ</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">HOA CHÚC MỪNG</a></li>
+                        <li><a href="#">HOA CƯỚI CẦM TAY</a></li>
+                        <li><a href="#">HOA TANG LỄ - HOA CHIA BUỒN</a></li>
+                        <li><a href="#">HOA TÌNH YÊU</a></li>
+                        <li><a href="#">HOA VALENTINE</a></li>
+                        <li><a href="#">HOA KỶ NIỆM NGÀY CƯỚI</a></li>
+                        <li><a href="#">NGÀY CỦA MẸ</a></li>
+                        <li><a href="#">HOA CHÚC MỪNG 8-3</a></li>
+                        <li><a href="#">HOA CHÚC MỪNG 20-10</a></li>
+                        <li><a href="#">NGÀY NHÀ GIÁO VN</a></li>
+                        <li><a href="#">GIÁNG SINH</a></li>
+                        <li><a href="#">TẾT ÂM LỊCH</a></li>
+                        <li><a href="#">HOA TỐT NGHIỆP</a></li>
+                        <li><a href="#">HOA ĐỊNH KỲ</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="drop">THIẾT KẾ</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">BÓ HOA</a></li>
+                        <li><a href="#">LẴNG HOA</a></li>
+                        <li><a href="#">GIỎ HOA</a></li>
+                        <li><a href="#">KỆ HOA</a></li>
+                        <li><a href="#">BÌNH HOA</a></li>
+                        <li><a href="#">HỘP HOA</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="drop">HOA TƯƠI</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hoa-hong.html">HOA HỒNG</a></li>
+                        <li><a href="#">HOA BABY</a></li>
+                        <li><a href="#">HOA HƯỚNG DƯƠNG</a></li>
+                        <li><a href="#">HOA LAN HỒ ĐIỆP</a></li>
+                        <li><a href="#">HOA TULIP</a></li>
+                        <li><a href="#">HOA CÚC TANA</a></li>
+                        <li><a href="#">HOA THẠCH THẢO</a></li>
+                        <li><a href="#">HOA MẪU ĐƠN</a></li>
+                        <li><a href="#">CÚC MẪU ĐƠN</a></li>
+                        <li><a href="#">HOA CẨM TÚ CẦU</a></li>
+                        <li><a href="#">HOA LY</a></li>
+                        <li><a href="#">HOA SEN</a></li>
+                        <li><a href="#">HOA ĐỒNG TIỀN</a></li>
+                        <li><a href="#">HOA CẨM CHƯỚNG</a></li>
+                        <li><a href="#">HOA CÚC HỌA MI</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="hoa-tuoi-giam-gia.html">HOA TƯƠI GIẢM 30%</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="logo-main">
+        <p>
+            ĐẶT HOA ONLINE - GIAO MIỄN PHÍ TP HCM & HÀ NỘI - GỌI NGAY 1900 633 045
+            HOẶC 0865 160 360
+        </p>
+    </div>
+
+    <div class="cont">
+        <div class="row">
+          <div class="col-lg-6 col-left">
+            <div class="product-image">
+              <img
+                src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
+                id="mainImage"
+              />
+              <div class="related-products">
+                <div class="related">
+                  <img
+                    src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
+                    class="re"
+                    id="h1"
+                  />
+                </div>
+                <div class="related">
+                  <img
+                    src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
+                    class="re"
+                    id="h2"
+                  />
+                </div>
+                <div class="related">
+                  <img
+                    src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
+                    class="re"
+                    id="h3"
+                  />
+                </div>
+                <div class="related">
+                  <img
+                    src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
+                    class="re"
+                    id="h4"
+                  />
+                </div>
+                <div class="related">
+                  <img
+                    src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
+                    class="re"
+                    id="h5"
+                  />
+                </div>
+                <div class="related">
+                  <img
+                    src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
+                    class="re"
+                    id="h6"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-lg-6 col-right">
+            <h1 class="product-name">Endless Love</h1>
+            <ul class="product-price">
+              <li>
+                <h3>
+                  <span class="old-price">440,000VND</span>
+                </h3>
+              </li>
+              <li>
+                <h3>
+                  <span class="new-price">390,000VND</span>
+                </h3>
+              </li>
+              <span class="sale-percent">-11%</span>
+            </ul>
+      
+            <div class="coupon">
+              <strong>Khuyến mãi:</strong>
+              <div class="coupon-ticket">Giảm 50K</div>
+              <div class="coupon-ticket">Giảm 25K</div>
+              <div class="coupon-ticket">Giảm 10%</div>
+            </div>
+      
+            <div class="hotline-numbers">
+              <strong>Gọi ngay:</strong>
+              <span class="call-us">1900 633 045</span>
+            </div>
+      
+            <div class="social-contact">
+              <strong>Chat ngay:</strong>
+              <a href=""
+                ><img src="https://www.flowercorner.vn/image/icon/ms.png" alt=""
+              /></a>
+              <a href=""
+                ><img
+                  src="https://www.flowercorner.vn/image/icon/zalo.png"
+                  alt=""
+              /></a>
+              <a href=""
+                ><img
+                  src="https://www.flowercorner.vn/image/icon/zalo.png"
+                  alt=""
+              /></a>
+            </div>
+      
+            <div class="notice-ship">
+              <strong>Vận chuyển:</strong>
+              <span class="free-ship"
+                >Miễn phí giao hoa khu vực nội thành TP.HCM & Hà Nội
+              </span>
+            </div>
+      
+            <div class="address-ship-box">
+              <div class="cbo-city">
+                <select name="" id="city">
+                  <option value="">--- Chọn ---</option>
+                  <option value="hn">Hà Nội</option>
+                  <option value="hcm">TP Hồ Chí Minh</option>
+                  <option value="other">Khác</option>
+                </select>
+              </div>
+      
+              <div class="cbo-district">
+                <select name="" id="district">
+                  <option value="">--- Chọn ---</option>
+                </select>
+              </div>
+            </div>
+            <div class="shipping-fee" id="fee">Phí giao hàng:</div>
+      
+            <div class="quantity-buy">
+              <strong>Qty</strong>
+              <div class="order-quantity">
+                <div class="input-quantity">
+                  <input type="text" value="1" />
+                </div>
+                <button type="button" class="btn-order">ĐẶT HÀNG</button>
+                <button type="button" class="btn-fast-order">ĐẶT NHANH</button>
+              </div>
+            </div>
+      
+            <div class="shop-featured">
+              <div class="featured-item">
+                <img
+                  src="https://www.flowercorner.vn/image/icon/60mins.png"
+                  alt=""
+                />
+                <span>Giao hoa NHANH trong 60 phút</span>
+              </div>
+              <div class="featured-item">
+                <img
+                  src="https://www.flowercorner.vn/image/icon/freegifts.png"
+                  alt=""
+                />
+                <span>Tặng miễn phí thiệp hoặc banner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <div class="product-description">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a href="" class="nav-link active">Mô tả sản phẩm</a>
+            </li>
+        </ul>
+
+        <div class="tab-description">
+            <p></p>
+
+            <p>
+                <strong></strong>
+            </p>
+
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+            <p>
+                <em>Lưu ý</em>
+            </p>
+
+            <p>
+                <em>
+                    ** Do được làm thủ công, nên sản phẩm ngoài thực tế sẽ có đôi chút
+                    khác biệt so với hình ảnh trên website. Tuy nhiên, Flowercorner cam
+                    kết hoa sẽ giống khoảng 80% so với hình ảnh.
+                </em>
+            </p>
+
+            <p>
+                <em>
+                    ** Vì các loại hoa lá phụ sẽ có tùy vào thời điểm trong năm,
+                    Flowercorner đảm bảo các loại hoa chính, các loại hoa lá phụ sẽ thay
+                    đổi phù hợp giá cả và thiết kế sản phẩm.
+                </em>
+            </p>
+        </div>
+    </div>
+
+    <div class="rcm-products">
+        <h2>Sản phẩm liên quan</h2>
+        <div class="row rcm-product"></div>
+    </div>
+
+    <div class="rcm-products">
+        <!-- <h2>Sản phẩm tương tự</h2> -->
+        <div class="row"></div>
+        <div class="text-center">
+            <a id="viewMore" class="viewMoree mb-4"> Xem thêm >></a>
+            <a id="ClickHide" class="ClickHidee mb-4">
+                << Ẩn</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="row">
+            <div class="info-download">
+                <img src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
+                    alt="" />
+                Hotline: 1900 633 045 - 0865 160 360 Email: sales@flowercorner.vn
+                <div class="download-app">
+                    <div class="qr-code">
+                        <img src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/qr.png.webp"
+                            alt="quét để tải app FlowerCorner" />
+                    </div>
+                    <div class="store-link">
+                        Tải ứng dụng ngay!
+                        <div class="store-img">
+                            <img src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/appstore.png.webp"
+                                alt="FlowerCorner trên app store" />
+                            <img src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/gplay.png.webp"
+                                alt="FlowerCorner trên Google play" />
+                        </div>
+                    </div>
+                </div>
+                <div class="notice-bct">
+                    <img src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/logoSaleNoti.png.webp"
+                        alt="" />
+                </div>
+            </div>
+
+            <div class="info-support">
+		        <h5>CHĂM SÓC KHÁCH HÀNG</h5>
+		        <p class="danhmuc">
+		          <a href="/introduce" class="color-grey">Giới thiệu</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="/contact" class="color-grey">Liên Hệ</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Chính Sách Vận Chuyển</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Câu Hỏi Thường Gặp</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Hình Thức Thanh Toán</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Bảo Mật Thông Tin</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Chính Sách Hoàn Tiền</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Xử Lý Khiếu Nại</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Tại Sao Nên Chọn FlowerCorner.vn</a>
+		        </p>
+		        <p class="danhmuc">
+		          <a href="#" class="color-grey">Blog</a>
+		        </p>
+		      </div>
+            </div>
+
+            <div class="info-media">
+                <h5>THEO DÕI</h5>
+                <div class="mxh">
+                    <p>
+                        <a href="#" class="color-grey">
+                            <i class="fa-brands fa-facebook"></i>
+                            Facebook</a>
+                    </p>
+                    <p>
+                        <a href="#" class="color-grey">
+                            <i class="fa-brands fa-twitter-square"></i>
+                            Twitter</a>
+                    </p>
+                    <p>
+                        <a href="#" class="color-grey">
+                            <i class="fa-brands fa-instagram"></i>
+                            Instagram</a>
+                    </p>
+                    <p>
+                        <a href="#" class="color-grey">
+                            <i class="fa-brands fa-linkedin"></i>
+                            Linkedin</a>
+                    </p>
+                    <p>
+                        <a href="#" class="color-grey">
+                            <i class="fa-brands fa-youtube"></i>
+                            Youtube</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="info-address">
+                <h5>SHOP HOA FLOWERCORNER</h5>
+                <div class="address">
+                    <p>
+                        <strong>Cửa hàng chính</strong>:
+                        <a href="#" class="color-grey">142 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, TP.HCM</a>
+                    </p>
+                    <p>
+                        <strong>Chi nhánh TP.HCM</strong>:
+                        <a href="#" class="color-grey">225/3 Nguyễn Đình Chiểu, Phường 5, Quận 3, TP.HCM</a>
+                    </p>
+                    <p>
+                        <strong>Chi nhánh Hà Nội</strong>:
+                        <a href="#" class="color-grey">65 Trần Phú, Ba Đình, Hà Nội</a>
+                    </p>
+                    <p>
+                        CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ ZAS
+                        <br />
+                        Mã số thuế: 0313630426
+                    </p>
+                </div>
+            </div>
+
+            <div class="contact-bar">
+                <div class="contact-numberphone">
+                    <i class="fa-solid fa-phone-volume" style="color: #ffffff"></i>
+                    <span>091 849 1941</span>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="contact-zalo">
+                    <img src="img/icons8-zalo-50 (1).png" alt="" />
+                    <span>Nhắn tin zalo</span>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="contact-numberphone">
+                    <i class="fa-solid fa-phone-volume" style="color: #ffffff"></i>
+                    <span>086 516 0360</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/cbo-ship-cost.js"></script>
+    <script src="js/control-images.js"></script>
+    <script src="js/nav-menu-fixed.js"></script>
+    <script src="js/cart-drop-down.js"></script>
+    <script src="js/rcm-products.js"></script>
+    <script src="js/product-details.js"></script>
+    <script src="js/rcm-product.js"></script>
+</body>
+
+</html>
