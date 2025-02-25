@@ -45,8 +45,8 @@ public class UserEntity {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<AddressEntity> addresses;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<CartEntity> carts;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private CartEntity carts;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<OrderEntity> orders;
