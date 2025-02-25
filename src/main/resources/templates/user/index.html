@@ -229,9 +229,11 @@
                             <span class="price-new" th:text="${product.price} + 'VND'"></span>
                             <span class="price-old" th:text="${product.price * 1.1} + 'VND'"></span>
                         </p>
-                        <a href="#" class="btn btn-primary"
-                            th:onclick="">ĐẶT
-                            HÀNG</a>
+                        
+                        <form action="/add-to-cart" method="post">
+						    <input type="hidden" th:value="${product.id}" name="prodId"/>
+						    <button type="submit" class="btn btn-primary">ĐẶT HÀNG</button>
+						</form>  
                     </div>
                 </div>
             </div>
