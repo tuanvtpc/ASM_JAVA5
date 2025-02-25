@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -207,26 +207,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-            <td>
-                <img src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
-                    alt="Endless Love" style="width: 70px;">
-            </td>
-            <td>Endless Love</td>
-            <td>1</td>
-            <td style="text-align: right">390,000VND</td>
-            <td style="text-align: right">390,000VND</td>
-        </tr>
-        <tr>
-            <td>
-                <img src="https://8384f55340.vws.vegacdn.vn/image/cache/catalog/products/August%202023/bo-hoa-baby-mix-hong-kem.jpg.webp"
-                    alt="Endless Love" style="width: 70px;">
-            </td>
-            <td>Endless Love</td>
-            <td>1</td>
-            <td style="text-align: right">390,000VND</td>
-            <td style="text-align: right">390,000VND</td>
-        </tr>
+      	<th:block th:each="item : ${items}">
+            <tr>
+	            <td>
+	                <img th:src="${'/images/' + item.product.images[0].imageName}"
+	                    alt="Endless Love" style="width: 70px;">
+	            </td>
+	            <td th:text="${item.product.name}"></td>
+	            <td>1</td>
+	            <td style="text-align: right" th:text="${item.product.price}"></td>
+	            <td style="text-align: right" th:text="${item.product.price * item.quantity}"></td>
+	        </tr>
+         </th:block>
       </tbody>
       <tfoot>
         <tr>

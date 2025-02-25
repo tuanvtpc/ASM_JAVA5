@@ -19,8 +19,10 @@ import com.fpoly.java5.services.ProductService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin")
 public class ProductController {
 
 	@Autowired
@@ -32,7 +34,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
-	@GetMapping("/product")
+	@GetMapping("/admin/product")
 	public String product(Model model) {
 		
 	    
