@@ -7,8 +7,10 @@
     <title>Endless Love</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="/images/static/css/style.css" />
+    <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<link rel="stylesheet" href="/images/static/css/style.css" />
+
 </head>
 
 <body>
@@ -188,7 +190,95 @@
         </p>
     </div>
 
-	
+    <div class="container">
+    <div class="row">
+        <!-- Hình ảnh sản phẩm -->
+      <div class="col-lg-6 col-left">
+    <div class="product-image">
+        <img id="mainImage" th:src="@{'/images/' + ${product.images[0].imageName}}" alt="Hình ảnh sản phẩm" class="product-img">
+        <div class="related-products">
+            <div class="related" th:each="img, iterStat : ${product.images}">
+                <img th:src="@{'/images/' + ${img.imageName}}" class="re" 
+                     th:id="'h' + ${iterStat.index + 1}" 
+                     th:onclick="'changeImage(this)'"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Thông tin sản phẩm -->
+        <div class="col-lg-6 col-right">
+            <h1 class="product-name" th:text="${product.name}">Tên sản phẩm</h1>
+            <ul class="product-price">
+                <li>
+                   <p><strong>Giá Mới:</strong> <span class="price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')} + ' VNĐ'"></span></p>
+                </li>
+               <li>
+                   <p><strong>Giá Cũ:</strong>  <span class="price-old" th:text="${product.price * 1.1} + 'VND'"></span>
+                </li>
+                 
+            </ul>
+       
+          
+
+            <div class="hotline-numbers">
+                <strong>Gọi ngay:</strong>
+                <span class="call-us">1900 633 045</span>
+            </div>
+
+            <div class="notice-ship">
+                <strong>Vận chuyển:</strong>
+                <span class="free-ship">Miễn phí giao hàng khu vực nội thành TP.HCM & Hà Nội</span>
+            </div>
+               <div class="notice-ship">
+    <strong>Số lượng:</strong>
+    <span class="free-ship" th:text="${product.quantity}"></span>
+</div>
+
+            
+            <div class="quantity-buy">
+                <strong>Qty</strong>
+                <div class="order-quantity">
+                    <div class="input-quantity">
+                        <input type="text" value="1" />
+                    </div>
+                    <button type="button" class="btn-order">ĐẶT HÀNG</button>
+                    <button type="button" class="btn-fast-order">ĐẶT NHANH</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mô tả sản phẩm -->
+    <div class="product-description">
+        
+
+        <div class="tab-description">
+           <p><strong>Mô tả:</strong> <span th:text="${product.description}"></span></p>
+       
+        </div>
+    </div>
+
+  
+    
+</div>
+
+    <div class="rcm-products">
+        <h2>Sản phẩm liên quan</h2>
+        <div class="row rcm-product"></div>
+    </div>
+
+    <div class="rcm-products">
+        <!-- <h2>Sản phẩm tương tự</h2> -->
+        <div class="row"></div>
+        <div class="text-center">
+            <a id="viewMore" class="viewMoree mb-4"> Xem thêm >></a>
+            <a id="ClickHide" class="ClickHidee mb-4">
+                << Ẩn</a>
+        </div>
+    </div>
+
     <footer>
         <div class="row">
             <div class="info-download">
@@ -325,8 +415,14 @@
                     <span>086 516 0360</span>
                 </div>
             </div>
-        </div>
+        
     </footer>
+    <script>
+    function changeImage(smallImg) {
+        let mainImage = document.getElementById("mainImage");
+        mainImage.src = smallImg.src; // Đổi ảnh chính thành ảnh được click
+    }
+</script>
     <script src="js/cbo-ship-cost.js"></script>
     <script src="js/control-images.js"></script>
     <script src="js/nav-menu-fixed.js"></script>
@@ -334,6 +430,7 @@
     <script src="js/rcm-products.js"></script>
     <script src="js/product-details.js"></script>
     <script src="js/rcm-product.js"></script>
+    <script type="text/javascript"></script>
 </body>
 
 </html>
