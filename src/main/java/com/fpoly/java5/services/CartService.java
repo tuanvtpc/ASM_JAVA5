@@ -39,7 +39,7 @@ public class CartService {
 	@Autowired
 	HttpServletResponse resp;
 
-	private UserEntity getUser() {
+	public UserEntity getUser() {
 		Cookie[] cookies = req.getCookies();
 		if (cookies == null) {
 			return null;

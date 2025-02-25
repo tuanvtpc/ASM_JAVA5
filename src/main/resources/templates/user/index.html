@@ -210,7 +210,8 @@
     <div class="row list-products-1">
       <div th:each="product : ${products}" class="col-lg-3">
                 <div class="card product" style="width: 18rem; position: relative;">
-                	<a href="detail-product" onclick="viewProductDetails('Little Tana')">
+                <a th:href="|/detail-product?prodId=${product.id}|">
+
 		            <img
 		              th:src="@{'/images/' + ${product.images[0].imageName}}"
 		              class="card-img-top" alt="Little Tana" />
