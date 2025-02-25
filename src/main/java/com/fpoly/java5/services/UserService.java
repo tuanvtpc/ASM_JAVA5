@@ -2,16 +2,12 @@ package com.fpoly.java5.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.fpoly.java5.beans.UserBean;
 import com.fpoly.java5.entity.UserEntity;
 import com.fpoly.java5.jpas.UserJPA;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -25,18 +21,6 @@ public class UserService {
 
 	@Autowired
 	HttpServletResponse resp;
-
-	public List<UserEntity> searchUsers(String name, String username, String email, String sortDir) {
-		Sort sort = Sort.by("username");
-		sort = "asc".equalsIgnoreCase(sortDir) ? sort.ascending() : sort.descending();
-
-		name = name == null ? "" : name;
-		username = username == null ? "" : username;
-		email = email == null ? "" : email;
-
-		return userJPA.findByNameContainingIgnoreCaseAndUsernameContainingIgnoreCaseAndEmailContainingIgnoreCase(name,
-				username, email, sort);
-	}
 
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
@@ -78,6 +62,7 @@ public class UserService {
 		return null;
 	}
 
+
 	public UserEntity authenticateAndSetCookies(String username, String password) {
 		Optional<UserEntity> userOptional = userJPA.findByUsername(username);
 
@@ -108,21 +93,7 @@ public class UserService {
 
 	}
 
-	public boolean deleteUser(int id) {
-		try {
-			Optional<UserEntity> user = userJPA.findById(id);
-			if (!user.isPresent()) {
-				return false;
-			}
-
-			userJPA.delete(user.get());
-
-		} catch (Exception e) {
-			return false;
-		}
-
-		return true;
-	}
+	
 
 	public String updateUser(UserBean userBean) {
 		try {
@@ -139,13 +110,13 @@ public class UserService {
 			if (fileName == null) {
 				return "imgae err";
 			}
+
 			UserEntity userEntity = new UserEntity();
 			userEntity.setId(userBean.getId().get());
 			userEntity.setUsername(userBean.getUsername());
 			userEntity.setPassword(userBean.getPassword());
 			userEntity.setName(userBean.getName());
 			userEntity.setEmail(userBean.getEmail());
-			userEntity.setPhone(userBean.getPhone());
 			userEntity.setActive(true);
 			userEntity.setRole(1);
 			userEntity.setAvatar(fileName);
@@ -158,4 +129,26 @@ public class UserService {
 
 		return null;
 	}
+
+	public boolean deleteUser(int id) {
+		try {
+			Optional<UserEntity> user = userJPA.findById(id);
+			if (!user.isPresent()) {
+				return false;
+			}
+
+			userJPA.delete(user.get());
+
+		} catch (Exception e) {
+			return false;
+		}
+
+		return true;
+	}
+	
+	public UserEntity getUserById(int id) {
+	    Optional<UserEntity> userOptional = userJPA.findById(id);
+	    return userOptional.orElse(null);
+	}
+
 }
