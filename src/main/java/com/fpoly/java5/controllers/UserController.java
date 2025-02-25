@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 	
-	@GetMapping("/user")
+	@GetMapping("/admin/user")
 	public String user() {
 		return "/admin/user.html";
 	}

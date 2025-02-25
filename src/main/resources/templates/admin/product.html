@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +16,7 @@
 
 	<title>Profile | AdminKit Demo</title>
 
-	<link href="css/app.css" rel="stylesheet">
+	<link href="/images/static/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -285,51 +284,17 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><img src="https://m.yodycdn.com/blog/hinh-nen-hoa-tulip-yody-vn-80.jpg" alt="Sản phẩm 1" style="width: 50px; height: 50px;">
-										</td>
-										<td class="d-none d-xl-table-cell">Sản phẩm A</td>
-										<td>200,000 VND</td>
-										<td>10</td>
-										<td class="d-none d-md-table-cell">Đồ gia dụng</td>
-										<td class="d-none d-xl-table-cell">01/01/2023</td>
-									</tr>
-									<tr>
-										<td><img src="https://m.yodycdn.com/blog/hinh-nen-hoa-tulip-yody-vn-80.jpg" alt="Sản phẩm 2" style="width: 50px; height: 50px;">
-										</td>
-										<td class="d-none d-xl-table-cell">Sản phẩm B</td>
-										<td>350,000 VND</td>
-										<td>5</td>
-										<td class="d-none d-md-table-cell">Thời trang</td>
-										<td class="d-none d-xl-table-cell">05/01/2023</td>
-									</tr>
-									<tr>
-										<td><img src="https://m.yodycdn.com/blog/hinh-nen-hoa-tulip-yody-vn-80.jpg" alt="Sản phẩm 3" style="width: 50px; height: 50px;">
-										</td>
-										<td class="d-none d-xl-table-cell">Sản phẩm C</td>
-										<td>150,000 VND</td>
-										<td>20</td>
-										<td class="d-none d-md-table-cell">Thực phẩm</td>
-										<td class="d-none d-xl-table-cell">10/01/2023</td>
-									</tr>
-									<tr>
-										<td><img src="https://m.yodycdn.com/blog/hinh-nen-hoa-tulip-yody-vn-80.jpg" alt="Sản phẩm 4" style="width: 50px; height: 50px;">
-										</td>
-										<td class="d-none d-xl-table-cell">Sản phẩm D</td>
-										<td>500,000 VND</td>
-										<td>8</td>
-										<td class="d-none d-md-table-cell">Điện tử</td>
-										<td class="d-none d-xl-table-cell">15/01/2023</td>
-									</tr>
-									<tr>
-										<td><img src="https://m.yodycdn.com/blog/hinh-nen-hoa-tulip-yody-vn-80.jpg" alt="Sản phẩm 5" style="width: 50px; height: 50px;">
-										</td>
-										<td class="d-none d-xl-table-cell">Sản phẩm E</td>
-										<td>100,000 VND</td>
-										<td>15</td>
-										<td class="d-none d-md-table-cell">Sách</td>
-										<td class="d-none d-xl-table-cell">20/01/2023</td>
-									</tr>
+									<th:block th:each="product : ${productList}">
+										<tr>
+											<td><img th:src="@{'/images/' + ${product.images[0].imageName}}" style="width: 50px; height: 50px;">
+											</td>
+											<td class="d-none d-xl-table-cell" th:text="${product.name}"></td>
+											<td th:text="${product.price} + 'VND'"></td>
+											<td th:text="${product.quantity}"></td>
+											<td class="d-none d-md-table-cell" th:text="${product.category.name}"></td>
+											<td class="d-none d-xl-table-cell" th:text="${product.dateCreated}"></td>
+										</tr>
+									</th:block>
 								</tbody>
 							</table>
 						</div>
@@ -370,7 +335,7 @@
 		</div>
 	</div>
 
-	<script src="js/app.js"></script>
+	<script src="/images/static/js/app.js"></script>
 
 </body>
 
