@@ -16,87 +16,106 @@
     />
     <link rel="stylesheet" href="/images/static/css/style.css" />
     <style>
-       .checkout-container {
-    max-width: 800px;
+     .checkout-container {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
-}
-
-		.checkout-section {
-		    margin-bottom: 20px;
-		    padding: 15px;
-		    border: 1px solid #ddd;
-		    border-radius: 8px;
-		    background-color: #fff;
-		}
-		
-		h2 {
-		    font-size: 1.5em;
-		    margin-bottom: 10px;
-		}
-		
-		.form-group {
-		    margin-bottom: 15px;
-		}
-		
-		label {
-		    display: block;
-		    margin-bottom: 5px;
-		}
-		
-		input[type="text"],
-		input[type="tel"],
-		textarea,
-		select {
-		    width: 100%;
-		    padding: 10px;
-		    border: 1px solid #ccc;
-		    border-radius: 4px;
-		}
-		
-		textarea {
-		    resize: vertical;
-		}
-		
-		.product-list {
-		    display: flex;
-		    flex-direction: column;
-		}
-		
-		.product-item {
-		    display: flex;
-		    margin-bottom: 10px;
-		}
-		
-		.product-item img {
-		    width: 100px;
-		    height: auto;
-		    margin-right: 10px;
-		}
-		
-		.product-info {
-		    flex-grow: 1;
-		}
-		
-		.total-price {
-		    font-weight: bold;
-		    font-size: 1.2em;
-		    margin-top: 10px;
-		}
-		
-		.payment-methods label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 1em;
+	}
+	
+	.checkout-section {
+	    margin-bottom: 20px;
+	    padding: 15px;
+	    border: 1px solid #ddd;
+	    border-radius: 8px;
+	    background-color: #fff;
+	}
+	
+	h2 {
+	    font-size: 1.5em;
+	    margin-bottom: 10px;
+	}
+	
+	.form-group {
+	    margin-bottom: 15px;
+	}
+	
+	label {
+	    display: block;
+	    margin-bottom: 5px;
+	}
+	
+	input[type="text"],
+	input[type="tel"],
+	textarea,
+	select {
+	    width: 100%;
+	    padding: 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	}
+	
+	textarea {
+	    resize: vertical;
+	}
+	
+	/* Danh sách sản phẩm */
+	.product-list {
+	    display: flex;
+	    flex-direction: column;
+	}
+	
+	.product-item {
+	    display: flex;
+	    align-items: center;
+	    margin-bottom: 8px;
+	    padding: 10px;
+	    border: 1px solid #ddd;
+	    border-radius: 5px;
+	    background-color: #fff;
+	}
+	
+	.product-item img {
+	    width: 80px; /* Giảm kích thước ảnh */
+	    height: auto;
+	    margin-right: 8px;
+	    border-radius: 5px;
+	}
+	
+	.product-info {
+	    flex-grow: 1;
+	}
+	
+	.product-info h4 {
+	    font-size: 1em; /* Giảm kích thước tiêu đề */
+	    margin-bottom: 5px;
+	}
+	
+	.product-info p {
+	    font-size: 0.9em; /* Giảm kích thước chữ */
+	    margin: 3px 0;
+	}
+	
+	.total-price {
+	    font-size: 1.1em;
+	    font-weight: bold;
+	    margin-top: 8px;
+	}
+	
+	/* Phương thức thanh toán */
+	.payment-methods label {
+	    display: block;
+	    margin-bottom: 10px;
+	    font-size: 1em;
 	}
 	
 	.payment-methods input[type="radio"] {
 	    margin-right: 5px;
 	}
 	
+	/* Nút đặt hàng */
 	.btn-checkout {
 	    display: inline-block;
 	    padding: 10px 20px;
@@ -142,6 +161,7 @@
 	        width: 100%;
 	    }
 	}
+     
     </style>
   </head>
   <body>
@@ -325,95 +345,69 @@
     </div>
 
     <div class="checkout-container">
-    <!-- Phần địa chỉ nhận hàng -->
-	    <div class="checkout-section">
-	        <h2>Địa chỉ nhận hàng</h2>
-	        <form>
-	            <div class="form-group">
-	                <label for="fullName">Họ và tên:</label>
-	                <input type="text" id="fullName" name="fullName" required />
-	            </div>
-	            <div class="form-group">
-	                <label for="phone">Số điện thoại:</label>
-	                <input type="tel" id="phone" name="phone" required />
-	            </div>
-	            <div class="form-group">
-	                <label for="address">Địa chỉ:</label>
-	                <textarea id="address" name="address" required></textarea>
-	            </div>
-	            <div class="form-group">
-	                <label for="city">Thành phố:</label>
-	                <select id="city" name="city" required>
-	                    <option value="">Chọn thành phố</option>
-	                    <option value="hcm">TP. Hồ Chí Minh</option>
-	                    <option value="hn">Hà Nội</option>
-	                    <option value="dn">Đà Nẵng</option>
-	                </select>
-	            </div>
-	            <div class="form-group">
-	                <label for="district">Quận/Huyện:</label>
-	                <input type="text" id="district" name="district" required />
-	            </div>
-	        </form>
+    	<div class="dropdown">
+	        <div class="form-group">
+	            <label for="addressSelect">Chọn thông tin nhận hàng:</label>
+	            <select class="form-control" id="addressSelect" name="selectedAddressId" onchange="updateSelectedAddressId()">
+	                <option value="">-- Chọn thông tin nhận hàng --</option>
+	                <option th:each="address : ${addressList}" 
+	                        th:value="${address.id}" 
+	                        th:data-name="${address.name}">
+	                    <span th:text="${address.name}"></span> -
+	                    <span th:text="${address.phone}"></span> -
+	                    <span th:text="${address.address}"></span>
+	                </option>
+	            </select>
+	        </div>
+	        <div>
+	            <a class="btn btn-secondary" th:href="@{/user/add-address}">Thêm địa chỉ mới</a>
+	        </div>
+	        <input type="hidden" id="selectedAddressId" name="selectedAddressId" />
 	    </div>
-	
-	   <!-- Phần sản phẩm trong giỏ hàng -->
+    	
 		<div class="checkout-section">
 		    <h2>Sản phẩm</h2>
 		    <div class="product-list">
+		    	<th:block th:each="item : ${items}">
 		        <div class="product-item">
-		            <img src="https://dacsancamvinh.net/wp-content/uploads/2015/06/cong-dung-qua-cam.jpg" alt="Product Image" />
+		            <img th:src="${'/images/' + item.product.images[0].imageName}" alt="Product Image" />
 		            <div class="product-info">
-		                <h4>Táo đỏ</h4>
-		                <p>Số lượng: <span>2</span></p>
-		                <p>Giá: <span>50,000</span> VND</p>
+		                <h4 th:text="${item.product.name}"></h4>
+		                <p>Số lượng: <span  th:text="${item.quantity}">2</span></p>
+		                <p>Giá:<span th:text="${item.product.price}"></span> VND</p>
 		            </div>
 		        </div>
-		
-		        <div class="product-item">
-		            <img src="https://dacsancamvinh.net/wp-content/uploads/2015/06/cong-dung-qua-cam.jpg" alt="Product Image" />
-		            <div class="product-info">
-		                <h4>Chuối</h4>
-		                <p>Số lượng: <span>3</span></p>
-		                <p>Giá: <span>30,000</span> VND</p>
-		            </div>
-		        </div>
-		
-		        <div class="product-item">
-		            <img src="https://dacsancamvinh.net/wp-content/uploads/2015/06/cong-dung-qua-cam.jpg" alt="Product Image" />
-		            <div class="product-info">
-		                <h4>Cam</h4>
-		                <p>Số lượng: <span>1</span></p>
-		                <p>Giá: <span>40,000</span> VND</p>
-		            </div>
-		        </div>
+	         </th:block>
 		    </div>
 		    <div class="total-price">
-		        Tổng cộng: <span>120,000</span> VND
-		    </div>
+			    Tổng cộng: <span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span> VND
+			</div>
 		</div>
 
 	
-	    <!-- Phần phương thức thanh toán -->
 	    <div class="checkout-section">
-	        <h2>Phương thức thanh toán</h2>
-	        <div class="payment-methods">
-	            <label>
-	                <input type="radio" name="paymentMethod" value="cod" checked />
-	                Thanh toán khi nhận hàng (COD)
-	            </label>
-	            <label>
-	                <input type="radio" name="paymentMethod" value="bankTransfer" />
-	                Chuyển khoản ngân hàng
-	            </label>
-	            <label>
-	                <input type="radio" name="paymentMethod" value="momo" />
-	                Ví điện tử Momo
-	            </label>
-	        </div>
-	    </div>
-	
-	    <button class="btn-checkout">Đặt hàng</button>
+        <h2>Phương thức thanh toán</h2>
+        <div class="payment-methods">
+            <label>
+                <input type="radio" name="paymentMethod" value="0" checked onchange="updatePaymentMethod(this)" />
+                Thanh toán khi nhận hàng (COD)
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="1" onchange="updatePaymentMethod(this)" />
+                Chuyển khoản ngân hàng
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="2" onchange="updatePaymentMethod(this)" />
+                Ví điện tử Momo
+            </label>
+        </div>
+    </div>
+
+    <form action="/checkout" method="post" onsubmit="return validateForm()">
+        <input type="hidden" name="selectedAddressId" id="formSelectedAddressId" />
+        <input type="hidden" name="paymentMethod" id="formPaymentMethod" />
+        <button type="submit" class="btn-checkout">Đặt hàng</button>
+    </form>
 	</div>
     
     
@@ -574,8 +568,43 @@
       </div>
     </footer>
 
-    <script src="js/nav-menu-fixed.js"></script>
-    <script src="js/cart-drop-down.js"></script>
-    <script src="js/cart-info.js"></script>
+    <script src="/images/static/js/nav-menu-fixed.js"></script>
+    <script src="/images/static/js/cart-drop-down.js"></script>
+    <script src="/images/static/js/cart-info.js"></script>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+        function updateSelectedAddressId() {
+            var addressSelect = document.getElementById("addressSelect");
+            var selectedAddressId = addressSelect.value;
+            document.getElementById("formSelectedAddressId").value = selectedAddressId;
+        }
+        
+        function updatePaymentMethod(radio) {
+            var paymentMethod = radio.value;
+            document.getElementById("formPaymentMethod").value = paymentMethod;
+        }
+
+        function validateForm() {
+            var addressSelect = document.getElementById("addressSelect");
+            var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+
+            if (addressSelect.value === "") {
+                alert("Vui lòng chọn địa chỉ nhận hàng.");
+                return false;
+            }
+
+            if (!paymentMethod) {
+                alert("Vui lòng chọn phương thức thanh toán.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
   </body>
 </html>

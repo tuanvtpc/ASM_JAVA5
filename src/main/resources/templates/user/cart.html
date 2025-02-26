@@ -204,6 +204,7 @@
           <th>Số lượng</th>
           <th style="text-align: right">Đơn giá</th>
           <th style="text-align: right">Tổng cộng</th>
+          <th>Xóa</th>
         </tr>
       </thead>
       <tbody>
@@ -217,21 +218,27 @@
 	            <td th:text="${item.quantity}"></td>
 	            <td style="text-align: right" th:text="${item.product.price}"></td>
 	            <td style="text-align: right" th:text="${item.product.price * item.quantity}"></td>
+	           <td style="height: 50px; line-height: 50px; text-align: center;">
+				    <form action="/delete-cart-item" method="post" style="display: inline;">
+				        <input type="hidden" name="cartItemId" th:value="${item.id}" />
+				        <button type="submit" class="btn btn-danger btn-sm">X</button>
+				    </form>
+				</td>
 	        </tr>
          </th:block>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="4" style="text-align: right"><strong>Tổng phụ</strong></td>
-          <td id="sub-total">0 VND</td>
+          <td id="sub-total"><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span></td>
         </tr>
         <tr>
           <td colspan="4" style="text-align: right"><strong>Tổng cộng</strong></td>
-          <td id="total">0 VND</td>
+          <td id="total"><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span></td>
         </tr>
         <tr>
          <td colspan="5" style="text-align: right">
-          <a href="payment-sussess.html" class="btn btn-primary float-end">Thanh toán</a>
+          <a href="/checkout" class="btn btn-primary float-end">Thanh toán</a>
          </td>
         </tr>
       </tfoot>
