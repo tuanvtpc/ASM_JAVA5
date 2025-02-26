@@ -26,12 +26,6 @@ public class PermissionComponents implements HandlerInterceptor {
 		// loại bỏ
 		// Nếu chưa đăng nhập => chuyển về trang /login
 
-		String paths = request.getServletPath();
-		// Bỏ qua các tài nguyên tĩnh (CSS, JS, hình ảnh)
-		if (paths.startsWith("/css/") || paths.startsWith("/js/") || paths.startsWith("/img/")) {
-			return true; // Cho phép truy cập tài nguyên tĩnh mà không cần kiểm tra đăng nhập
-		}
-
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
 			response.sendRedirect("/login");

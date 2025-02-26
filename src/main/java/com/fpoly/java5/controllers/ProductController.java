@@ -11,25 +11,38 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.fpoly.java5.beans.ProductBean;
 import com.fpoly.java5.entity.CategoryEntity;
+import com.fpoly.java5.entity.ProductEntity;
 import com.fpoly.java5.jpas.CategoryJPA;
+import com.fpoly.java5.jpas.ProductJPA;
 import com.fpoly.java5.services.ProductService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ProductController {
 
 	@Autowired
 	CategoryJPA categoryJPA;
+	
+	@Autowired
+	ProductJPA productJPA;
 
 	@Autowired
 	ProductService productService;
 
-	@GetMapping("/product")
-	public String product() {
+	@GetMapping("/admin/product")
+	public String product(Model model) {
+		
+	    
 		return "/admin/product.html";
+	}
+	
+	@ModelAttribute(name = "productList")
+	public List<ProductEntity> getProduct() {
+		return productJPA.findAll();
 	}
 
 	@ModelAttribute(name = "categories")

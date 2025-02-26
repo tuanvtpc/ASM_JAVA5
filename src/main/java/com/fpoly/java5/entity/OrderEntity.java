@@ -38,13 +38,13 @@ public class OrderEntity {
     private double totalAmount;
 
     @Column(name = "payment_method", length = 100)
-    private String paymentMethod;
+    private int paymentMethod;
 
     @Column(name = "payment_status", nullable = false)
     private int paymentStatus;
 
     @Column(name = "transaction_id", length = 255)
-    private String transactionId;
+    private int transactionId;
 
     @Column(name = "created_at")
     private java.util.Date createdAt;

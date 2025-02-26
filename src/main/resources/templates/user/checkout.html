@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Giới thiệu về FlowerCorner.vn</title>
+    <title>Giỏ hàng</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -15,6 +15,154 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <link rel="stylesheet" href="/images/static/css/style.css" />
+    <style>
+     .checkout-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+	}
+	
+	.checkout-section {
+	    margin-bottom: 20px;
+	    padding: 15px;
+	    border: 1px solid #ddd;
+	    border-radius: 8px;
+	    background-color: #fff;
+	}
+	
+	h2 {
+	    font-size: 1.5em;
+	    margin-bottom: 10px;
+	}
+	
+	.form-group {
+	    margin-bottom: 15px;
+	}
+	
+	label {
+	    display: block;
+	    margin-bottom: 5px;
+	}
+	
+	input[type="text"],
+	input[type="tel"],
+	textarea,
+	select {
+	    width: 100%;
+	    padding: 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	}
+	
+	textarea {
+	    resize: vertical;
+	}
+	
+	/* Danh sách sản phẩm */
+	.product-list {
+	    display: flex;
+	    flex-direction: column;
+	}
+	
+	.product-item {
+	    display: flex;
+	    align-items: center;
+	    margin-bottom: 8px;
+	    padding: 10px;
+	    border: 1px solid #ddd;
+	    border-radius: 5px;
+	    background-color: #fff;
+	}
+	
+	.product-item img {
+	    width: 80px; /* Giảm kích thước ảnh */
+	    height: auto;
+	    margin-right: 8px;
+	    border-radius: 5px;
+	}
+	
+	.product-info {
+	    flex-grow: 1;
+	}
+	
+	.product-info h4 {
+	    font-size: 1em; /* Giảm kích thước tiêu đề */
+	    margin-bottom: 5px;
+	}
+	
+	.product-info p {
+	    font-size: 0.9em; /* Giảm kích thước chữ */
+	    margin: 3px 0;
+	}
+	
+	.total-price {
+	    font-size: 1.1em;
+	    font-weight: bold;
+	    margin-top: 8px;
+	}
+	
+	/* Phương thức thanh toán */
+	.payment-methods label {
+	    display: block;
+	    margin-bottom: 10px;
+	    font-size: 1em;
+	}
+	
+	.payment-methods input[type="radio"] {
+	    margin-right: 5px;
+	}
+	
+	/* Nút đặt hàng */
+	.btn-checkout {
+	    display: inline-block;
+	    padding: 10px 20px;
+	    background-color: #28a745; /* Màu xanh lá cây */
+	    color: white;
+	    border: none;
+	    border-radius: 4px;
+	    font-size: 1.2em;
+	    cursor: pointer;
+	    text-align: center;
+	    transition: background-color 0.3s;
+	}
+	
+	.btn-checkout:hover {
+	    background-color: #218838; /* Màu xanh đậm hơn khi hover */
+	}
+	
+	.btn-checkout:disabled {
+	    background-color: #ccc; /* Màu xám khi vô hiệu hóa */
+	    cursor: not-allowed;
+	}
+	
+	/* Responsive Design */
+	@media (max-width: 600px) {
+	    .checkout-container {
+	        padding: 10px;
+	    }
+	
+	    .checkout-section {
+	        padding: 10px;
+	    }
+	
+	    .product-item {
+	        flex-direction: column;
+	        align-items: flex-start;
+	    }
+	
+	    .product-item img {
+	        margin-bottom: 10px;
+	    }
+	
+	    .btn-checkout {
+	        width: 100%;
+	    }
+	}
+     
+    </style>
   </head>
   <body>
     <header>
@@ -191,190 +339,78 @@
       </nav>
     </div>
 
-    <div class="contain">
-      <p>
-        ĐẶT HOA ONLINE - GIAO MIỄN PHÍ TP HCM & HÀ NỘI - GỌI NGAY 1900 633 045
-        HOẶC 0865 160 360
-      </p>
-      <div class="type-flower">
-        <h1>Giới Thiệu Về FlowerCorner.vn</h1>
-      </div>
-      <strong class="color-pink">Flowercorner.vn</strong> là shop hoa tươi uy
-      tín hàng đầu tại Việt Nam. FlowerCorner.vn cung cấp dịch vụ đặt hoa online
-      giao tân nơi trên toàn quốc. Với hệ thống cửa hàng liên kết trải rộng trên
-      khắp 63 tỉnh - thành phố tại Việt Nam, shop hoa tươi Flowercorner.vn có
-      thể giúp bạn dễ dàng gửi hoa cho người thân, bạn bè, đối tác kinh doanh ở
-      bất cứ đâu và bất cứ khi nào.
-      <img
-        src="https://www.flowercorner.vn/image/catalog/products/August%202022/gioi-thieu-shop-hoa-tuoi-flowercornervn.jpg"
-        alt=""
-      />
-
-      <img
-        src="https://www.flowercorner.vn/image/catalog/products/August%202022/gioi-thieu-shop-hoa-tuoi-flowercornervn-inside.jpg"
-        alt=""
-      />
-
-      <h2>Lịch sử hình thành và phát triển</h2>
-      Shop hoa tươi Flowercorner.vn được thành lập và chính thức đi vào hoạt
-      động từ năm 2017. Bắt đầu với mô hình shop hoa tươi online, hiện tại
-      FlowerCorner.vn đã có 2 chi nhánh cửa hàng tại TP HCM và Hà Nội. Trong
-      tương lai, FlowerCorner.vn sẽ tiếp tục mở rộng mạng lưới chi nhánh tại các
-      tỉnh - thành phố tại Việt Nam để giúp khách hàng có thể dễ dàng gửi tặng
-      hoa tới người thân, đối tác ở Việt Nam.
-      <br />
-      <br />
-      Sau hơn 5 năm hoạt động, từ một shop hoa nhỏ chỉ hoạt động online,
-      Flowercorner.vn đã trở thành một trong những Công ty cung cấp dịch vụ điện
-      hoa, đặt hoa tươi online hàng đầu tại thị trường Việt Nam, và giúp hơn
-      50.000 khách hàng gửi tặng hoa cho những người thân yêu vào những dịp đặc
-      biệt.
-
-      <h2>Tầm nhìn và sứ mệnh</h2>
-      Flowercorner.vn hướng tới mục tiêu trở thành một trong 3 Công ty hàng đầu
-      tại Việt Nam trong lĩnh vực hoa tươi, đặt hoa online, và trở thành một lựa
-      chọn đáng tin cậy của người Việt Nam mỗi khi cần gửi hoa cho người thân
-      trong những dịp đặc biệt.
-      <br />
-      <br />
-      FlowerCorner.vn hiểu rằng, hoa tươi không đơn thuần chỉ là một món quà
-      tặng, mà còn chứa đựng những thông điệp, tình cảm của người gửi tới người
-      thân, bạn bè của họ. Chính vì thế, FlowerCorner.vn luôn nỗ lực không ngừng
-      để cải thiện chất lượng dịch vụ và sản phẩm để mang đến cho khách hàng
-      những trải nghiệm tốt nhất khi sử dụng dịch vụ đặt hoa online giao tận nơi
-      của FlowerCorner.
-      <br />
-      <br />
-      Sứ mệnh mà FlowerCorner.vn theo đuổi là phát triển bền vững, luôn hướng
-      tới khách hàng và mang lại những giá trị tốt nhất cho khách hàng khi lựa
-      chọn FlowerCorner.vn.
-
-      <h2>Danh mục sản phẩm</h2>
-      <ul>
-        <li><a href="#" class="color-pink">HOA KHAI TRƯƠNG</a></li>
-        <li><a href="#" class="color-pink">HOA SINH NHẬT</a></li>
-        <li><a href="#" class="color-pink">HOA CHÚC MỪNG </a></li>
-        <li><a href="#" class="color-pink">HOA CƯỚI</a></li>
-        <li><a href="#" class="color-pink">HOA TANG LỄ</a></li>
-        <li><a href="#" class="color-pink">HOA TỐT NGHIỆP</a></li>
-        <li><a href="#" class="color-pink">HOA KỶ NIỆM NGÀY CƯỚI</a></li>
-      </ul>
-      Và hoa chúc mừng tất cả các dịp đặc biệt trong năm như: Ngày của Mẹ, Ngày
-      Nhà Giáo Việt Nam, lễ tình nhân Valentine, hoa chúc mừng ngày quốc tế phụ
-      nữ 8-3....
-
-      <h2>THÔNG TIN LIÊN HỆ</h2>
-      Website: www.flowercorner.vn
-      <br />
-      <br />
-      Hotline: 1900 633 045 - 0918 491 941
-      <br />
-      <br />
-      <strong>Trụ sở & cửa hàng chính</strong>
-      <br />
-      <br />
-      142 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, TP. HCM
-      <br />
-      <br />
-      <strong>Chi nhánh quận 3</strong>
-      <br />
-      <br />
-      225/3 Nguyễn Đình Chiểu, Phường 5, Quận 3, TP. HCM
-      <br />
-      <br />
-      <strong>Chi nhánh Hà Nội</strong>
-      <br />
-      <br />
-      65 Trần Phú, Ba Đình, Hà Nội
-      <br />
-      <br />
-      Facebook:
-      <span class="color-pink">https://www.facebook.com/flowercorner.vn/</span>
-      <br />
-      <br />
-      Instagram:
-      <span class="color-pink">https://www.instagram.com/flowercorner.vn/</span>
-      <br />
-      <br />
-      Twitter:
-      <span class="color-pink">https://twitter.com/FlowerCorner3</span>
-      <br />
-      <br />
-      Pinterest:
-      <span class="color-pink">https://www.pinterest.com/flowercornervn/</span>
-      <br />
-      <br />
-      About me:
-      <span class="color-pink">https://about.me/flowercorner/</span>
-      <br />
-      <br />
-      Linkedin:
-      <span class="color-pink">
-        https://www.linkedin.com/company/flowercorner/
-      </span>
-      <br />
-      <br />
-      Tiktok:
-      <span class="color-pink">https://www.tiktok.com/@flowercorner.vn</span>
-      <br />
-      <br />
-      Youtube:
-      <span class="color-pink">https://www.youtube.com/@FlowerCorner/</span>
-      <br />
-      <br />
-      Email: sales@flowercorner.vn
-      <br />
-      <br />
-      <strong>Giở mở cửa:</strong>
-      <br />
-      <br />
-      <strong>Thứ 2 – Thứ 7</strong>: 7h đến 20h
-      <br />
-      <br />
-      <strong>Chủ nhật</strong>: 8h đến 17h
-      <br />
-      <br />
-      Theo dõi chúng tôi trên Social
-      <br />
-      <br />
-      Blog:
-      <span class="color-pink">https://flowercorner-vn.blogspot.com/</span>
-      <br />
-      <br />
-      Wordpress:
-      <span class="color-pink">https://flowercornervn.wordpress.com/</span>
-      <br />
-      <br />
-      Minds:
-      <span class="color-pink">https://www.minds.com/flowercorner/</span>
-      <br />
-      <br />
-      Gab:
-      <span class="color-pink">https://gab.com/Flowercorner</span>
-      <br />
-      <br />
-      Tumblr:
-      <span class="color-pink">https://flowercornervn.tumblr.com/</span>
-      <br />
-      <br />
-      Youtube:
-      <span class="color-pink"
-        >https://www.youtube.com/channel/UCTTJKlgok9UMg5d_pEzvPGA</span
-      >
-      <br />
-      <br />
-      Behance:
-      <span class="color-pink">https://www.behance.net/flowercornervn</span>
-      <br />
-      <br />
-      Hatena:
-      <span class="color-pink">https://flowercorner.hatenablog.com/</span>
-      <br />
-      <br />
-      Weebly:
-      <span class="color-pink">https://flowercornervn.weebly.com/</span>
+    <div class="header-notice">
+      ĐẶT HOA ONLINE - GIAO MIỄN PHÍ TP HCM & HÀ NỘI - GỌI NGAY 1900 633 045
+      HOẶC 0865 160 360
     </div>
 
+    <div class="checkout-container">
+    	<div class="dropdown">
+	        <div class="form-group">
+	            <label for="addressSelect">Chọn thông tin nhận hàng:</label>
+	            <select class="form-control" id="addressSelect" name="selectedAddressId" onchange="updateSelectedAddressId()">
+	                <option value="">-- Chọn thông tin nhận hàng --</option>
+	                <option th:each="address : ${addressList}" 
+	                        th:value="${address.id}" 
+	                        th:data-name="${address.name}">
+	                    <span th:text="${address.name}"></span> -
+	                    <span th:text="${address.phone}"></span> -
+	                    <span th:text="${address.address}"></span>
+	                </option>
+	            </select>
+	        </div>
+	        <div>
+	            <a class="btn btn-secondary" th:href="@{/user/add-address}">Thêm địa chỉ mới</a>
+	        </div>
+	        <input type="hidden" id="selectedAddressId" name="selectedAddressId" />
+	    </div>
+    	
+		<div class="checkout-section">
+		    <h2>Sản phẩm</h2>
+		    <div class="product-list">
+		    	<th:block th:each="item : ${items}">
+		        <div class="product-item">
+		            <img th:src="${'/images/' + item.product.images[0].imageName}" alt="Product Image" />
+		            <div class="product-info">
+		                <h4 th:text="${item.product.name}"></h4>
+		                <p>Số lượng: <span  th:text="${item.quantity}">2</span></p>
+		                <p>Giá:<span th:text="${item.product.price}"></span> VND</p>
+		            </div>
+		        </div>
+	         </th:block>
+		    </div>
+		    <div class="total-price">
+			    Tổng cộng: <span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span> VND
+			</div>
+		</div>
+
+	
+	    <div class="checkout-section">
+        <h2>Phương thức thanh toán</h2>
+        <div class="payment-methods">
+            <label>
+                <input type="radio" name="paymentMethod" value="0" checked onchange="updatePaymentMethod(this)" />
+                Thanh toán khi nhận hàng (COD)
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="1" onchange="updatePaymentMethod(this)" />
+                Chuyển khoản ngân hàng
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="2" onchange="updatePaymentMethod(this)" />
+                Ví điện tử Momo
+            </label>
+        </div>
+    </div>
+
+    <form action="/checkout" method="post" onsubmit="return validateForm()">
+        <input type="hidden" name="selectedAddressId" id="formSelectedAddressId" />
+        <input type="hidden" name="paymentMethod" id="formPaymentMethod" />
+        <button type="submit" class="btn-checkout">Đặt hàng</button>
+    </form>
+	</div>
+    
+    
     <footer>
       <div class="row">
         <div class="info-download">
@@ -413,38 +449,38 @@
         </div>
 
         <div class="info-support">
-	        <h5>CHĂM SÓC KHÁCH HÀNG</h5>
-	        <p class="danhmuc">
-	          <a href="/introduce" class="color-grey">Giới thiệu</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="/contact" class="color-grey">Liên Hệ</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Chính Sách Vận Chuyển</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Câu Hỏi Thường Gặp</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Hình Thức Thanh Toán</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Bảo Mật Thông Tin</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Chính Sách Hoàn Tiền</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Xử Lý Khiếu Nại</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Tại Sao Nên Chọn FlowerCorner.vn</a>
-	        </p>
-	        <p class="danhmuc">
-	          <a href="#" class="color-grey">Blog</a>
-	        </p>
-	      </div>
+        <h5>CHĂM SÓC KHÁCH HÀNG</h5>
+        <p class="danhmuc">
+          <a href="/introduce" class="color-grey">Giới thiệu</a>
+        </p>
+        <p class="danhmuc">
+          <a href="/contact" class="color-grey">Liên Hệ</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Chính Sách Vận Chuyển</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Câu Hỏi Thường Gặp</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Hình Thức Thanh Toán</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Bảo Mật Thông Tin</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Chính Sách Hoàn Tiền</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Xử Lý Khiếu Nại</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Tại Sao Nên Chọn FlowerCorner.vn</a>
+        </p>
+        <p class="danhmuc">
+          <a href="#" class="color-grey">Blog</a>
+        </p>
+      </div>
 
         <div class="info-media">
           <h5>THEO DÕI</h5>
@@ -531,7 +567,44 @@
         </div>
       </div>
     </footer>
-    <script src="js/nav-menu-fixed.js"></script>
-    <script src="js/cart-drop-down.js"></script>
+
+    <script src="/images/static/js/nav-menu-fixed.js"></script>
+    <script src="/images/static/js/cart-drop-down.js"></script>
+    <script src="/images/static/js/cart-info.js"></script>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+        function updateSelectedAddressId() {
+            var addressSelect = document.getElementById("addressSelect");
+            var selectedAddressId = addressSelect.value;
+            document.getElementById("formSelectedAddressId").value = selectedAddressId;
+        }
+        
+        function updatePaymentMethod(radio) {
+            var paymentMethod = radio.value;
+            document.getElementById("formPaymentMethod").value = paymentMethod;
+        }
+
+        function validateForm() {
+            var addressSelect = document.getElementById("addressSelect");
+            var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+
+            if (addressSelect.value === "") {
+                alert("Vui lòng chọn địa chỉ nhận hàng.");
+                return false;
+            }
+
+            if (!paymentMethod) {
+                alert("Vui lòng chọn phương thức thanh toán.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
   </body>
 </html>
