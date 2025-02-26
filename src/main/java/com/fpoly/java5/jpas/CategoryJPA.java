@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryJPA extends JpaRepository<CategoryEntity, Integer> {
 
@@ -15,7 +16,8 @@ public interface CategoryJPA extends JpaRepository<CategoryEntity, Integer> {
     List<CategoryEntity> findAllActiveCategories();
 
     @Query(value = "SELECT * FROM category WHERE category_id = ?1", nativeQuery = true)
-    CategoryEntity findCategoryById(Integer id);
+    Optional<CategoryEntity> findCategoryById(Integer id);
+
 
     @Modifying
     @Transactional
@@ -29,7 +31,7 @@ public interface CategoryJPA extends JpaRepository<CategoryEntity, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE category SET status = false WHERE category_id = ?1", nativeQuery = true)
+    @Query(value = "UPDATE category SET status = fal	se WHERE category_id = ?1", nativeQuery = true)
     void disableCategory(Integer id);
     @Modifying
     @Transactional
