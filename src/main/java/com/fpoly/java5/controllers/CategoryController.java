@@ -22,12 +22,19 @@ import jakarta.validation.Valid;
 public class CategoryController {
 
 	@Autowired
-	private CategoryJPA categoryJPA; // Inject Repository vào Controller
+	private CategoryJPA categoryJPA; 
+	
+	@ModelAttribute("listCategory")
+	public List<CategoryEntity> getListCategory(){
+		return categoryJPA.findAll();
+	}
 
-	// Hiển thị danh sách danh mục
-	@GetMapping("/admin/category")
-	public String listCategories(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
-
+	@GetMapping("/category")
+	public String listCategories(Model model) {
+		
+		
+		
+		
 		return "admin/category";
 	}
 
