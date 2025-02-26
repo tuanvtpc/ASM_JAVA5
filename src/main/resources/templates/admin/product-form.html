@@ -264,7 +264,12 @@
 					    <div class="card flex-fill">
 					        <div class="card">
 					            <form action="/product-form" method="post" enctype="multipart/form-data" th:object="${product}">
-					                <div class="card-header">
+
+									<th:block th:if="*{id != null}">
+										<input type="hidden" th:value="*{id.get()}" name="id" />
+									</th:block>
+
+									<div class="card-header">
 					                    <h5 class="card-title mb-0">Tên sản phẩm</h5>
 					                </div>
 					                <div class="card-body">
@@ -314,6 +319,22 @@
 					                    <input type="file" class="form-control" name="images" multiple>
 					                    <small class="text text-danger" th:if="${imageError != null}" th:text="${imageError}"></small>
 					                </div>
+					                
+					             <!-- Hiển thị ảnh hiện tại -->
+									<div th:if="${currentImages != null and !currentImages.empty}"
+										style="margin-bottom: 20px;">
+										<h5>Ảnh hiện tại:</h5>
+										<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+											<div th:each="image : ${currentImages}">
+												<img th:src="@{'/images/' + ${image.imageName}}"
+													style="width: 100px; height: 100px; object-fit: cover; border: 1px solid #ddd;">
+											</div>
+										</div>
+									</div>
+
+									<!-- Hiển thị thông báo -->
+<div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 					
 					                <div class="card-header text-start">
 					                    <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
