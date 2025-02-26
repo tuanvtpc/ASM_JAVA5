@@ -18,6 +18,7 @@
 	<title>Profile | AdminKit Demo</title>
 
 	<link href="/images/static/css/app.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -266,38 +267,48 @@
 					</div>
 					<div class="row">
 
-
+						<div th:if="${message}" class="alert alert-danger" th:text="${message}"></div>
 
 					</div>
 
 					<div class="row">
-						<div class="card flex-fill">
-							<table class="table table-hover my-0">
-								<thead>
-									<tr>
-										<th>ID Danh Mục</th>
-										<th>Tên Danh Mục</th>
-										<th class="d-none d-md-table-cell">Trạng Thái</th>
-									</tr>
-								</thead>
-								<tbody>
-									<th:block th:each="item : ${listCategory}">
-									<tr>
-										<td th:text="${item.name}"></td>
-										<td th:text="${item.name}"></td>
-										<td class="d-none d-md-table-cell">
-										    <span th:classappend="${item.status} ? 'bg-success' : 'bg-danger'" 
-										          class="badge" 
-										          th:text="${item.status} ? 'Hoạt động' : 'Ngưng hoạt động'">
-										    </span>
-										</td>
-									</tr>
-									</th:block>
-								</tbody>
-							</table>
-						</div>
-					</div>
+					    <div class="card flex-fill">
+					        <table class="table table-hover my-0">
+					            <thead>
+					                <tr>
+					                    <th>ID Danh Mục</th>
+					                    <th>Tên Danh Mục</th>
+					                    <th class="d-none d-md-table-cell">Trạng Thái</th>
+					                    <th>Hành Động</th>
+					                </tr>
+					            </thead>
+					            <tbody>
+					                <tr th:each="item : ${categories}">
+					                    <td th:text="${item.id}"></td> 
+					                    <td th:text="${item.name}"></td>
+					                    <td class="d-none d-md-table-cell">
+					                        <span th:classappend="${item.status} ? 'bg-success' : 'bg-danger'" 
+					                              class="badge" 
+					                              th:text="${item.status} ? 'Hoạt động' : 'Ngưng hoạt động'">
+					                        </span>
+					                    </td>
+					                    <td>
+					                        <form action="/add-category" method="get">
+					                            <input type="hidden" name="id" th:value="${item.id}">
+					                            <button type="submit" class="btn btn-warning btn-sm">Sửa</button>
+					                        </form>
 					
+					                        <form action="/delete-category" method="post" 
+					                              onsubmit="return confirm('Bạn có chắc muốn xóa danh mục này không?');">
+					                            <input type="hidden" name="id" th:value="${item.id}">
+					                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+					                        </form>
+					                    </td>
+					                </tr>
+					            </tbody>
+					        </table>
+					    </div>
+					</div>
 
 				</div>
 			</main>

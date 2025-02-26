@@ -253,92 +253,74 @@
 			</nav>
 
 			<main class="content">
-				<div class="container-fluid p-0">
-
-					<div class="mb-3 d-flex justify-content-end">
-					    <div class="btn-group" role="group" aria-label="Order status filter">
-					        <a href="/order" class="btn btn-outline-secondary">Tất cả</a>
-					        <a href="/order?status=0" class="btn btn-outline-primary">Chờ xác nhận</a>
-					        <a href="/order?status=1" class="btn btn-outline-warning">Đã xác nhận</a>
-					        <a href="/order?status=2" class="btn btn-outline-info">Đang giao</a>
-					        <a href="/order?status=3" class="btn btn-outline-success">Đã giao</a>
-					        <a href="/order?status=4" class="btn btn-outline-success">Hoàn tất</a>
-					        <a href="/order?status=5" class="btn btn-outline-danger">Trả hàng</a>
-					        <a href="/order?status=6" class="btn btn-outline-dark">Hủy đơn</a>
-					    </div>
-					</div>
-					<div class="row">
-
-					<div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" role="alert">
-			            <span th:text="${message}"></span>
-			            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				<div class="container mt-4">
+			        <h1 class="mb-4">Chi tiết đơn hàng</h1>
+			
+			        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+			
+			        <div th:if="${order}">
+			            <div class="card mb-4">
+			                <div class="card-header">
+			                    <h5 class="card-title">Thông tin đơn hàng</h5>
+			                </div>
+			                <div class="card-body">
+			                    <p><strong>Mã đơn hàng:</strong> <span th:text="${order.id}"></span></p>
+			                    <p><strong>Tên người đặt:</strong> <span th:text="${order.name}"></span></p>
+			                    <p><strong>Ngày đặt:</strong> <span th:text="${order.createdAt}"></span></p>
+			                    <p><strong>Địa chỉ:</strong> <span th:text="${order.address}"></span></p>
+			                    <p><strong>Tổng tiền:</strong> <span th:text="${order.totalAmount}"></span></p>
+			                    <p><strong>Trạng thái:</strong>
+			                        <span th:switch="${order.status}">
+			                            <span th:case="0" class="badge bg-secondary">Chờ xác nhận</span>
+			                            <span th:case="1" class="badge bg-primary">Đã xác nhận</span>
+			                            <span th:case="2" class="badge bg-info">Đang giao</span>
+			                            <span th:case="3" class="badge bg-warning">Đã giao hàng</span>
+			                            <span th:case="4" class="badge bg-success">Hoàn tất</span>
+			                            <span th:case="5" class="badge bg-danger">Trả hàng</span>
+			                            <span th:case="6" class="badge bg-dark">Hủy đơn</span>
+			                            <span th:case="*" class="badge bg-light">Trạng thái không xác định</span>
+			                        </span>
+			                    </p>
+			                </div>
+			            </div>
+			
+			            <div class="card">
+			                <div class="card-header">
+			                    <h5 class="card-title">Danh sách sản phẩm</h5>
+			                </div>
+			                <div class="card-body">
+			                    <table class="table table-hover">
+								    <thead>
+								        <tr>
+								            <th>Hình ảnh</th>
+								            <th>Tên sản phẩm</th>
+								            <th>Số lượng</th>
+								            <th>Giá</th>
+								            <th>Thành tiền</th>
+								        </tr>
+								    </thead>
+								    <tbody>
+								        <th:block th:each="item : ${orderDetailList}">
+								            <tr>
+								                <td>
+								                    <img th:src="@{'/images/' + ${item.product.images[0].imageName}}" alt="Hình ảnh sản phẩm" style="width: 50px; height: 50px;">
+								                </td>
+								                <td th:text="${item.product.name}"></td>
+								                <td th:text="${item.quantity}"></td>
+								                <td th:text="${item.price}"></td>
+								                <td th:text="${item.quantity * item.price}"></td>
+								            </tr>
+								        </th:block>
+								    </tbody>
+								</table>
+			                </div>
+			            </div>
 			        </div>
-			        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
-			            <span th:text="${error}"></span>
-			            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			
+			        <div class="mt-4">
+			            <a href="/order" class="btn btn-secondary">Quay lại</a>
 			        </div>
-
-					</div>
-
-					<div class="row">
-						<div class="card flex-fill">
-							<div class="card-header">
-								<h5 class="card-title mb-0">Thông Tin Đơn Hàng</h5>
-							</div>
-							<table class="table table-hover my-0">
-								<thead>
-									<tr>
-										<th>Mã Đơn Hàng</th>
-										<th class="d-none d-xl-table-cell">Tên Người Đặt Hàng</th>
-										<th class="d-none d-xl-table-cell">Ngày Đặt</th>
-										<th>Địa Chỉ</th>
-										<th class="d-none d-md-table-cell">Trạng Thái</th>
-										<th class="d-none d-md-table-cell">Cập nhật</th>
-										<th class="d-none d-md-table-cell">Chi tiết</th>
-									</tr>
-								</thead>
-								<tbody>
-									<th:block th:each="item : ${order}">
-										<tr>
-											<td th:text="${item.id}"></td>
-											<td class="d-none d-xl-table-cell" th:text="${item.name}"></td>
-											<td class="d-none d-xl-table-cell" th:text="${item.createdAt}"></td>
-											<td th:text="${item.address}"></td>
-											<td>
-								                <span th:switch="${item.status}">
-								                    <span th:case="0" class="badge bg-secondary">Chờ xác nhận</span>
-								                    <span th:case="1" class="badge bg-primary">Đã xác nhận</span>
-								                    <span th:case="2" class="badge bg-info">Đang giao</span>
-								                    <span th:case="3" class="badge bg-warning">Đã giao hàng</span>
-								                    <span th:case="4" class="badge bg-success">Đã nhận hàng</span>
-								                    <span th:case="5" class="badge bg-danger">Trả hàng</span>
-								                    <span th:case="6" class="badge bg-dark">Hủy đơn</span>
-								                    <span th:case="*" class="badge bg-light">Trạng thái không xác định</span>
-								                </span>
-								            </td>
-								            <td>
-											    <form action="/update-statusOrder" method="post" style="display: inline;">
-											        <input type="hidden" name="id" th:value="${item.id}">
-											        <select name="status" class="form-select" onchange="this.form.submit()">
-											            <option value="0" th:selected="${item.status == 0}">Chờ xác nhận</option>
-											            <option value="1" th:selected="${item.status == 1}">Đã xác nhận</option>
-											            <option value="2" th:selected="${item.status == 2}">Đang giao</option>
-											            <option value="3" th:selected="${item.status == 3}">Đã giao hàng</option>
-											            <option value="4" th:selected="${item.status == 4}">Đã nhận hàng</option>
-											            <option value="6" th:selected="${item.status == 6}">Hủy đơn</option>
-											        </select>
-											    </form>
-											</td>
-								            <td>
-											    <button type="button" class="btn btn-outline-success" th:onclick="|window.location.href='/order-detail?id=' + ${item.id}|">Chi tiết</button>
-											</td>
-										</tr>
-									</th:block>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+			    </div>
 			</main>
 
 			<footer class="footer">

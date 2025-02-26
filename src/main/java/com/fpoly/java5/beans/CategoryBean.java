@@ -1,4 +1,6 @@
 package com.fpoly.java5.beans;
+import java.util.Optional;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CategoryBean {
-	 private Integer id;
+		private Integer id;
 
 	    @NotBlank(message = "Tên danh mục không được để trống")
 	    @Size(min = 3, max = 50, message = "Tên danh mục phải từ 3 đến 50 ký tự")
