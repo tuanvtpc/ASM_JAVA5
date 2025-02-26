@@ -18,6 +18,7 @@ public class CategoryService {
     public CategoryService(CategoryJPA categoryJPA) {
         this.categoryJPA = categoryJPA;
     }
+    
     public List<CategoryEntity> getAllCategories() {
         return categoryRepository.findAll();
     }
@@ -28,8 +29,15 @@ public class CategoryService {
         categoryRepository.save(category);
     }
     public CategoryEntity getCategoryById(Integer id) {
-        return categoryJPA.findCategoryById(id);
+        return categoryJPA.findCategoryById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục với ID: " + id));
     }
+
+    public CategoryEntity findById(Long id) {
+        return categoryJPA.findById(id.intValue())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy danh mục với ID: " + id));
+    }
+
 
     @Transactional
     public void addCategory(String name, Boolean status) {
@@ -45,6 +53,7 @@ public class CategoryService {
     public void disableCategory(Integer id) {
         categoryJPA.disableCategory(id);
     }
+    
     @Transactional
     public void deleteCategory(Integer id) {
         categoryJPA.deleteCategoryById(id);

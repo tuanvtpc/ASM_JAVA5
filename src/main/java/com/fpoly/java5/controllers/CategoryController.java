@@ -84,11 +84,17 @@ public class CategoryController {
 
     // Hiển thị form chỉnh sửa danh mục
     @GetMapping("/admin/category/edit/{id}")
-    public String showEditCategoryForm(@PathVariable Integer id, Model model) {
-        CategoryEntity category = categoryService.getCategoryById(id);
-        model.addAttribute("category", category);
-        return "admin/category-edit";
+    public String editCategory(@PathVariable("id") Long id, Model model) {
+        CategoryEntity category = categoryService.findById(id);
+        if (category == null) {
+            return "redirect:/admin/category"; // Chuyển hướng nếu không tìm thấy
+        }
+        model.addAttribute("categoryBean", category);
+        return "admin/category-form";
     }
+
+
+
 
     @PostMapping("/admin/category/update")
     public String updateCategory(@RequestParam Integer id,
