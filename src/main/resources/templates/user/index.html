@@ -937,6 +937,54 @@
   <script src="/images/static/js/nav-menu-fixed.js"></script>
   <script src="/images/static/js/cart-drop-down.js"></script>
   <script src="/images/static/js/product-details.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Lấy danh sách tất cả các nút tim trên trang
+    const heartIcons = document.querySelectorAll(".fa-heart");
+
+    heartIcons.forEach((heart) => {
+      heart.addEventListener("click", function () {
+        const productCard = heart.closest(".product");
+        const productName = productCard.querySelector(".product-name").innerText;
+        const productPrice = productCard.querySelector(".price-new").innerText;
+        const productImage = productCard.querySelector(".card-img-top").src;
+
+        const wishlistItem = {
+          name: productName,
+          price: productPrice,
+          image: productImage,
+        };
+
+        // Lấy wishlist từ localStorage
+        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        
+        // Kiểm tra xem sản phẩm đã tồn tại trong wishlist chưa
+        if (!wishlist.some((item) => item.name === wishlistItem.name)) {
+          wishlist.push(wishlistItem);
+          localStorage.setItem("wishlist", JSON.stringify(wishlist));
+          alert("Đã thêm vào danh sách yêu thích!");
+        } else {
+          alert("Sản phẩm đã có trong danh sách yêu thích!");
+        }
+      });
+    });
+
+    // Chỉ hiển thị wishlist trên trang wishlist.html
+    if (window.location.pathname.includes("wishlist.html")) {
+      const wishlistContainer = document.getElementById("wishlist-items");
+      if (wishlistContainer) {
+        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+        wishlistContainer.innerHTML = wishlist.map(item => `
+          <div class="wishlist-item">
+            <img src="${item.image}" alt="${item.name}" class="wishlist-img" />
+            <p class="wishlist-name">${item.name}</p>
+            <p class="wishlist-price">${item.price}</p>
+          </div>
+        `).join('');
+      }
+    }
+  });
+</script>
 </body>
 
 </html>
