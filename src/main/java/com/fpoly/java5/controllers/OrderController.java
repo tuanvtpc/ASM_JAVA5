@@ -28,7 +28,7 @@ public class OrderController {
 		return orderJPA.findAll();
 	}
 
-	@GetMapping("/order")
+	@GetMapping("/admin/order")
 	public String orderLayout(@RequestParam(name = "status", required = false) Integer status, Model model) {
 	    List<OrderEntity> orders;
 	    if (status != null) {
@@ -37,10 +37,10 @@ public class OrderController {
 	        orders = getListOrder();
 	    }
 	    model.addAttribute("order", orders);
-	    return "/admin/order";
+	    return "/admin/order.html";
 	}
 
-	@GetMapping("/order-detail")
+	@GetMapping("/admin/order-detail")
 	public String orderDetailLayout(@RequestParam("id") Integer id, Model model) {
 
 		Optional<OrderEntity> orderOptional = orderJPA.findById(id);
@@ -57,7 +57,7 @@ public class OrderController {
 		return "admin/order-detail.html";
 	}
 
-	@PostMapping("/update-statusOrder")
+	@PostMapping("/admin/update-statusOrder")
 	public String updateOrderStatus(@RequestParam("id") Integer id, @RequestParam("status") Integer status,
 			RedirectAttributes redirectAttributes) {
 		Optional<OrderEntity> orderOptional = orderJPA.findById(id);
@@ -76,7 +76,7 @@ public class OrderController {
 		} else {
 			redirectAttributes.addFlashAttribute("error", "Không tìm thấy đơn hàng với ID: " + id);
 		}
-		return "redirect:/order";
+		return "redirect:/admin/order";
 	}
 
 	private boolean isValidStatus(int currentStatus, int newStatus) {

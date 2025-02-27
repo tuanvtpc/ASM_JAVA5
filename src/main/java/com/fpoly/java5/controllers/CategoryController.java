@@ -30,7 +30,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryJPA categoryJPA;
 
-	@GetMapping("/category")
+	@GetMapping("/admin/category")
 	public String listCategories(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
 		List<CategoryEntity> categories;
 		if (keyword != null && !keyword.isEmpty()) {
@@ -43,7 +43,7 @@ public class CategoryController {
 		return "admin/category";
 	}
 
-	@GetMapping("/add-category")
+	@GetMapping("/admin/add-category")
 	public String showCategoryForm(CategoryBean categoryBean, @RequestParam(value = "id", required = false) Integer id, Model model) {
 	    if (id != null) {
 	        Optional<CategoryEntity> optionalCategory = categoryJPA.findById(id);
@@ -59,7 +59,7 @@ public class CategoryController {
 	}
 
 
-	@PostMapping("/add-category")
+	@PostMapping("/admin/add-category")
 	public String saveCategory(@Valid @ModelAttribute("categoryBean") CategoryBean categoryBean, Errors errors,
 	        Model model) {
 	    if (errors.hasErrors()) {
@@ -70,7 +70,7 @@ public class CategoryController {
 	    String result = categoryService.saveCategory(categoryBean);
 
 	    if (result.equals("success")) {
-	        return "redirect:/category";
+	        return "redirect:/admin/category";
 	    } else {
 	        model.addAttribute("error", result);
 	        return "admin/category-form";
@@ -78,7 +78,7 @@ public class CategoryController {
 	}
 
 
-	@PostMapping("/delete-category")
+	@PostMapping("/admin/delete-category")
 	public String deleteCategory(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
 		boolean isDeleted = categoryService.deleteCategory(id);
 		if (isDeleted) {

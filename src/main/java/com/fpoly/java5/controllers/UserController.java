@@ -25,7 +25,7 @@ public class UserController {
 
 	UserJPA userjpa;
 
-	@GetMapping("/user")
+	@GetMapping("/admin/user")
 	public String users(Model model) {
 
 		List<UserEntity> userEntities = userjpa.findAll().stream().filter(user -> user.getRole() != 0).toList();
@@ -34,7 +34,7 @@ public class UserController {
 
 		return "/admin/user.html";
 	}
-	@GetMapping("/search")
+	@GetMapping("/admin/search")
 	public String searchUsers(
 	    @RequestParam("keyword") String keyword, 
 	    @RequestParam(value = "sort", required = false, defaultValue = "asc") String sort,

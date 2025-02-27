@@ -36,32 +36,32 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/dashboard">
+						<a class="sidebar-link" href="/admin/dashboard">
 							<i class="align-middle" data-feather="sliders"></i> <span
 								class="align-middle">Dashboard</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/user">
+						<a class="sidebar-link" href="/admin/user">
 							<i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item active">
-						<a class="sidebar-link active" href="/order">
+						<a class="sidebar-link active" href="/admin/order">
 							<i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Order</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/product">
+						<a class="sidebar-link" href="/admin/product">
 							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Product</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/category">
+						<a class="sidebar-link" href="/admin/category">
 							<i class="align-middle" data-feather="database"></i> <span class="align-middle">Category</span>
 						</a>
 					</li>
@@ -257,14 +257,14 @@
 
 					<div class="mb-3 d-flex justify-content-end">
 					    <div class="btn-group" role="group" aria-label="Order status filter">
-					        <a href="/order" class="btn btn-outline-secondary">Tất cả</a>
-					        <a href="/order?status=0" class="btn btn-outline-primary">Chờ xác nhận</a>
-					        <a href="/order?status=1" class="btn btn-outline-warning">Đã xác nhận</a>
-					        <a href="/order?status=2" class="btn btn-outline-info">Đang giao</a>
-					        <a href="/order?status=3" class="btn btn-outline-success">Đã giao</a>
-					        <a href="/order?status=4" class="btn btn-outline-success">Hoàn tất</a>
-					        <a href="/order?status=5" class="btn btn-outline-danger">Trả hàng</a>
-					        <a href="/order?status=6" class="btn btn-outline-dark">Hủy đơn</a>
+					        <a href="/admin/order" class="btn btn-outline-secondary">Tất cả</a>
+					        <a href="/admin/order?status=0" class="btn btn-outline-primary">Chờ xác nhận</a>
+					        <a href="/admin/order?status=1" class="btn btn-outline-warning">Đã xác nhận</a>
+					        <a href="/admin/order?status=2" class="btn btn-outline-info">Đang giao</a>
+					        <a href="/admin/order?status=3" class="btn btn-outline-success">Đã giao</a>
+					        <a href="/admin/order?status=4" class="btn btn-outline-success">Hoàn tất</a>
+					        <a href="/admin/order?status=5" class="btn btn-outline-danger">Trả hàng</a>
+					        <a href="/admin/order?status=6" class="btn btn-outline-dark">Hủy đơn</a>
 					    </div>
 					</div>
 					<div class="row">
@@ -317,7 +317,7 @@
 								                </span>
 								            </td>
 								            <td>
-											    <form action="/update-statusOrder" method="post" style="display: inline;">
+											    <form action="/admin/update-statusOrder" method="post" style="display: inline;">
 											        <input type="hidden" name="id" th:value="${item.id}">
 											        <select name="status" class="form-select" onchange="this.form.submit()">
 											            <option value="0" th:selected="${item.status == 0}">Chờ xác nhận</option>
@@ -330,7 +330,7 @@
 											    </form>
 											</td>
 								            <td>
-											    <button type="button" class="btn btn-outline-success" th:onclick="|window.location.href='/order-detail?id=' + ${item.id}|">Chi tiết</button>
+											    <button type="button" class="btn btn-outline-success" th:onclick="|window.location.href='/admin/order-detail?id=' + ${item.id}|">Chi tiết</button>
 											</td>
 										</tr>
 									</th:block>

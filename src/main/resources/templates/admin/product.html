@@ -29,37 +29,45 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html"> <span
-					class="align-middle">AdminController</span>
+				<a class="sidebar-brand" href="index.html">
+					<span class="align-middle">AdminController</span>
 				</a>
 
 				<ul class="sidebar-nav">
-					<li class="sidebar-header">Manage</li>
+					<li class="sidebar-header">
+						Manage
+					</li>
 
-					<li class="sidebar-item"><a class="sidebar-link"
-						href="/dashboard"> <i class="align-middle"
-							data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-					</a></li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/admin/dashboard">
+							<i class="align-middle" data-feather="sliders"></i> <span
+								class="align-middle">Dashboard</span>
+						</a>
+					</li>
 
-					<li class="sidebar-item"><a class="sidebar-link" href="/user">
-							<i class="align-middle" data-feather="user"></i> <span
-							class="align-middle">User</span>
-					</a></li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/admin/user">
+							<i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
+						</a>
+					</li>
 
-					<li class="sidebar-item"><a class="sidebar-link" href="/order">
-							<i class="align-middle" data-feather="shopping-bag"></i> <span
-							class="align-middle">Order</span>
-					</a></li>
+					<li class="sidebar-item active">
+						<a class="sidebar-link active" href="/admin/order">
+							<i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Order</span>
+						</a>
+					</li>
 
-					<li class="sidebar-item active"><a class="sidebar-link"
-						href="/product"> <i class="align-middle"
-							data-feather="package"></i> <span class="align-middle">Product</span>
-					</a></li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/admin/product">
+							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Product</span>
+						</a>
+					</li>
 
-					<li class="sidebar-item"><a class="sidebar-link"
-						href="/category"> <i class="align-middle"
-							data-feather="database"></i> <span class="align-middle">Category</span>
-					</a></li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/admin/category">
+							<i class="align-middle" data-feather="database"></i> <span class="align-middle">Category</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -246,7 +254,7 @@
 
 					<div class="mb-3 d-flex justify-content-between align-items-center">
 						<!-- Nút Add user -->
-						<a href="/product-form" class="btn btn-success">Add Product</a>
+						<a href="/admin/product-form" class="btn btn-success">Add Product</a>
 
 						<!-- Thanh tìm kiếm -->
 						  <form method="get" action="/admin/product" class="d-flex gap-2">
@@ -291,12 +299,12 @@
 											<td class="d-none d-xl-table-cell"
 												th:text="${product.dateCreated}"></td>
 											<td><a id="id" class="btn btn-success"
-												th:href="${'/product-form?id=' + product.id}">SỬA</a> <script>
+												th:href="${'/admin/product-form?id=' + product.id}">SỬA</a> <script>
 													function confirmDelete() {
 														return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
 													}
-												</script> <!-- Cập nhật form xóa -->
-												<form method="post" action="/delete-product"
+												</script> 
+												<form method="post" action="/admin/delete-product"
 													onsubmit="return confirmDelete()">
 													<input name="id" th:value="${product.id}" type="hidden" />
 													<button class="btn btn-danger">XÓA</button>
