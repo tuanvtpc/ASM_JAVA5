@@ -271,44 +271,73 @@ body {
 
             <!-- Cột bên phải (Form chỉnh sửa) -->
             <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="mb-3">Chỉnh sửa thông tin cá nhân</h4>
-
-                        <form method="post" action="/update-profile">
-                            <input type="hidden" name="id" th:value="${user.id}" />
-
-                            <!-- Họ và Tên -->
-                            <div class="mb-3">
-                                <label class="form-label">Họ và Tên</label>
-                                <input type="text" class="form-control" name="name" th:value="${user.name}" />
-                           <small class="text-danger" th:if="${nameError}" th:text="${nameError}"></small>
-
-                            </div>
-
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" th:value="${user.email}" />
-                            <small class="text-danger small" th:if="${emailError}" th:text="${emailError}"></small>
-
-
-                            </div>
-
-                            <!-- Số Điện Thoại -->
-                            <div class="mb-3">
-                                <label class="form-label">Số Điện Thoại</label>
-                                <input type="text" class="form-control" name="phone" th:value="${user.phone}" />
-                               <small class="text-danger small" th:if="${phoneError}" th:text="${phoneError}"></small>
-                            </div>
-
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
-                                <a href="/profile" class="btn btn-secondary">Hủy</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            	<div class="mb-3 d-flex justify-content-end">
+					    <div class="btn-group" role="group" aria-label="Order status filter">
+					        <a href="/admin/order" class="btn btn-outline-secondary">Tất cả</a>
+					        <a href="/admin/order?status=0" class="btn btn-outline-primary">Chờ xác nhận</a>
+					        <a href="/admin/order?status=1" class="btn btn-outline-warning">Đã xác nhận</a>
+					        <a href="/admin/order?status=2" class="btn btn-outline-info">Đang giao</a>
+					        <a href="/admin/order?status=3" class="btn btn-outline-success">Đã giao</a>
+					        <a href="/admin/order?status=4" class="btn btn-outline-success">Hoàn tất</a>
+					        <a href="/admin/order?status=5" class="btn btn-outline-danger">Trả hàng</a>
+					        <a href="/admin/order?status=6" class="btn btn-outline-dark">Hủy đơn</a>
+					    </div>
+					</div>
+                <div class="card flex-fill">
+							<div class="card-header">
+								<h5 class="card-title mb-0">Thông Tin Đơn Hàng</h5>
+							</div>
+							<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+							<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+							<table class="table table-hover my-0">
+								<thead>
+									<tr>
+										<th>Mã Đơn Hàng</th>
+										<th class="d-none d-xl-table-cell">Tên Người Đặt Hàng</th>
+										<th class="d-none d-xl-table-cell">Ngày Đặt</th>
+										<th>Địa Chỉ</th>
+										<th class="d-none d-md-table-cell">Trạng Thái</th>
+										<th class="d-none d-md-table-cell">Cập nhật</th>
+										<th class="d-none d-md-table-cell">Chi tiết</th>
+									</tr>
+								</thead>
+								<tbody>
+									<th:block th:each="item : ${order}">
+										<tr>
+											<td th:text="${item.id}"></td>
+											<td class="d-none d-xl-table-cell" th:text="${item.name}"></td>
+											<td class="d-none d-xl-table-cell" th:text="${item.createdAt}"></td>
+											<td th:text="${item.address}"></td>
+											<td>
+								                <span th:switch="${item.status}">
+								                    <span th:case="0" class="badge bg-secondary">Chờ xác nhận</span>
+								                    <span th:case="1" class="badge bg-primary">Đã xác nhận</span>
+								                    <span th:case="2" class="badge bg-info">Đang giao</span>
+								                    <span th:case="3" class="badge bg-warning">Đã giao hàng</span>
+								                    <span th:case="4" class="badge bg-success">Đã nhận hàng</span>
+								                    <span th:case="5" class="badge bg-danger">Trả hàng</span>
+								                    <span th:case="6" class="badge bg-dark">Hủy đơn</span>
+								                    <span th:case="*" class="badge bg-light">Trạng thái không xác định</span>
+								                </span>
+								            </td>
+								            <td>
+											    <form action="/user/update-statusOrder" method="post" style="display: inline;">
+											        <input type="hidden" name="id" th:value="${item.id}">
+											        <select name="status" class="form-select" onchange="this.form.submit()">
+											            <option value="4" th:selected="${item.status == 4}">Đã nhận hàng</option>
+											            <option value="5" th:selected="${item.status == 5}">Trả hàng</option>
+											            <option value="6" th:selected="${item.status == 6}">Hủy đơn</option>
+											        </select>
+											    </form>
+											</td>
+								            <td>
+											    <button type="button" class="btn btn-outline-success" th:onclick="|window.location.href='/admin/order-detail?id=' + ${item.id}|">Chi tiết</button>
+											</td>
+										</tr>
+									</th:block>
+								</tbody>
+							</table>
+						</div>
             </div> 
         </div>
     </div>

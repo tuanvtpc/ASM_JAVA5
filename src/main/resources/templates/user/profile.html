@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -239,88 +238,79 @@ body {
 		& HÀ NỘI - GỌI NGAY 1900 633 045 HOẶC 0865 160 360</div>
 
 	<div class="container">
-		<div class="main-body">
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="card">
-						<div class="card-body">
-							<div class="d-flex flex-column align-items-center text-center">
-								<img src="https://bootdey.com/img/Content/avatar/avatar6.png"
-									alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
-								<div class="mt-3">
-									<h4>Ngô Chí Tài</h4>
-									<p class="text-secondary mb-1">Cà Mau</p>
-									<p class="text-muted font-size-sm">Taincpc08925@gmail.com</p>
-									<button class="btn btn-primary">Sửa Thông Tin</button>
-									<button class="btn btn-outline-primary">Thêm Hình Ảnh</button>
-								</div>
-							</div>
-							<hr class="my-4">
-								<div class="card" style="width: 21rem;">
-						    <ul class="list-group list-group-flush">
-						    <li class="list-group-item" onclick="setActive(this)">
-						            <a href="/profile">Thông Tin của bạn</a>
-						        </li>
-						        <li class="list-group-item" onclick="setActive(this)">
-						            <a href="/edit-profile">Sửa Thông Tin</a>
-						        </li>
-						        <li class="list-group-item" onclick="setActive(this)">
-						            <a href="/">Đơn Hàng Của Bạn</a>
-						        </li>
-						        <li class="list-group-item" onclick="setActive(this)">
-						            <a href="/change-password">Đổi Mật Khẩu</a>
-						        </li>
-						        <li class="list-group-item" onclick="setActive(this)">
-						            <a href="/wishlist">Sản phẩm yêu thích</a>
-						        </li>
-						        <li class="list-group-item" onclick="setActive(this)">
-						            <a href="/edit-address">Chỉnh sửa địa chỉ</a>
-						        </li>
-						    </ul>
-						    
-						</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-8">
-					<div class="card">
-						<div class="card-body">
-							<div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-1">Họ Và Tên</h6>
-								</div>
-								<div class="col-sm-3 text-secondary">Ngô Chí Tài</div>
-							</div>
-							<hr>
-							<div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-1">Email</h6>
-								</div>
-								<div class="col-sm-3 text-secondary">
-									taincpc08925@gmail.com</div>
-							</div>
-							<hr>
-							<div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-1">Số Điện Thoại</h6>
-								</div>
-								<div class="col-sm-3 text-secondary">(320) 380-4539</div>
-							</div>
-							<hr>
-							<div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-1">Địa Chỉ</h6>
-								</div>
-								<div class="col-sm-3 text-secondary">Bay Area, San
-									Francisco, CA</div>
-							</div>
-						</div>
-					</div>
-				</div>
+    <div class="main-body">
+        <div class="row">
+            <!-- Cột bên trái (Avatar + Menu) -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                                 alt="User Avatar" class="rounded-circle p-1 bg-primary" width="110">
+                            <div class="mt-3">
+                                <h4 th:text="${user.name}">Tên User</h4>
+                                <p class="text-secondary mb-1" th:text="${user.username}">Username</p>
+                                <p class="text-muted font-size-sm" th:text="${user.email}">Email</p>
+                                <button class="btn btn-primary">Sửa Thông Tin</button>
+                                <button class="btn btn-outline-primary">Thêm Hình Ảnh</button>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="card" style="width: 21rem;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="/profile">Thông Tin của bạn</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="/update-profile">Sửa Thông Tin</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="/orders">Đơn Hàng Của Bạn</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="/change-password">Đổi Mật Khẩu</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="/logout">Đăng Xuất</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			</div>
-		</div>
-	</div>
+            <!-- Cột bên phải (Thông tin user) -->
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-1">Họ Và Tên</h6>
+                            </div>
+                            <div class="col-sm-5 text-secondary" th:text="${user.name}">Tên User</div>
+                        </div>
+                        <hr>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-1">Email</h6>
+                            </div>
+                            <div class="col-sm-5 text-secondary" th:text="${user.email}">Email</div>
+                        </div>
+                        <hr>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-1">Số Điện Thoại</h6>
+                            </div>
+                            <div class="col-sm-5 text-secondary" th:text="${user.phone}">Số điện thoại</div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 	<footer>
 		<div class="row">

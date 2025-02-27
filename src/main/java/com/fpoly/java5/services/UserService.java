@@ -30,6 +30,12 @@ public class UserService {
 	    Sort sort = asc ? Sort.by(Sort.Direction.ASC, "username") : Sort.by(Sort.Direction.DESC, "username");
 	    return userJPA.searchUsers(keyword, sort);
 	}
+	
+	
+	public UserEntity getUserById(int id) {
+	    Optional<UserEntity> userOptional = userJPA.findById(id);
+	    return userOptional.orElse(null);
+	}
 
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
