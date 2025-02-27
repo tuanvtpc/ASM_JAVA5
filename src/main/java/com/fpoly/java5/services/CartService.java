@@ -41,6 +41,8 @@ public class CartService {
 	
 	
 	
+	
+	
 	public void clearCart() {
 	    CartEntity cart = getCart();
 	    if (cart != null) {
