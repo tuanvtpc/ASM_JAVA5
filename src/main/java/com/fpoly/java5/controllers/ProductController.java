@@ -1,7 +1,6 @@
 package com.fpoly.java5.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +19,10 @@ import com.fpoly.java5.services.ProductService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin")
 public class ProductController {
 
 	@Autowired
@@ -35,24 +34,12 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
-	 @GetMapping("/admin/product")
-	    public String product(Model model, @RequestParam(name = "search", required = false) String search) {
-	        if (search != null && !search.isEmpty()) {
-	            // Tìm kiếm sản phẩm theo tên chứa chuỗi
-	            List<ProductEntity> productList = productService.searchProductsByName(search);
-	            model.addAttribute("productList", productList);
-	        } else {
-	            // Hiển thị tất cả sản phẩm
-	            model.addAttribute("productList", productJPA.findAll());
-	        }
-	        return "/admin/product.html";
-	    }
-	
-	@GetMapping("/product")
-	public String redirectToAdminProduct() {
-	    return "redirect:/admin/product";
+	@GetMapping("/admin/product")
+	public String product(Model model) {
+		
+	    
+		return "/admin/product.html";
 	}
-	
 	
 	@ModelAttribute(name = "productList")
 	public List<ProductEntity> getProduct() {
@@ -65,84 +52,33 @@ public class ProductController {
 	}
 
 	@GetMapping("/product-form")
-	public String showFormProduct(Model model, 
-	                            @RequestParam("id") Optional<Integer> id,
-	                            @ModelAttribute("errorMessage") String errorMessage, // Nhận flash attributes
-	                            @ModelAttribute("successMessage") String successMessage) {
-	    
-	    ProductBean bean = new ProductBean();
+	public String showFormProduct(Model model) {
+		ProductBean productBean = new ProductBean();
+		model.addAttribute("product", productBean);
 
-	    if (id.isPresent()) {
-	        Optional<ProductEntity> productOptional = productJPA.findById(id.get());
-	        
-	        if (productOptional.isPresent()) {
-	            ProductEntity product = productOptional.get();
-	            bean.setId(id);
-	            bean.setName(product.getName());
-	            bean.setDesc(product.getDescription());
-	            bean.setPrice(product.getPrice());
-	            bean.setQuantitty(product.getQuantity());
-	            bean.setCat_id(product.getCategory().getId());
-	            
-	            // Thêm danh sách ảnh hiện tại vào model
-	            model.addAttribute("currentImages", product.getImages());
-	        }
-	    }
-	    
-	    // Thêm các flash messages vào model
-	    if (!errorMessage.isEmpty()) model.addAttribute("errorMessage", errorMessage);
-	    if (!successMessage.isEmpty()) model.addAttribute("successMessage", successMessage);
-	    
-	    model.addAttribute("product", bean);
-	    return "/admin/product-form.html";
+		return "/admin/product-form.html";
 	}
 
 	@PostMapping("/product-form")
-	public String handleProductForm(@Valid @ModelAttribute("product") ProductBean productBean, 
-	                              Errors errors,
-	                              Model model,
-	                              RedirectAttributes redirectAttributes) { // Thêm RedirectAttributes
-	    
-	    boolean hasErrors = errors.hasErrors();
-	    String imageError = productBean.isImagesError();
+	public String handleProductForm(@Valid @ModelAttribute("product") ProductBean productBean, Errors errors,
+			Model model) {
+		boolean hasErrors = errors.hasErrors();
+		String imageError = productBean.isImagesError();
 
-	    if (hasErrors || imageError != null) {
-	        if (imageError != null) {
-	            model.addAttribute("imageError", imageError);
-	        }
-	        return "/admin/product-form.html";
-	    }
+		if (hasErrors || imageError != null) {
+			if (imageError != null) {
+				model.addAttribute("imageError", imageError);
+			}
+			return "/admin/product-form.html";
+		}
 
-	    Boolean result;
-	    
-	    if(productBean.getId() != null && productBean.getId().isPresent()) {
-	        result = productService.updateProduct(productBean.getId().get(),productBean);
-	    } else {
-	        result = productService.saveProduct(productBean);
-	    }
-	    
-	    if (result) {
-	        redirectAttributes.addFlashAttribute("successMessage", "Lưu sản phẩm thành công!");
-	        return "redirect:/admin/product";
-	    } else {
-	        redirectAttributes.addFlashAttribute("errorMessage", "Lưu sản phẩm thất bại!");
-	        return "redirect:/product-form?id=" + productBean.getId().orElse(null); // Giữ lại ID nếu có
-	    }
+		Boolean result = productService.saveProduct(productBean);
+		if (result) {
+			return "redirect:/admin/product";
+		} else {
+			model.addAttribute("saveError", "Lưu sản phẩm thất bại. Vui lòng thử lại.");
+			return "/admin/product-form.html";
+		}
 	}
 
-	@PostMapping("/delete-product")
-	public String deleteUser(@RequestParam("id") int id, 
-	                       RedirectAttributes redirectAttributes) { // Sử dụng RedirectAttributes
-	    
-	    boolean delete = productService.deleteProduct(id);
-	    
-	    if (delete) {
-	        redirectAttributes.addFlashAttribute("successMessage", "Xóa sản phẩm thành công!");
-	    } else {
-	        redirectAttributes.addFlashAttribute("errorMessage", "Xóa sản phẩm thất bại!");
-	    }
-	    
-	    return "redirect:/admin/product";
-	}
-	
 }
