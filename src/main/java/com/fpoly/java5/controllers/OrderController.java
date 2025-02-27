@@ -65,7 +65,7 @@ public class OrderController {
 			OrderEntity order = orderOptional.get();
 			int currentStatus = order.getStatus();
 
-			if (isValidStatusTransition(currentStatus, status)) {
+			if (isValidStatus(currentStatus, status)) {
 				order.setStatus(status);
 				orderJPA.save(order);
 				redirectAttributes.addFlashAttribute("message", "Cập nhật trạng thái đơn hàng thành công.");
@@ -79,7 +79,7 @@ public class OrderController {
 		return "redirect:/order";
 	}
 
-	private boolean isValidStatusTransition(int currentStatus, int newStatus) {
+	private boolean isValidStatus(int currentStatus, int newStatus) {
 		switch (currentStatus) {
 		case 0: 
 			return newStatus == 1 || newStatus == 6; // chỉ có thể chuyển xác nhận hoặc hủy
