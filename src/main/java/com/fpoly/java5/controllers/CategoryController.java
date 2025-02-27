@@ -62,7 +62,6 @@ public class CategoryController {
 	@PostMapping("/add-category")
 	public String saveCategory(@Valid @ModelAttribute("categoryBean") CategoryBean categoryBean, Errors errors,
 	        Model model) {
-	    System.out.println("CategoryBean received: " + categoryBean);
 	    if (errors.hasErrors()) {
 	        errors.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage())); // Log lỗi
 	        return "admin/category-form";
