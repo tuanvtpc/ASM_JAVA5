@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,6 +21,11 @@ label {
 	font-size: 1rem;
 	font-weight: bold;
 }
+
+.error-text {
+    font-size: 1px; /* Chỉnh kích thước nhỏ hơn */
+}
+
 
 body {
 	background: #f7f7ff;
@@ -238,78 +244,79 @@ body {
 		& HÀ NỘI - GỌI NGAY 1900 633 045 HOẶC 0865 160 360</div>
 
 	<div class="container">
-    <div class="main-body">
-        <div class="row">
-            <!-- Cột bên trái (Avatar + Menu) -->
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            <img th:src="@{'/images/' + ${user.avatar}}"
-                                 alt="User Avatar" class="rounded-circle p-1 bg-primary" width="110">
-                            <div class="mt-3">
-                                <h4 th:text="${user.name}">Tên User</h4>
-                                <p class="text-secondary mb-1" th:text="${user.username}">Username</p>
-                                <p class="text-muted font-size-sm" th:text="${user.email}">Email</p>
-                                <button class="btn btn-primary">Sửa Thông Tin</button>
-                                <button class="btn btn-outline-primary">Thêm Hình Ảnh</button>
-                            </div>
-                        </div>
-                        <hr class="my-4">
-                        <div class="card" style="width: 21rem;">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <a href="/user/profile">Thông Tin của bạn</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="/user/update-profile">Sửa Thông Tin</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="/user/order">Đơn Hàng Của Bạn</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="/user/change-password">Đổi Mật Khẩu</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="/logout">Đăng Xuất</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+	    <div class="main-body">
+	        <div class="container mt-4">
+			        <h1 class="mb-4">Chi tiết đơn hàng</h1>
+			
+			        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+			
+			        <div th:if="${order}">
+			            <div class="card mb-4">
+			                <div class="card-header">
+			                    <h5 class="card-title">Thông tin đơn hàng</h5>
+			                </div>
+			                <div class="card-body">
+			                    <p><strong>Mã đơn hàng:</strong> <span th:text="${order.id}"></span></p>
+			                    <p><strong>Tên người đặt:</strong> <span th:text="${order.name}"></span></p>
+			                    <p><strong>Ngày đặt:</strong> <span th:text="${order.createdAt}"></span></p>
+			                    <p><strong>Địa chỉ:</strong> <span th:text="${order.address}"></span></p>
+			                    <p><strong>Tổng tiền:</strong> <span th:text="${order.totalAmount}"></span></p>
+			                    <p><strong>Trạng thái:</strong>
+			                        <span th:switch="${order.status}">
+			                            <span th:case="0" class="badge bg-secondary">Chờ xác nhận</span>
+			                            <span th:case="1" class="badge bg-primary">Đã xác nhận</span>
+			                            <span th:case="2" class="badge bg-info">Đang giao</span>
+			                            <span th:case="3" class="badge bg-warning">Đã giao hàng</span>
+			                            <span th:case="4" class="badge bg-success">Hoàn tất</span>
+			                            <span th:case="5" class="badge bg-danger">Trả hàng</span>
+			                            <span th:case="6" class="badge bg-dark">Hủy đơn</span>
+			                            <span th:case="*" class="badge bg-light">Trạng thái không xác định</span>
+			                        </span>
+			                    </p>
+			                </div>
+			            </div>
+			
+			            <div class="card">
+			                <div class="card-header">
+			                    <h5 class="card-title">Danh sách sản phẩm</h5>
+			                </div>
+			                <div class="card-body">
+			                    <table class="table table-hover">
+								    <thead>
+								        <tr>
+								            <th>Hình ảnh</th>
+								            <th>Tên sản phẩm</th>
+								            <th>Số lượng</th>
+								            <th>Giá</th>
+								            <th>Thành tiền</th>
+								        </tr>
+								    </thead>
+								    <tbody>
+								        <th:block th:each="item : ${orderDetailList}">
+								            <tr>
+								                <td>
+								                    <img th:src="@{'/images/' + ${item.product.images[0].imageName}}" alt="Hình ảnh sản phẩm" style="width: 50px; height: 50px;">
+								                </td>
+								                <td th:text="${item.product.name}"></td><td th:text="${item.quantity}"></td>
+								                <td th:text="${item.price}"></td>
+								                <td th:text="${item.quantity * item.price}"></td>
+								            </tr>
+								        </th:block>
+								    </tbody>
+								</table>
+			                </div>
+			            </div>
+			        </div>
+			
+			        <div class="mt-4">
+			            <a href="/user/order" class="btn btn-secondary">Quay lại</a>
+			        </div>
+			    </div>
+	    </div>
+	</div>
 
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-1">Họ Và Tên</h6>
-                            </div>
-                            <div class="col-sm-5 text-secondary" th:text="${user.name}">Tên User</div>
-                        </div>
-                        <hr>
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-1">Email</h6>
-                            </div>
-                            <div class="col-sm-5 text-secondary" th:text="${user.email}">Email</div>
-                        </div>
-                        <hr>
-                        <div class="row mb-3">
-                            <div class="col-sm-3">
-                                <h6 class="mb-1">Số Điện Thoại</h6>
-                            </div>
-                            <div class="col-sm-5 text-secondary" th:text="${user.phone}">Số điện thoại</div>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-    </div>
-</div>
+
 
 	<footer>
 		<div class="row">

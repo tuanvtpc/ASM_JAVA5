@@ -273,14 +273,14 @@ body {
             <div class="col-lg-8">
             	<div class="mb-3 d-flex justify-content-end">
 					    <div class="btn-group" role="group" aria-label="Order status filter">
-					        <a href="/admin/order" class="btn btn-outline-secondary">Tất cả</a>
-					        <a href="/admin/order?status=0" class="btn btn-outline-primary">Chờ xác nhận</a>
-					        <a href="/admin/order?status=1" class="btn btn-outline-warning">Đã xác nhận</a>
-					        <a href="/admin/order?status=2" class="btn btn-outline-info">Đang giao</a>
-					        <a href="/admin/order?status=3" class="btn btn-outline-success">Đã giao</a>
-					        <a href="/admin/order?status=4" class="btn btn-outline-success">Hoàn tất</a>
-					        <a href="/admin/order?status=5" class="btn btn-outline-danger">Trả hàng</a>
-					        <a href="/admin/order?status=6" class="btn btn-outline-dark">Hủy đơn</a>
+					        <a href="/user/order" class="btn btn-outline-secondary">Tất cả</a>
+					        <a href="/user/order?status=0" class="btn btn-outline-primary">Chờ xác nhận</a>
+					        <a href="/user/order?status=1" class="btn btn-outline-warning">Đã xác nhận</a>
+					        <a href="/user/order?status=2" class="btn btn-outline-info">Đang giao</a>
+					        <a href="/user/order?status=3" class="btn btn-outline-success">Đã giao</a>
+					        <a href="/user/order?status=4" class="btn btn-outline-success">Hoàn tất</a>
+					        <a href="/user/order?status=5" class="btn btn-outline-danger">Trả hàng</a>
+					        <a href="/user/order?status=6" class="btn btn-outline-dark">Hủy đơn</a>
 					    </div>
 					</div>
                 <div class="card flex-fill">
@@ -324,9 +324,9 @@ body {
 											    <form action="/user/update-statusOrder" method="post" style="display: inline;">
 											        <input type="hidden" name="id" th:value="${item.id}">
 											        <select name="status" class="form-select" onchange="this.form.submit()">
-											            <option value="4" th:selected="${item.status == 4}">Đã nhận hàng</option>
-											            <option value="5" th:selected="${item.status == 5}">Trả hàng</option>
-											            <option value="6" th:selected="${item.status == 6}">Hủy đơn</option>
+											            <option value="4">Đã nhận hàng</option>
+											            <option value="5">Trả hàng</option>
+											            <option value="6">Hủy đơn</option>
 											        </select>
 											    </form>
 											</td>

@@ -1,19 +1,18 @@
 package com.fpoly.java5.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fpoly.java5.beans.UserBean;
+import com.fpoly.java5.entity.OrderDetailEntity;
 import com.fpoly.java5.entity.OrderEntity;
 import com.fpoly.java5.entity.UserEntity;
 import com.fpoly.java5.jpas.OrderDetailJPA;
@@ -22,8 +21,6 @@ import com.fpoly.java5.jpas.UserJPA;
 import com.fpoly.java5.services.CartService;
 import com.fpoly.java5.services.UserService;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
 
 @Controller
 public class ProfileController {
@@ -36,9 +33,6 @@ public class ProfileController {
 	@Autowired
 	UserJPA userJPA;
 	
-	@Autowired
-	CartService cartService;
-	
 	
 	@Autowired
 	OrderJPA orderJPA;
@@ -46,19 +40,19 @@ public class ProfileController {
 	@Autowired
 	OrderDetailJPA orderDetailJPA;
 
-	@GetMapping("/profile")
+	@GetMapping("/user/profile")
 	public String profileUser(Model model) {
 		UserEntity user = cartService.getUser();
 		if (user != null) {
 			model.addAttribute("user", user);
 		} else {
 			model.addAttribute("error", "User not found");
-			return "redirect:/login"; // Chuyển hướng nếu chưa đăng nhập
+			return "redirect:/login"; 
 		}
 		return "/user/profile.html";
 	}
 
-	@GetMapping("/update-profile")
+	@GetMapping("/user/update-profile")
 	public String editProfile(Model model) {
 	    UserEntity user = cartService.getUser();
 	    UserEntity userEntity = userService.getUserById(user.getId()); 
@@ -67,7 +61,7 @@ public class ProfileController {
 	    return "/user/edit-profile.html";
 	}
 
-	@PostMapping("/update-profile")
+	@PostMapping("/user/update-profile")
 	public String updateProfile(@RequestParam("name") String name,
 	                            @RequestParam("email") String email,
 	                            @RequestParam("phone") String phone,
@@ -120,14 +114,17 @@ public class ProfileController {
 	
 	@GetMapping("/user/order")
 	public String orderLayout(@RequestParam(name = "status", required = false) Integer status, Model model) {
+	    UserEntity user = cartService.getUser();
+
 	    List<OrderEntity> orders;
 	    if (status != null) {
-	        orders = orderJPA.findByStatus(status);
+	        orders = orderJPA.findByUserIdAndStatus(user.getId(), status);
 	    } else {
-	        orders = getListOrder();
+	        orders = orderJPA.getListOrderByUser(user.getId());
 	    }
-	    model.addAttribute("order", orders);
-	    return "/user/order.html";
+
+	    model.addAttribute("order", orders != null ? orders : new ArrayList<>());
+	    return "user/order.html";
 	}
 	
 	@PostMapping("/user/update-statusOrder")
@@ -172,7 +169,26 @@ public class ProfileController {
 	            return false;
 	    }
 	}
+	
+	
+	
+	
+	@GetMapping("/user/detail-order")
+	public String orderDetailLayout(@RequestParam("id") Integer id, Model model) {
 
+		Optional<OrderEntity> orderOptional = orderJPA.findById(id);
+
+		if (orderOptional.isPresent()) {
+			OrderEntity order = orderOptional.get();
+			model.addAttribute("order", order);
+
+			List<OrderDetailEntity> orderDetail = orderDetailJPA.findByIdOrder(id);
+			model.addAttribute("orderDetailList", orderDetail);
+		} else {
+			model.addAttribute("error", "Không tìm thấy đơn hàng với ID: " + id);
+		}
+		return "user/detail-order.html";
+	}
 
 	private String getStatusName(int status) {
 		switch (status) {

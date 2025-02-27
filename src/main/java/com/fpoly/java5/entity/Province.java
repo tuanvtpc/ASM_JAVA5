@@ -1,18 +1,14 @@
 package com.fpoly.java5.entity;
 
-import java.util.List;
-
 import lombok.Data;
+import java.util.List;
 
 @Data
 public class Province {
-	private String code;
-	private String name;
-	private List<District> districts;
-}
-
-@Data
-class District {
-	private String code;
-	private String name;
+    private String name; // Tên tỉnh/thành phố
+    private int code; // Mã tỉnh/thành phố
+    private String division_type; // Loại đơn vị hành chính
+    private String codename; // Tên mã hóa
+    private int phone_code; // Mã điện thoại
+    private List<District> districts; // Danh sách quận/huyện
 }

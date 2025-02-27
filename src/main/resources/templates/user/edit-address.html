@@ -276,82 +276,60 @@ body {
 					</div>
 				</div>
 				<div class="col-lg-8">
-					<div class="card">
-						<div class="card-body">
-							<div class="row mb-3">
-								<div class="col-lg-7">
-									<h3>Địa chỉ của tôi</h3>
-
-									<div
-										class="d-flex justify-content-between align-items-center mb-3">
-										<h5>Địa chỉ</h5>
-										<button class="btn btn-danger" data-bs-toggle="modal"
-											data-bs-target="#addressModal">+ Thêm địa chỉ mới</button>
-										<div class="modal fade" id="addressModal" tabindex="-1">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title">Thêm Địa Chỉ Mới</h5>
-														<button type="button" class="btn-close"
-															data-bs-dismiss="modal"></button>
-													</div>
-													<div class="modal-body">
-														<form method="post">
-															<div class="mb-3">
-																<label for="province">Tỉnh/Thành phố</label> <select
-																	class="form-control" id="province" name="province"
-																	required>
-																	<option value="">Chọn tỉnh/thành</option>
-																	<option th:each="province : ${provinces}"
-																		th:value="${province['code']}"
-																		th:text="${province['name']}"></option>
-																</select>
-															</div>
-															<button type="submit" class="btn btn-primary">Lưu</button>
-														</form>
-
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="card mb-3">
-										<div class="card-body">
-											<h5 class="card-title">
-												Nguyễn Minh Duy <span class="text-muted">(+84) 999
-													999 999</span>
-											</h5>
-											<p class="card-text">Đường Phạm Hùng Lê Bình, Phường Lê
-												Bình, Quận Cái Răng, Cần Thơ</p>
-											<button class="btn btn-outline-secondary btn-sm">Thiết
-												lập mặc định</button>
-										</div>
-									</div>
-									<div class="card mb-3">
-										<div class="card-body">
-											<h5 class="card-title">
-												Nguyễn Minh Duy <span class="text-muted">(+84) 333
-													333 255</span>
-											</h5>
-											<p class="card-text">Xã Thành An, Huyện Mỏ Cày Bắc, Bến
-												Tre</p>
-
-											<div class="d-flex flex-column align-items-center">
-												<div>
-													<a href="#" class="btn btn-link">Cập nhật</a> <a href="#"
-														class="btn btn-link">Xóa</a>
-												</div>
-												<button class="btn btn-outline-secondary btn-sm mt-2">Thiết
-													lập mặc định</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
+				    <div class="card">
+				        <div class="card-body">
+				            <div class="row mb-3">
+				                <div class="col-lg-7">
+				                    <h3>Địa chỉ của tôi</h3>
+				                    <div class="d-flex justify-content-between align-items-center mb-3">
+				                        <form th:action="@{/user/add-address}" method="post" class="w-100">
+				                            <!-- Name Field -->
+				                            <div class="mb-3">
+				                                <label for="name" class="form-label">Họ và tên:</label>
+				                                <input type="text" class="form-control" id="name" name="name" required>
+				                            </div>
+				
+				                            <!-- Phone Field -->
+				                            <div class="mb-3">
+				                                <label for="phone" class="form-label">Số điện thoại:</label>
+				                                <input type="text" class="form-control" id="phone" name="phone" required>
+				                            </div>
+				
+				                            <!-- Province Field -->
+				                            <div class="mb-3">
+				                                <label for="province" class="form-label">Tỉnh/Thành phố:</label>
+				                                <select class="form-select" id="province" name="province" required>
+				                                    <option value="">Chọn tỉnh/thành phố</option>
+				                                    <option th:each="province : ${provinces}" th:value="${province.code}" th:text="${province.name}"></option>
+				                                </select>
+				                            </div>
+				
+				                            <!-- District Field -->
+				                            <div class="mb-3">
+				                                <label for="district" class="form-label">Quận/Huyện:</label>
+				                                <select class="form-select" id="district" name="district" required>
+				                                    <option value="">Chọn quận/huyện</option>
+				                                </select>
+				                            </div>
+				
+				                            <!-- Ward Field -->
+				                            <div class="mb-3">
+				                                <label for="ward" class="form-label">Xã/Phường:</label>
+				                                <select class="form-select" id="ward" name="ward" required>
+				                                    <option value="">Chọn xã/phường</option>
+				                                </select>
+				                            </div>
+				
+				                            <!-- Submit Button -->
+				                            <div class="mb-3">
+				                                <button type="submit" class="btn btn-primary">Thêm địa chỉ</button>
+				                            </div>
+				                        </form>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
 				</div>
 			</div>
 
@@ -503,6 +481,38 @@ body {
 			<script src="js/cart-info.js"></script>
 			<script
 				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+			<script>
+			document.getElementById('province').addEventListener('change', function () {
+			    const provinceCode = this.value;
+			    if (provinceCode) {
+			        fetch(`/api/districts?provinceCode=${provinceCode}`)
+			            .then(response => response.json())
+			            .then(data => {
+			                const districtSelect = document.getElementById('district');
+			                districtSelect.innerHTML = '<option value="">Chọn quận/huyện</option>';
+			                data.forEach(district => {
+			                    districtSelect.innerHTML += `<option value="${district.code}">${district.name}</option>`;
+			                });
+			            });
+			    }
+			});
+
+			document.getElementById('district').addEventListener('change', function () {
+			    const districtCode = this.value;
+			    if (districtCode) {
+			        fetch(`/api/wards?districtCode=${districtCode}`)
+			            .then(response => response.json())
+			            .then(data => {
+			                const wardSelect = document.getElementById('ward');
+			                wardSelect.innerHTML = '<option value="">Chọn xã/phường</option>';
+			                data.forEach(ward => {
+			                    wardSelect.innerHTML += `<option value="${ward.code}">${ward.name}</option>`;
+			                });
+			            });
+			    }
+			});
+		</script>
 </body>
 
 </html>

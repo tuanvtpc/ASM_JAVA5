@@ -1,46 +1,49 @@
 package com.fpoly.java5.services;
 
-
+import com.fpoly.java5.entity.District;
+import com.fpoly.java5.entity.Province;
+import com.fpoly.java5.entity.Ward;
 import java.util.Arrays;
-import java.util.List;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import com.fpoly.java5.entity.AddressEntity;
-import com.fpoly.java5.entity.Province;
-import com.fpoly.java5.entity.UserEntity;
-import com.fpoly.java5.jpas.AddressJPA;
-
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 
 @Service
 public class AddressService {
-    
-	@Autowired
-    private AddressJPA addressJPA;
 
-    public List<AddressEntity> getAddressesByUser(UserEntity user) {
-        return addressJPA.findByUser(user);
-    }
-
-    public AddressEntity saveAddress(AddressEntity address) {
-        return addressJPA.save(address);
-    }
-    
-    private final WebClient webClient = WebClient.create("https://provinces.open-api.vn"); 
+	private final WebClient webClient = WebClient.create("https://provinces.open-api.vn");
 
     public List<Province> getProvinces() {
         Mono<Province[]> response = webClient.get()
-                .uri("/api/?depth=2")
+                .uri("/api/p/") // Lấy danh sách tỉnh/thành phố
                 .retrieve()
                 .bodyToMono(Province[].class);
 
-        Province[] provinces = response.block(); 
-        
+        Province[] provinces = response.block();
         return provinces != null ? Arrays.asList(provinces) : List.of();
     }
+
+    public List<District> getDistrictsByProvince(int provinceCode) {
+        Mono<Province> response = webClient.get()
+                .uri("/api/p/{provinceCode}?depth=2", provinceCode) 
+                .retrieve()
+                .bodyToMono(Province.class);
+
+        Province province = response.block();
+        return province != null ? province.getDistricts() : List.of();
+    }
+
+    public List<Ward> getWardsByDistrict(int districtCode) {
+        Mono<District> response = webClient.get()
+                .uri("/api/d/{districtCode}?depth=2", districtCode) 
+                .retrieve()
+                .bodyToMono(District.class);
+
+        District district = response.block();
+        return district != null ? district.getWards() : List.of();
+    }
+    
+    
 }

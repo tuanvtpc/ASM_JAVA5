@@ -19,4 +19,5 @@ public interface OrderJPA extends JpaRepository<OrderEntity, Integer>{
 	@Query(value = "SELECT * FROM Orders WHERE user_id = ?1 AND status = ?2", nativeQuery = true)
 	List<OrderEntity> findByUserIdAndStatus(Integer userId, int status);
 	
+	
 }
