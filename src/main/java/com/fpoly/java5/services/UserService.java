@@ -1,13 +1,17 @@
 package com.fpoly.java5.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.fpoly.java5.beans.PasswordResetTokenBean;
 import com.fpoly.java5.beans.UserBean;
 import com.fpoly.java5.entity.UserEntity;
 import com.fpoly.java5.jpas.UserJPA;
@@ -25,6 +29,19 @@ public class UserService {
 
 	@Autowired
 	HttpServletResponse resp;
+
+	@Autowired
+	private PasswordEncoder encoder;
+
+	@Autowired
+	private EmailService emailService;
+
+	@Autowired
+	private EncryptionService encryptionService;
+	
+	 @Autowired
+	 private PasswordResetTokenBean tokenBean; // Bean để lưu token tạm thời
+
 
 	public List<UserEntity> searchUsers(String name, String username, String email, String sortDir) {
 		Sort sort = Sort.by("username");
@@ -158,4 +175,29 @@ public class UserService {
 
 		return null;
 	}
+	
+	 public void createPasswordResetTokenForUser(String email) {
+	        Optional<UserEntity> userOptional = userJPA.findByEmail(email);
+	        if (userOptional.isPresent()) {
+	            String token = UUID.randomUUID().toString().substring(0, 6); // Mã 6 ký tự
+	            tokenBean.saveToken(token, email); // Lưu token và email vào bộ nhớ tạm
+	            emailService.sendPasswordResetEmail(email, token);
+	        }
+	    }
+
+	    // Kiểm tra token và đặt lại mật khẩu
+	    public boolean validatePasswordResetToken(String token, String newPassword) {
+	        String email = tokenBean.getEmailByToken(token);
+	        if (email != null) {
+	            Optional<UserEntity> userOptional = userJPA.findByEmail(email);
+	            if (userOptional.isPresent()) {
+	                UserEntity user = userOptional.get();
+	                user.setPassword(passwordEncoder.encode(newPassword));
+	                userJPA.save(user);
+	                tokenBean.removeToken(token); // Xóa token sau khi sử dụng
+	                return true;
+	            }
+	        }
+	        return false;
+	    }
 }
