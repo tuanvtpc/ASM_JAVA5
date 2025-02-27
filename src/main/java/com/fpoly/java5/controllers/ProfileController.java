@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fpoly.java5.entity.AddressEntity;
 import com.fpoly.java5.entity.UserEntity;
@@ -37,6 +38,12 @@ public class ProfileController {
 	     model.addAttribute("wishlist", wishlist);
 	     return "/user/wishlist";
 	 }
+	 @GetMapping("/remove-wishlist/{id}")
+	 public String removeFromWishlist(@PathVariable Integer id) {
+	     wishlistJPA.deleteById(id);
+	     return "redirect:/wishlist";
+	 }
+
 	@GetMapping("/edit-profile")
 	public String getMethodName() {
 		return "/user/edit-profile.html";

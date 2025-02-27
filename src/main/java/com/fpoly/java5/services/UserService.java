@@ -151,4 +151,12 @@ public class UserService {
 
 		return null;
 	}
+	
+	public void updateUserStatus(Integer id, boolean active) {
+	    userJPA.findById(id).ifPresent(user -> {
+	        user.setActive(active);
+	        userJPA.save(user);
+	    });
+	}
+
 }
