@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="UTF-8" />
@@ -241,7 +241,7 @@ body {
 
 	<div class="container">
 		<div class="main-body">
-			<div class="row">
+			<div class="row equal-height">
 				<div class="col-lg-4">
 					<div class="card">
 						<div class="card-body">
@@ -269,8 +269,6 @@ body {
 										href="/change-password">Đổi Mật Khẩu</a></li>
 									<li class="list-group-item" onclick="setActive(this)"><a
 										href="/wishlist">Sản phẩm yêu thích</a></li>
-									<li class="list-group-item" onclick="setActive(this)"><a
-										href="/wishlist">Chỉnh sửa địa chỉ</a></li>
 								</ul>
 							</div>
 
@@ -281,36 +279,74 @@ body {
 					<div class="card">
 						<div class="card-body">
 							<div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-1">Mật Khẩu Hiện Tại</h6>
-								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" style="width: 45%;">
-								</div>
-							</div>
-							<div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-0">Mật Khẩu Mới</h6>
-								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" style="width: 45%;">
-								</div>
-							</div>
+								<div class="col-lg-7">
+									<h3>Địa chỉ của tôi</h3>
 
-							<div class="row mb-3">
-								<div class="col-sm-3">
-									<h6 class="mb-0">Xác Nhận Mật Khẩu Mới</h6>
-								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" style="width: 45%;">
-								</div>
-							</div>
+									<div
+										class="d-flex justify-content-between align-items-center mb-3">
+										<h5>Địa chỉ</h5>
+										<button class="btn btn-danger" data-bs-toggle="modal"
+											data-bs-target="#addressModal">+ Thêm địa chỉ mới</button>
+										<div class="modal fade" id="addressModal" tabindex="-1">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">Thêm Địa Chỉ Mới</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal"></button>
+													</div>
+													<div class="modal-body">
+														<form method="post">
+															<div class="mb-3">
+																<label for="province">Tỉnh/Thành phố</label> <select
+																	class="form-control" id="province" name="province"
+																	required>
+																	<option value="">Chọn tỉnh/thành</option>
+																	<option th:each="province : ${provinces}"
+																		th:value="${province['code']}"
+																		th:text="${province['name']}"></option>
+																</select>
+															</div>
+															<button type="submit" class="btn btn-primary">Lưu</button>
+														</form>
 
-							<div class="row1">
-								<div class="col-sm-3"></div>
-								<div class="col-sm-9 text-secondary">
-									<input type="button" class="btn btn-primary px-4"
-										value="Đổi Mật Khẩu">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="card mb-3">
+										<div class="card-body">
+											<h5 class="card-title">
+												Nguyễn Minh Duy <span class="text-muted">(+84) 999
+													999 999</span>
+											</h5>
+											<p class="card-text">Đường Phạm Hùng Lê Bình, Phường Lê
+												Bình, Quận Cái Răng, Cần Thơ</p>
+											<button class="btn btn-outline-secondary btn-sm">Thiết
+												lập mặc định</button>
+										</div>
+									</div>
+									<div class="card mb-3">
+										<div class="card-body">
+											<h5 class="card-title">
+												Nguyễn Minh Duy <span class="text-muted">(+84) 333
+													333 255</span>
+											</h5>
+											<p class="card-text">Xã Thành An, Huyện Mỏ Cày Bắc, Bến
+												Tre</p>
+
+											<div class="d-flex flex-column align-items-center">
+												<div>
+													<a href="#" class="btn btn-link">Cập nhật</a> <a href="#"
+														class="btn btn-link">Xóa</a>
+												</div>
+												<button class="btn btn-outline-secondary btn-sm mt-2">Thiết
+													lập mặc định</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -318,153 +354,155 @@ body {
 
 				</div>
 			</div>
-		</div>
 
-		<footer>
-			<div class="row">
-				<div class="info-download">
-					<img
-						src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
-						alt="" /> Hotline: 1900 633 045 - 0865 160 360 Email:
-					sales@flowercorner.vn
-					<div class="download-app">
-						<div class="qr-code">
-							<img
-								src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/qr.png.webp"
-								alt="quét để tải app FlowerCorner" />
-						</div>
-						<div class="store-link">
-							Tải ứng dụng ngay!
-							<div class="store-img">
-								<img
-									src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/appstore.png.webp"
-									alt="FlowerCorner trên app store" /> <img
-									src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/gplay.png.webp"
-									alt="FlowerCorner trên Google play" />
-							</div>
-						</div>
-					</div>
-					<div class="notice-bct">
+			<footer>
+				<div class="row">
+					<div class="info-download">
 						<img
-							src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/logoSaleNoti.png.webp"
-							alt="" />
+							src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
+							alt="" /> Hotline: 1900 633 045 - 0865 160 360 Email:
+						sales@flowercorner.vn
+						<div class="download-app">
+							<div class="qr-code">
+								<img
+									src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/qr.png.webp"
+									alt="quét để tải app FlowerCorner" />
+							</div>
+							<div class="store-link">
+								Tải ứng dụng ngay!
+								<div class="store-img">
+									<img
+										src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/appstore.png.webp"
+										alt="FlowerCorner trên app store" /> <img
+										src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/gplay.png.webp"
+										alt="FlowerCorner trên Google play" />
+								</div>
+							</div>
+						</div>
+						<div class="notice-bct">
+							<img
+								src="https://8384f55340.vws.vegacdn.vn/image/catalog/common/app/logoSaleNoti.png.webp"
+								alt="" />
+						</div>
+					</div>
+
+					<div class="info-support">
+						<h5>CHĂM SÓC KHÁCH HÀNG</h5>
+						<p class="danhmuc">
+							<a href="/introduce" class="color-grey">Giới thiệu</a>
+						</p>
+						<p class="danhmuc">
+							<a href="/contact" class="color-grey">Liên Hệ</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Chính Sách Vận Chuyển</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Câu Hỏi Thường Gặp</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Hình Thức Thanh Toán</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Bảo Mật Thông Tin</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Chính Sách Hoàn Tiền</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Xử Lý Khiếu Nại</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Tại Sao Nên Chọn
+								FlowerCorner.vn</a>
+						</p>
+						<p class="danhmuc">
+							<a href="#" class="color-grey">Blog</a>
+						</p>
+					</div>
+
+					<div class="info-media">
+						<h5>THEO DÕI</h5>
+						<div class="mxh">
+							<p>
+								<a href="#" class="color-grey"> <i
+									class="fa-brands fa-facebook"></i> Facebook
+								</a>
+							</p>
+							<p>
+								<a href="#" class="color-grey"> <i
+									class="fa-brands fa-twitter-square"></i> Twitter
+								</a>
+							</p>
+							<p>
+								<a href="#" class="color-grey"> <i
+									class="fa-brands fa-instagram"></i> Instagram
+								</a>
+							</p>
+							<p>
+								<a href="#" class="color-grey"> <i
+									class="fa-brands fa-linkedin"></i> Linkedin
+								</a>
+							</p>
+							<p>
+								<a href="#" class="color-grey"> <i
+									class="fa-brands fa-youtube"></i> Youtube
+								</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="info-address">
+						<h5>SHOP HOA FLOWERCORNER</h5>
+						<div class="address">
+							<p>
+								<strong>Cửa hàng chính</strong>: <a href="#" class="color-grey">142
+									Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, TP.HCM</a>
+							</p>
+							<p>
+								<strong>Chi nhánh TP.HCM</strong>: <a href="#"
+									class="color-grey">225/3 Nguyễn Đình Chiểu, Phường 5, Quận
+									3, TP.HCM</a>
+							</p>
+							<p>
+								<strong>Chi nhánh Hà Nội</strong>: <a href="#"
+									class="color-grey">65 Trần Phú, Ba Đình, Hà Nội</a>
+							</p>
+							<p>
+								CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ ZAS <br /> Mã số thuế:
+								0313630426
+							</p>
+						</div>
+					</div>
+
+					<div class="contact-bar">
+						<div class="contact-numberphone">
+							<i class="fa-solid fa-phone-volume" style="color: #ffffff"></i> <span>091
+								849 1941</span>
+						</div>
+
+						<div class="line"></div>
+
+						<div class="contact-zalo">
+							<img src="img/icons8-zalo-50 (1).png" alt="" /> <span>Nhắn
+								tin zalo</span>
+						</div>
+
+						<div class="line"></div>
+
+						<div class="contact-numberphone">
+							<i class="fa-solid fa-phone-volume" style="color: #ffffff"></i> <span>086
+								516 0360</span>
+						</div>
 					</div>
 				</div>
+			</footer>
 
-				<div class="info-support">
-					<h5>CHĂM SÓC KHÁCH HÀNG</h5>
-					<p class="danhmuc">
-						<a href="/introduce" class="color-grey">Giới thiệu</a>
-					</p>
-					<p class="danhmuc">
-						<a href="/contact" class="color-grey">Liên Hệ</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Chính Sách Vận Chuyển</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Câu Hỏi Thường Gặp</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Hình Thức Thanh Toán</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Bảo Mật Thông Tin</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Chính Sách Hoàn Tiền</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Xử Lý Khiếu Nại</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Tại Sao Nên Chọn
-							FlowerCorner.vn</a>
-					</p>
-					<p class="danhmuc">
-						<a href="#" class="color-grey">Blog</a>
-					</p>
-				</div>
-
-				<div class="info-media">
-					<h5>THEO DÕI</h5>
-					<div class="mxh">
-						<p>
-							<a href="#" class="color-grey"> <i
-								class="fa-brands fa-facebook"></i> Facebook
-							</a>
-						</p>
-						<p>
-							<a href="#" class="color-grey"> <i
-								class="fa-brands fa-twitter-square"></i> Twitter
-							</a>
-						</p>
-						<p>
-							<a href="#" class="color-grey"> <i
-								class="fa-brands fa-instagram"></i> Instagram
-							</a>
-						</p>
-						<p>
-							<a href="#" class="color-grey"> <i
-								class="fa-brands fa-linkedin"></i> Linkedin
-							</a>
-						</p>
-						<p>
-							<a href="#" class="color-grey"> <i
-								class="fa-brands fa-youtube"></i> Youtube
-							</a>
-						</p>
-					</div>
-				</div>
-
-				<div class="info-address">
-					<h5>SHOP HOA FLOWERCORNER</h5>
-					<div class="address">
-						<p>
-							<strong>Cửa hàng chính</strong>: <a href="#" class="color-grey">142
-								Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, TP.HCM</a>
-						</p>
-						<p>
-							<strong>Chi nhánh TP.HCM</strong>: <a href="#" class="color-grey">225/3
-								Nguyễn Đình Chiểu, Phường 5, Quận 3, TP.HCM</a>
-						</p>
-						<p>
-							<strong>Chi nhánh Hà Nội</strong>: <a href="#" class="color-grey">65
-								Trần Phú, Ba Đình, Hà Nội</a>
-						</p>
-						<p>
-							CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ ZAS <br /> Mã số thuế:
-							0313630426
-						</p>
-					</div>
-				</div>
-
-				<div class="contact-bar">
-					<div class="contact-numberphone">
-						<i class="fa-solid fa-phone-volume" style="color: #ffffff"></i> <span>091
-							849 1941</span>
-					</div>
-
-					<div class="line"></div>
-
-					<div class="contact-zalo">
-						<img src="img/icons8-zalo-50 (1).png" alt="" /> <span>Nhắn
-							tin zalo</span>
-					</div>
-
-					<div class="line"></div>
-
-					<div class="contact-numberphone">
-						<i class="fa-solid fa-phone-volume" style="color: #ffffff"></i> <span>086
-							516 0360</span>
-					</div>
-				</div>
-			</div>
-		</footer>
-
-		<script src="js/nav-menu-fixed.js"></script>
-		<script src="js/cart-drop-down.js"></script>
-		<script src="js/cart-info.js"></script>
+			<script src="js/nav-menu-fixed.js"></script>
+			<script src="js/cart-drop-down.js"></script>
+			<script src="js/cart-info.js"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

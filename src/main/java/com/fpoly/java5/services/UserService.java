@@ -26,16 +26,9 @@ public class UserService {
 	@Autowired
 	HttpServletResponse resp;
 
-	public List<UserEntity> searchUsers(String name, String username, String email, String sortDir) {
-		Sort sort = Sort.by("username");
-		sort = "asc".equalsIgnoreCase(sortDir) ? sort.ascending() : sort.descending();
-
-		name = name == null ? "" : name;
-		username = username == null ? "" : username;
-		email = email == null ? "" : email;
-
-		return userJPA.findByNameContainingIgnoreCaseAndUsernameContainingIgnoreCaseAndEmailContainingIgnoreCase(name,
-				username, email, sort);
+	public List<UserEntity> searchUsers(String keyword, boolean asc) {
+	    Sort sort = asc ? Sort.by(Sort.Direction.ASC, "username") : Sort.by(Sort.Direction.DESC, "username");
+	    return userJPA.searchUsers(keyword, sort);
 	}
 
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
