@@ -38,22 +38,20 @@ public class UserService {
 
 	@Autowired
 	private EncryptionService encryptionService;
-	
-	 @Autowired
-	 private PasswordResetTokenBean tokenBean; // Bean để lưu token tạm thời
 
+	@Autowired
+	private PasswordResetTokenBean tokenBean; // Bean để lưu token tạm thời
 
-	public List<UserEntity> searchUsers(String name, String username, String email, String sortDir) {
-		Sort sort = Sort.by("username");
-		sort = "asc".equalsIgnoreCase(sortDir) ? sort.ascending() : sort.descending();
-
-		name = name == null ? "" : name;
-		username = username == null ? "" : username;
-		email = email == null ? "" : email;
-
-		return userJPA.findByNameContainingIgnoreCaseAndUsernameContainingIgnoreCaseAndEmailContainingIgnoreCase(name,
-				username, email, sort);
+	public List<UserEntity> searchUsers(String keyword, boolean asc) {
+		Sort sort = asc ? Sort.by(Sort.Direction.ASC, "username") : Sort.by(Sort.Direction.DESC, "username");
+		return userJPA.searchUsers(keyword, sort);
 	}
+
+	public UserEntity getUserById(int id) {
+		Optional<UserEntity> userOptional = userJPA.findById(id);
+		return userOptional.orElse(null);
+	}
+
 
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
@@ -175,29 +173,29 @@ public class UserService {
 
 		return null;
 	}
-	
-	 public void createPasswordResetTokenForUser(String email) {
-	        Optional<UserEntity> userOptional = userJPA.findByEmail(email);
-	        if (userOptional.isPresent()) {
-	            String token = UUID.randomUUID().toString().substring(0, 6); // Mã 6 ký tự
-	            tokenBean.saveToken(token, email); // Lưu token và email vào bộ nhớ tạm
-	            emailService.sendPasswordResetEmail(email, token);
-	        }
-	    }
 
-	    // Kiểm tra token và đặt lại mật khẩu
-	    public boolean validatePasswordResetToken(String token, String newPassword) {
-	        String email = tokenBean.getEmailByToken(token);
-	        if (email != null) {
-	            Optional<UserEntity> userOptional = userJPA.findByEmail(email);
-	            if (userOptional.isPresent()) {
-	                UserEntity user = userOptional.get();
-	                user.setPassword(passwordEncoder.encode(newPassword));
-	                userJPA.save(user);
-	                tokenBean.removeToken(token); // Xóa token sau khi sử dụng
-	                return true;
-	            }
-	        }
-	        return false;
-	    }
+	public void createPasswordResetTokenForUser(String email) {
+		Optional<UserEntity> userOptional = userJPA.findByEmail(email);
+		if (userOptional.isPresent()) {
+			String token = UUID.randomUUID().toString().substring(0, 6); // Mã 6 ký tự
+			tokenBean.saveToken(token, email); // Lưu token và email vào bộ nhớ tạm
+			emailService.sendPasswordResetEmail(email, token);
+		}
+	}
+
+	// Kiểm tra token và đặt lại mật khẩu
+	public boolean validatePasswordResetToken(String token, String newPassword) {
+		String email = tokenBean.getEmailByToken(token);
+		if (email != null) {
+			Optional<UserEntity> userOptional = userJPA.findByEmail(email);
+			if (userOptional.isPresent()) {
+				UserEntity user = userOptional.get();
+				user.setPassword(passwordEncoder.encode(newPassword));
+				userJPA.save(user);
+				tokenBean.removeToken(token); // Xóa token sau khi sử dụng
+				return true;
+			}
+		}
+		return false;
+	}
 }
