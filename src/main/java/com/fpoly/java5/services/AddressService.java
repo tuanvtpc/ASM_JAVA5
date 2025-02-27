@@ -1,21 +1,25 @@
 package com.fpoly.java5.services;
 
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fpoly.java5.entity.AddressEntity;
+import com.fpoly.java5.entity.Province;
 import com.fpoly.java5.entity.UserEntity;
 import com.fpoly.java5.jpas.AddressJPA;
+
+import reactor.core.publisher.Mono;
 
 
 @Service
 public class AddressService {
+    
 	@Autowired
     private AddressJPA addressJPA;
 
@@ -27,11 +31,16 @@ public class AddressService {
         return addressJPA.save(address);
     }
     
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final String API_URL = "https://provinces.open-api.vn/api/?depth=2";
+    private final WebClient webClient = WebClient.create("https://provinces.open-api.vn"); 
 
-    public List<Map<String, Object>> getProvinces() {
-        ResponseEntity<List> response = restTemplate.getForEntity(API_URL, List.class);
-        return response.getBody();
+    public List<Province> getProvinces() {
+        Mono<Province[]> response = webClient.get()
+                .uri("/api/?depth=2")
+                .retrieve()
+                .bodyToMono(Province[].class);
+
+        Province[] provinces = response.block(); 
+        
+        return provinces != null ? Arrays.asList(provinces) : List.of();
     }
 }
