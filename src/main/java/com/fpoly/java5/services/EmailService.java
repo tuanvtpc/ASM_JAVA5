@@ -15,7 +15,7 @@ public class EmailService {
 	        String resetUrl = "http://localhost:8080/reset-password?token=" + token;
 
 	        SimpleMailMessage message = new SimpleMailMessage();
-	        message.setFrom("your-email@gmail.com");
+	        message.setFrom("dangnmpc08789@gmail");
 	        message.setTo(toEmail);
 	        message.setSubject("Yêu cầu đặt lại mật khẩu");
 	        message.setText("Mã xác nhận của bạn: " + token + 
