@@ -18,10 +18,10 @@
     <div class="menu-main">
       <div class="contact-numbers">HOTLINE: 1900 633 045 | 0865 160 360</div>
       <div class="nav-items">
-      	<a href="/profile" class="customeText">
+      	<a href="/user/profile" class="customeText">
             <i class="fa-solid fa-user" style="color: #4f4f4f"></i>Tài khoản
         </a>
-        <a href="/shopping-cart" class="customeText">
+        <a href="/cart" class="customeText">
             <i class="fa-solid fa-cart-shopping" style="color: #4f4f4f"></i>Giỏ hàng
         </a>
         <a href="/login" class="customeText">
@@ -45,7 +45,7 @@
     </div>
 
     <div class="logo-shop">
-      <a href="index.html">
+      <a href="/homepage">
         <img src="https://www.flowercorner.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
           title="FlowerCorner.vn - Shop hoa tươi" alt="FlowerCorner.vn - Shop hoa tươi" class="img-fluid" width="300"
           height="62" />
@@ -62,7 +62,7 @@
 
       <div class="buy-bar">
         <div class="buy-icon">
-          <button type="button" class="btn btn-inverse btn-block" onclick="window.location.href='/shopping-cart'">
+          <button type="button" class="btn btn-inverse btn-block" onclick="window.location.href='/cart'">
 		  <i class="fa-solid fa-bag-shopping"></i>
 		</button>
           <span id="cart-count" class="mini-cart-count">0</span>
@@ -88,100 +88,17 @@
     <nav class="nav-menu">
       <ul class="nav-links">
         <li class="dropdown">
-          <a href="hoa-sinh-nhat.html" class="drop">HOA SINH NHẬT</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">HOA SINH NHẬT SANG TRỌNG</a></li>
-            <li><a href="#">HOA SINH NHẬT GIÁ RẺ</a></li>
-            <li><a href="#">HOA TẶNG SINH NHẬT NGƯỜI YÊU</a></li>
-            <li><a href="#">HOA TẶNG SINH NHẬT MẸ</a></li>
-            <li><a href="#">HOA TẶNG SINH NHẬT BẠN</a></li>
-            <li><a href="#">LẴNG HOA TẶNG SINH NHẬT</a></li>
-            <li><a href="#">HOA HỒNG TẶNG SINH NHẬT</a></li>
-            <li><a href="#">GIỎ HOA SINH NHẬT</a></li>
-          </ul>
+            <a th:href="@{/homepage}" class="drop">TẤT CẢ</a>
         </li>
-
-        <li class="dropdown">
-          <a href="hoa-khai-truong.html" class="drop">HOA KHAI TRƯƠNG</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">HOA KHAI TRƯƠNG ĐỂ BÀN</a></li>
-            <li><a href="#">KỆ HOA KHAI TRƯƠNG</a></li>
-            <li><a href="#">KỆ HOA KHAI TRƯƠNG HIỆN ĐẠI</a></li>
-            <li><a href="#">HOA KHAI TRƯƠNG GIÁ RẺ</a></li>
-            <li><a href="#">LẴNG HOA 2 TẦNG MỪNG KHAI TRƯƠNG</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="lan-ho-diep.html" class="drop">LAN HỒ ĐIỆP</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">LAN HỒ ĐIỆP MINI</a></li>
-            <li><a href="#">LAN HỒ ĐIỆP VÀNG</a></li>
-            <li><a href="#">LAN HỒ ĐIỆP TRẮNG</a></li>
-            <li><a href="#">LAN HỒ ĐIỆP TÍM</a></li>
-            <li><a href="#">CHẬU LAN HỒ ĐIỆP 3 CÀNH</a></li>
-            <li><a href="#">CHẬU LAN HỒ ĐIỆP 5 CÀNH</a></li>
-            <li><a href="#">CHẬU LAN HỒ ĐIỆP 10 CÀNH</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="drop">CHỦ ĐỀ</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">HOA CHÚC MỪNG</a></li>
-            <li><a href="#">HOA CƯỚI CẦM TAY</a></li>
-            <li><a href="#">HOA TANG LỄ - HOA CHIA BUỒN</a></li>
-            <li><a href="#">HOA TÌNH YÊU</a></li>
-            <li><a href="#">HOA VALENTINE</a></li>
-            <li><a href="#">HOA KỶ NIỆM NGÀY CƯỚI</a></li>
-            <li><a href="#">NGÀY CỦA MẸ</a></li>
-            <li><a href="#">HOA CHÚC MỪNG 8-3</a></li>
-            <li><a href="#">HOA CHÚC MỪNG 20-10</a></li>
-            <li><a href="#">NGÀY NHÀ GIÁO VN</a></li>
-            <li><a href="#">GIÁNG SINH</a></li>
-            <li><a href="#">TẾT ÂM LỊCH</a></li>
-            <li><a href="#">HOA TỐT NGHIỆP</a></li>
-            <li><a href="#">HOA ĐỊNH KỲ</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="drop">THIẾT KẾ</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">BÓ HOA</a></li>
-            <li><a href="#">LẴNG HOA</a></li>
-            <li><a href="#">GIỎ HOA</a></li>
-            <li><a href="#">KỆ HOA</a></li>
-            <li><a href="#">BÌNH HOA</a></li>
-            <li><a href="#">HỘP HOA</a></li>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="drop">HOA TƯƠI</a>
-          <ul class="dropdown-menu">
-            <li><a href="hoa-hong.html">HOA HỒNG</a></li>
-            <li><a href="#">HOA BABY</a></li>
-            <li><a href="#">HOA HƯỚNG DƯƠNG</a></li>
-            <li><a href="#">HOA LAN HỒ ĐIỆP</a></li>
-            <li><a href="#">HOA TULIP</a></li>
-            <li><a href="#">HOA CÚC TANA</a></li>
-            <li><a href="#">HOA THẠCH THẢO</a></li>
-            <li><a href="#">HOA MẪU ĐƠN</a></li>
-            <li><a href="#">CÚC MẪU ĐƠN</a></li>
-            <li><a href="#">HOA CẨM TÚ CẦU</a></li>
-            <li><a href="#">HOA LY</a></li>
-            <li><a href="#">HOA SEN</a></li>
-            <li><a href="#">HOA ĐỒNG TIỀN</a></li>
-            <li><a href="#">HOA CẨM CHƯỚNG</a></li>
-            <li><a href="#">HOA CÚC HỌA MI</a></li>
-          </ul>
-        </li>
-
-        <li><a href="hoa-tuoi-giam-gia.html">HOA TƯƠI GIẢM 30%</a></li>
+        
+      	<th:block th:each="item : ${categories}">
+      		<li class="dropdown">
+	          <a th:href="@{/homepage(categoryId=${item.id})}" class="drop" th:text="${item.name}"></a>
+	        </li>
+      	</th:block>
       </ul>
     </nav>
-  </div>
+	</div>
 
   <div class="header-notice">
     ĐẶT HOA ONLINE - GIAO MIỄN PHÍ TP HCM & HÀ NỘI - GỌI NGAY 1900 633 045
@@ -210,7 +127,8 @@
     <div class="row list-products-1">
       <div th:each="product : ${products}" class="col-lg-3">
                 <div class="card product" style="width: 18rem; position: relative;">
-                	<a href="detail-product" onclick="viewProductDetails('Little Tana')">
+                <a th:href="|/detail-product?prodId=${product.id}|">
+
 		            <img
 		              th:src="@{'/images/' + ${product.images[0].imageName}}"
 		              class="card-img-top" alt="Little Tana" />
@@ -222,13 +140,11 @@
                         <i class="fas fa-cart-shopping"></i>
                         <i class="fas fa-sync-alt"></i>
                     </div>
-                    <span class="sale">11%<br />GIẢM</span>
                     <div class="card-body">
                         <h5 class="card-title text-center product-name" th:text="${product.name}"></h5>
-                        <p class="card-text text-center">
-                            <span class="price-new" th:text="${product.price} + 'VND'"></span>
-                            <span class="price-old" th:text="${product.price * 1.1} + 'VND'"></span>
-                        </p>
+                       <p class="card-text text-center">
+						    <span class="price-new" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+						</p>
                         
                         <form action="/add-to-cart" method="post">
 						    <input type="hidden" th:value="${product.id}" name="prodId"/>
@@ -937,54 +853,7 @@
   <script src="/images/static/js/nav-menu-fixed.js"></script>
   <script src="/images/static/js/cart-drop-down.js"></script>
   <script src="/images/static/js/product-details.js"></script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Lấy danh sách tất cả các nút tim trên trang
-    const heartIcons = document.querySelectorAll(".fa-heart");
-
-    heartIcons.forEach((heart) => {
-      heart.addEventListener("click", function () {
-        const productCard = heart.closest(".product");
-        const productName = productCard.querySelector(".product-name").innerText;
-        const productPrice = productCard.querySelector(".price-new").innerText;
-        const productImage = productCard.querySelector(".card-img-top").src;
-
-        const wishlistItem = {
-          name: productName,
-          price: productPrice,
-          image: productImage,
-        };
-
-        // Lấy wishlist từ localStorage
-        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-        
-        // Kiểm tra xem sản phẩm đã tồn tại trong wishlist chưa
-        if (!wishlist.some((item) => item.name === wishlistItem.name)) {
-          wishlist.push(wishlistItem);
-          localStorage.setItem("wishlist", JSON.stringify(wishlist));
-          alert("Đã thêm vào danh sách yêu thích!");
-        } else {
-          alert("Sản phẩm đã có trong danh sách yêu thích!");
-        }
-      });
-    });
-
-    // Chỉ hiển thị wishlist trên trang wishlist.html
-    if (window.location.pathname.includes("wishlist.html")) {
-      const wishlistContainer = document.getElementById("wishlist-items");
-      if (wishlistContainer) {
-        let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-        wishlistContainer.innerHTML = wishlist.map(item => `
-          <div class="wishlist-item">
-            <img src="${item.image}" alt="${item.name}" class="wishlist-img" />
-            <p class="wishlist-name">${item.name}</p>
-            <p class="wishlist-price">${item.price}</p>
-          </div>
-        `).join('');
-      }
-    }
-  });
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

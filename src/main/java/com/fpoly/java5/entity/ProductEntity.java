@@ -29,7 +29,7 @@ public class ProductEntity {
     private int quantity;
 
     @Column(name = "price", nullable = false, columnDefinition = "decimal(19, 4)")
-    private double price;
+    private Integer price;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive;

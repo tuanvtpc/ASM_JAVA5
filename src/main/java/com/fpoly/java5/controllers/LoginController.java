@@ -40,7 +40,7 @@ public class LoginController {
 			UserEntity user = userService.authenticateAndSetCookies(username, password);
 
 			if (user.getRole() == 0) {
-				return "redirect:/dashboard";
+				return "redirect:/admin/dashboard";
 			} else if (user.getRole() == 1) {
 				return "redirect:/homepage";
 			} else {

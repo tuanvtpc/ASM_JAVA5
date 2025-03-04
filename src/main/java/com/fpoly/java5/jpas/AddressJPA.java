@@ -3,12 +3,15 @@ package com.fpoly.java5.jpas;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.fpoly.java5.entity.AddressEntity;
+import com.fpoly.java5.entity.UserEntity;
 
 public interface AddressJPA extends JpaRepository<AddressEntity, Integer>{
 	
-	@Query(value = "SELECT * FROM Address WHERE user_id=?1", nativeQuery = true)
-	List<AddressEntity> findByUserId(int userId);
+	
+	List<AddressEntity> findByUserId(Integer userId);
+	
+	
+	List<AddressEntity> findByUser(UserEntity user);
 }
