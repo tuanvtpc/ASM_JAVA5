@@ -257,7 +257,13 @@ body {
                                 <p class="text-secondary mb-1" th:text="${user.username}">Username</p>
                                 <p class="text-muted font-size-sm" th:text="${user.email}">Email</p>
                                 <button class="btn btn-primary">Sửa Thông Tin</button>
-                                <button class="btn btn-outline-primary">Thêm Hình Ảnh</button>
+                              <form method="post" action="/user/update-avatar" enctype="multipart/form-data">
+							    <div class="mb-3">
+							        <label class="form-label">Ảnh đại diện</label>
+							        <input type="file" class="form-control" name="avatar" accept="image/*" required>
+							    </div>
+							    <button type="submit" class="btn btn-primary w-100">Cập nhật ảnh</button>
+							</form>
                             </div>
                         </div>
                         <hr class="my-4">
@@ -275,8 +281,8 @@ body {
                                 <li class="list-group-item">
                                     <a href="/user/change-password">Đổi Mật Khẩu</a>
                                 </li>
-                                <li class="list-group-item">
-                                    <a href="/logout">Đăng Xuất</a>
+                               <li class="list-group-item">
+                                  <a onclick="confirmLogout()">Đăng Xuất</a>
                                 </li>
                             </ul>
                         </div>
@@ -471,7 +477,13 @@ body {
 			</div>
 		</div>
 	</footer>
-
+<script>
+    function confirmLogout() {
+        if (confirm("Bạn có muốn đăng xuất không?")) {
+            window.location.href = "/logoutt"; // Điều hướng đến Controller xử lý đăng xuất
+        }
+    }
+</script>
 	<script src="js/nav-menu-fixed.js"></script>
 	<script src="js/cart-drop-down.js"></script>
 	<script src="js/cart-info.js"></script>
