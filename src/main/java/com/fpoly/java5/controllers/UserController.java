@@ -47,10 +47,10 @@ public class UserController {
 	    return "/admin/user.html";
 	}
 
-	@PostMapping("/toggle-status")
+	@PostMapping("/user/toggle-status")
 	public String toggleStatus(@RequestParam Integer id, @RequestParam boolean active) {
 	    userService.updateUserStatus(id, active);
-	    return "redirect:/user";
+	    return "redirect:/admin/user";
 	}
 
 

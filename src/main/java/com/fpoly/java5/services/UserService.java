@@ -198,4 +198,11 @@ public class UserService {
 		}
 		return false;
 	}
+	
+	public void updateUserStatus(Integer id, boolean active) {
+	    userJPA.findById(id).ifPresent(user -> {
+	        user.setActive(active);
+	        userJPA.save(user);
+	    });
+	}
 }

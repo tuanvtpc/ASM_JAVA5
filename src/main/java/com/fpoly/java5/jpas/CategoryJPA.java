@@ -24,5 +24,8 @@ public interface CategoryJPA extends JpaRepository<CategoryEntity, Integer> {
     public int countProductsByCategoryId(Integer categoryId);
     
     Optional<CategoryEntity> findById(Integer id);
+    
+    @Query(value = "SELECT * FROM category WHERE status = 1 ORDER BY category_id DESC", nativeQuery = true)
+    List<CategoryEntity> findAllActiveCategories();
 
 }

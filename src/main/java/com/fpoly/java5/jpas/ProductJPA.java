@@ -20,5 +20,9 @@ public interface ProductJPA extends JpaRepository<ProductEntity, Integer>{
 	@Query(value = "SELECT * FROM Products WHERE product_id=?1", nativeQuery = true)
 	public Optional<ProductEntity> findByIdProd(int prodId);
 	
+	@Query(value = "SELECT * FROM Products WHERE is_active = 1 ORDER BY product_id DESC", nativeQuery = true)
+	List<ProductEntity> findAllActiveProducts();
+	
+	@Query(value = "SELECT * FROM products WHERE category_id=?1  AND is_active = 1 ORDER BY product_id DESC", nativeQuery = true)
 	List<ProductEntity> findByCategoryId(Integer categoryId);
 }
