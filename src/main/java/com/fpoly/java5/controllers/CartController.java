@@ -35,5 +35,13 @@ public class CartController {
 		cartService.deleteCartItem(cartItemId);
 		return "redirect:/cart";
 	}
+	
+	@PostMapping("/update-cart-item")
+	public String updateCartItem(@RequestParam int cartItemId, @RequestParam int quantity) {
+	    cartService.updateQuantityCartItem(cartItemId, quantity);
+	    return "redirect:/cart";
+	}
 
+
+	
 }

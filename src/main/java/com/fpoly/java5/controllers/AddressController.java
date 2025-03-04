@@ -35,7 +35,7 @@ public class AddressController {
 	public String addressForm(Model model) {
 		List<Province> provinces = addressService.getProvinces();
 		model.addAttribute("provinces", provinces);
-		return "/user/edit-address"; // Trả về template HTML
+		return "/user/edit-address"; 
 	}
 
 	@PostMapping("/user/add-address")
@@ -49,7 +49,6 @@ public class AddressController {
 	    addressEntity.setUser(user);
 	    addressEntity.setPhone(phone);
 	    
-	    // Lấy tên tỉnh, quận, phường từ API
 	    String provinceName = addressService.getProvinces().stream()
 	                          .filter(p -> p.getCode() == province)
 	                          .findFirst()
@@ -71,7 +70,7 @@ public class AddressController {
 	    addressEntity.setAddress(provinceName + ", " + districtName + ", " + wardName);
 	    addressJPA.save(addressEntity);
 
-	    return "redirect:/user/address-form";
+	    return "redirect:/user/checkout";
 	}
 
 }

@@ -28,7 +28,7 @@ public class HomeController {
 	
 	@ModelAttribute(name = "products")
 	public List<ProductEntity> getProduct() {
-		return productJPA.findAll();
+		return productJPA.findAllActiveProducts();
 	}
 	
 	@ModelAttribute("categories")
@@ -43,7 +43,7 @@ public class HomeController {
 	    if (categoryId != null) {
 	        products = productJPA.findByCategoryId(categoryId);
 	    } else {
-	        products = productJPA.findAll();
+	        products = productJPA.findAllActiveProducts();
 	    }
 	    
 	    model.addAttribute("products", products);
