@@ -40,7 +40,7 @@ public class UserService {
 	private EncryptionService encryptionService;
 
 	@Autowired
-	private PasswordResetTokenBean tokenBean; // Bean để lưu token tạm thời
+	private PasswordResetTokenBean tokenBean; 
 
 	public List<UserEntity> searchUsers(String keyword, boolean asc) {
 		Sort sort = asc ? Sort.by(Sort.Direction.ASC, "username") : Sort.by(Sort.Direction.DESC, "username");

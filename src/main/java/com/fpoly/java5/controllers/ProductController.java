@@ -46,11 +46,6 @@ public class ProductController {
 		return "/admin/product.html";
 	}
 
-	@GetMapping("/product")
-	public String redirectToAdminProduct() {
-		return "redirect:/admin/product";
-	}
-
 	@ModelAttribute(name = "productList")
 	public List<ProductEntity> getProduct() {
 		return productJPA.findAll();
@@ -70,7 +65,6 @@ public class ProductController {
 
 		if (id.isPresent()) {
 			Optional<ProductEntity> productOptional = productJPA.findById(id.get());
-
 			if (productOptional.isPresent()) {
 				ProductEntity product = productOptional.get();
 				bean.setId(id);

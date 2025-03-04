@@ -40,14 +40,14 @@ public class CheckOutController {
 	@Autowired
 	OrderService orderService;
 
-	@GetMapping("/checkout")
+	@GetMapping("/user/checkout")
 	public String checkoutLayout(Model model) {
 		model.addAttribute("items", cartService.getList());
 		model.addAttribute("totalPrice", cartService.getTotalPrice());
 		return "/user/checkout.html";
 	}
 
-	@PostMapping("/checkout")
+	@PostMapping("/user/checkout")
 	public String checkout(
 			@RequestParam("paymentMethod") int paymentMethod, Model model) {
 		try {

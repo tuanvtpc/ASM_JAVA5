@@ -403,7 +403,7 @@
         </div>
     </div>
 
-    <form action="/checkout" method="post" onsubmit="return validateForm()">
+    <form action="/user/checkout" method="post" onsubmit="return validateForm()">
         <input type="hidden" name="selectedAddressId" id="formSelectedAddressId" />
         <input type="hidden" name="paymentMethod" id="formPaymentMethod" />
         <button type="submit" class="btn-checkout">Đặt hàng</button>
@@ -602,6 +602,9 @@
                 alert("Vui lòng chọn phương thức thanh toán.");
                 return false;
             }
+
+            // Đảm bảo input hidden cập nhật đúng giá trị
+            document.getElementById("formPaymentMethod").value = paymentMethod.value;
 
             return true;
         }

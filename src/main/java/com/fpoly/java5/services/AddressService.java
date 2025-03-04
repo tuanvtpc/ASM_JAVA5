@@ -17,7 +17,7 @@ public class AddressService {
 
     public List<Province> getProvinces() {
         Mono<Province[]> response = webClient.get()
-                .uri("/api/p/") // Lấy danh sách tỉnh/thành phố
+                .uri("/api/p/") 
                 .retrieve()
                 .bodyToMono(Province[].class);
 
