@@ -20,7 +20,15 @@
 <title>Profile | AdminKit Demo</title>
 
 <link href="/images/static/css/app.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 <link
 	href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
 	rel="stylesheet">
@@ -30,45 +38,37 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-					<span class="align-middle">AdminController</span>
+				<a class="sidebar-brand" href="index.html"> <span
+					class="align-middle">AdminController</span>
 				</a>
 
 				<ul class="sidebar-nav">
-					<li class="sidebar-header">
-						Manage
-					</li>
+					<li class="sidebar-header">Manage</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/admin/dashboard">
-							<i class="align-middle" data-feather="sliders"></i> <span
-								class="align-middle">Dashboard</span>
-						</a>
-					</li>
+					<li class="sidebar-item"><a class="sidebar-link"
+						href="/admin/dashboard"> <i class="align-middle"
+							data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+					</a></li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/admin/user">
-							<i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
-						</a>
-					</li>
+					<li class="sidebar-item"><a class="sidebar-link"
+						href="/admin/user"> <i class="align-middle"
+							data-feather="user"></i> <span class="align-middle">User</span>
+					</a></li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link active" href="/admin/order">
-							<i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Order</span>
-						</a>
-					</li>
+					<li class="sidebar-item"><a class="sidebar-link active"
+						href="/admin/order"> <i class="align-middle"
+							data-feather="shopping-bag"></i> <span class="align-middle">Order</span>
+					</a></li>
 
-					<li class="sidebar-item active">
-						<a class="sidebar-link active" href="/admin/product">
-							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Product</span>
-						</a>
-					</li>
+					<li class="sidebar-item active"><a class="sidebar-link active"
+						href="/admin/product"> <i class="align-middle"
+							data-feather="package"></i> <span class="align-middle">Product</span>
+					</a></li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/admin/category">
-							<i class="align-middle" data-feather="database"></i> <span class="align-middle">Category</span>
-						</a>
-					</li>
+					<li class="sidebar-item"><a class="sidebar-link"
+						href="/admin/category"> <i class="align-middle"
+							data-feather="database"></i> <span class="align-middle">Category</span>
+					</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -255,13 +255,77 @@
 
 					<div class="mb-3 d-flex justify-content-between align-items-center">
 						<!-- Nút Add user -->
-						<a href="/admin/product-form" class="btn btn-success">Add Product</a>
+						<a href="/admin/product-form" class="btn btn-success">Add
+							Product</a>
 
 						<!-- Thanh tìm kiếm -->
-						  <form method="get" action="/admin/product" class="d-flex gap-2">
-                <input type="text" class="form-control" name="search" th:value="${search}" placeholder="Nhập tên sản phẩm...">
-                <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
-            </form>
+						<form method="get" action="/admin/product" class="d-flex gap-2">
+							<input type="text" class="form-control" name="search"
+								th:value="${search}" placeholder="Nhập tên sản phẩm...">
+							<button type="submit" class="btn btn-outline-primary">Tìm
+								kiếm</button>
+						</form>
+						<!-- Modal Form cho Giá -->
+						<div class="modal fade" id="editPriceModal" tabindex="-1"
+							aria-labelledby="editPriceModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="editPriceModalLabel">Chỉnh
+											sửa giá</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form id="editPriceForm">
+											<input type="hidden" id="editPriceProductId" name="id">
+											<div class="mb-3">
+												<label for="editPriceInput" class="form-label">Giá
+													bán</label> <input type="number" class="form-control"
+													id="editPriceInput" name="price" required>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Đóng</button>
+										<button type="button" class="btn btn-primary"
+											onclick="updatePrice()">Lưu thay đổi</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Modal Form cho Số Lượng -->
+						<div class="modal fade" id="editQuantityModal" tabindex="-1"
+							aria-labelledby="editQuantityModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="editQuantityModalLabel">Chỉnh
+											sửa số lượng</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form id="editQuantityForm">
+											<input type="hidden" id="editQuantityProductId" name="id">
+											<div class="mb-3">
+												<label for="editQuantityInput" class="form-label">Số
+													lượng</label> <input type="number" class="form-control"
+													id="editQuantityInput" name="quantity" required>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Đóng</button>
+										<button type="button" class="btn btn-primary"
+											onclick="updateQuantity()">Lưu thay đổi</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="row"></div>
 
@@ -276,6 +340,7 @@
 										<th>Số Lượng</th>
 										<th class="d-none d-md-table-cell">Danh Mục</th>
 										<th class="d-none d-xl-table-cell">Ngày Thêm</th>
+										<th class="d-none d-md-table-cell">Trạng Thái</th>
 										<th>Hành Động</th>
 									</tr>
 								</thead>
@@ -293,23 +358,35 @@
 														style="width: 50px; height: 50px;">
 												</th:block></td>
 											<td class="d-none d-xl-table-cell" th:text="${product.name}"></td>
-											<td th:text="${product.price} + 'VND'"></td>
-											<td th:text="${product.quantity}"></td>
+											<td><span th:text="${product.price} + ' VND'"
+												th:attr="onclick='openEditPriceModal(' + ${product.id} + ', ' + ${product.price} + ')'"
+												style="cursor: pointer;"> </span></td>
+											<td><span th:text="${product.quantity}"
+												th:attr="onclick='openEditQuantityModal(' + ${product.id} + ', ' + ${product.quantity} + ')'"
+												style="cursor: pointer;"> </span></td>
 											<td class="d-none d-md-table-cell"
 												th:text="${product.category.name}"></td>
 											<td class="d-none d-xl-table-cell"
 												th:text="${product.dateCreated}"></td>
+											<td class="d-none d-md-table-cell"><span
+												th:classappend="${product.isActive} ? 'bg-success' : 'bg-danger'"
+												class="badge"
+												th:text="${product.isActive} ? 'Đang kinh doanh' : 'Ngừng kinh doanh'"
+												onclick="confirmUpdateStatus(${product.id}, ${product.isActive})"
+												style="cursor: pointer;"> </span></td>
 											<td><a id="id" class="btn btn-success"
-												th:href="${'/admin/product-form?id=' + product.id}">SỬA</a> <script>
+												th:href="${'/admin/product-form?id=' + product.id}">SỬA</a>
+												<script>
 													function confirmDelete() {
 														return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
 													}
-												</script> 
+												</script>
 												<form method="post" action="/admin/delete-product"
 													onsubmit="return confirmDelete()">
 													<input name="id" th:value="${product.id}" type="hidden" />
 													<button class="btn btn-danger">XÓA</button>
-												</form></tr>
+												</form>
+										</tr>
 									</th:block>
 								</tbody>
 							</table>
@@ -347,6 +424,85 @@
 			</footer>
 		</div>
 	</div>
+	<script>
+  // Mở modal chỉnh sửa giá
+  function openEditPriceModal(id, price) {
+    document.getElementById('editPriceProductId').value = id;
+    document.getElementById('editPriceInput').value = price;
+    new bootstrap.Modal(document.getElementById('editPriceModal')).show();
+  }
+
+  // Gửi yêu cầu cập nhật giá
+  function updatePrice() {
+    const form = document.getElementById('editPriceForm');
+    const formData = new FormData(form);
+
+    fetch('/admin/update-product-price', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        location.reload(); // Tải lại trang sau khi cập nhật thành công
+      } else {
+        alert('Cập nhật giá thất bại!');
+      }
+    })
+    .catch(error => {
+      console.error('Lỗi:', error);
+    });
+  }
+
+  // Mở modal chỉnh sửa số lượng
+  function openEditQuantityModal(id, quantity) {
+    document.getElementById('editQuantityProductId').value = id;
+    document.getElementById('editQuantityInput').value = quantity;
+    new bootstrap.Modal(document.getElementById('editQuantityModal')).show();
+  }
+
+  // Gửi yêu cầu cập nhật số lượng
+  function updateQuantity() {
+    const form = document.getElementById('editQuantityForm');
+    const formData = new FormData(form);
+
+    fetch('/admin/update-product-quantity', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        location.reload(); // Tải lại trang sau khi cập nhật thành công
+      } else {
+        alert('Cập nhật số lượng thất bại!');
+      }
+    })
+    .catch(error => {
+      console.error('Lỗi:', error);
+    });
+  }
+
+  // Xác nhận và cập nhật trạng thái
+  function confirmUpdateStatus(id, isActive) {
+    const newStatus = !isActive; // Đảo ngược trạng thái hiện tại
+    const confirmMessage = `Bạn có muốn ${newStatus ? 'kích hoạt' : 'ngừng kinh doanh'} sản phẩm này không?`;
+
+    if (confirm(confirmMessage)) {
+      fetch(`/admin/update-product-status?id=${id}&isActive=${newStatus}`, {
+        method: 'POST'
+      })
+      .then(response => {
+        if (response.ok) {
+          location.reload(); // Tải lại trang sau khi cập nhật thành công
+        } else {
+          alert('Cập nhật trạng thái thất bại!');
+        }
+      })
+      .catch(error => {
+        console.error('Lỗi:', error);
+      });
+    }
+  }
+</script>
 
 	<script src="/images/static/js/app.js"></script>
 
