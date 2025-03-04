@@ -28,6 +28,6 @@ public class DetailProductController {
             return "redirect:/user/product"; 
         }
 
-        return "user/detail-product"; // Đúng đường dẫn
+        return "user/detail-product"; 
     }
 }

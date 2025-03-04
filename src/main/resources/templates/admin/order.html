@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="utf-8">
@@ -18,6 +18,7 @@
 	<title>Profile | AdminKit Demo</title>
 
 	<link href="/images/static/css/app.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -35,32 +36,32 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/dashboard">
+						<a class="sidebar-link" href="/admin/dashboard">
 							<i class="align-middle" data-feather="sliders"></i> <span
 								class="align-middle">Dashboard</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/user">
+						<a class="sidebar-link" href="/admin/user">
 							<i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item active">
-						<a class="sidebar-link active" href="/order">
+						<a class="sidebar-link active" href="/admin/order">
 							<i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Order</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/product">
+						<a class="sidebar-link" href="/admin/product">
 							<i class="align-middle" data-feather="package"></i> <span class="align-middle">Product</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/category">
+						<a class="sidebar-link" href="/admin/category">
 							<i class="align-middle" data-feather="database"></i> <span class="align-middle">Category</span>
 						</a>
 					</li>
@@ -255,17 +256,27 @@
 				<div class="container-fluid p-0">
 
 					<div class="mb-3 d-flex justify-content-end">
-						<!-- Nút sắp xếp đơn hàng -->
-						<div class="btn-group" role="group" aria-label="Order status filter">
-							<button type="button" class="btn btn-outline-primary">Đang xử lý</button>
-							<button type="button" class="btn btn-outline-warning">Đang giao</button>
-							<button type="button" class="btn btn-outline-success">Hoàn tất</button>
-							<button type="button" class="btn btn-outline-danger">Đã hủy</button>
-						</div>
+					    <div class="btn-group" role="group" aria-label="Order status filter">
+					        <a href="/admin/order" class="btn btn-outline-secondary">Tất cả</a>
+					        <a href="/admin/order?status=0" class="btn btn-outline-primary">Chờ xác nhận</a>
+					        <a href="/admin/order?status=1" class="btn btn-outline-warning">Đã xác nhận</a>
+					        <a href="/admin/order?status=2" class="btn btn-outline-info">Đang giao</a>
+					        <a href="/admin/order?status=3" class="btn btn-outline-success">Đã giao</a>
+					        <a href="/admin/order?status=4" class="btn btn-outline-success">Hoàn tất</a>
+					        <a href="/admin/order?status=5" class="btn btn-outline-danger">Trả hàng</a>
+					        <a href="/admin/order?status=6" class="btn btn-outline-dark">Hủy đơn</a>
+					    </div>
 					</div>
 					<div class="row">
 
-
+					<div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+			            <span th:text="${message}"></span>
+			            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			        </div>
+			        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+			            <span th:text="${error}"></span>
+			            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			        </div>
 
 					</div>
 
@@ -282,46 +293,52 @@
 										<th class="d-none d-xl-table-cell">Ngày Đặt</th>
 										<th>Địa Chỉ</th>
 										<th class="d-none d-md-table-cell">Trạng Thái</th>
+										<th class="d-none d-md-table-cell">Cập nhật</th>
+										<th class="d-none d-md-table-cell">Chi tiết</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>DH001</td>
-										<td class="d-none d-xl-table-cell">Nguyễn Văn A</td>
-										<td class="d-none d-xl-table-cell">01/01/2023</td>
-										<td>123 Đường ABC, TP.HCM</td>
-										<td><span class="badge bg-success">Hoàn tất</span></td>
-									</tr>
-									<tr>
-										<td>DH002</td>
-										<td class="d-none d-xl-table-cell">Trần Thị B</td>
-										<td class="d-none d-xl-table-cell">05/01/2023</td>
-										<td>456 Đường DEF, Hà Nội</td>
-										<td><span class="badge bg-warning">Đang xử lý</span></td>
-									</tr>
-									<tr>
-										<td>DH003</td>
-										<td class="d-none d-xl-table-cell">Lê Văn C</td>
-										<td class="d-none d-xl-table-cell">10/01/2023</td>
-										<td>789 Đường GHI, Đà Nẵng</td>
-										<td><span class="badge bg-danger">Đã hủy</span></td>
-									</tr>
-									<tr>
-										<td>DH004</td>
-										<td class="d-none d-xl-table-cell">Phạm Thị D</td>
-										<td class="d-none d-xl-table-cell">15/01/2023</td>
-										<td>12 Đường JKL, TP.HCM</td>
-										<td><span class="badge bg-warning">Đang giao</span></td>
-									</tr>
-									<tr>
-										<td>DH005</td>
-										<td class="d-none d-xl-table-cell">Võ Văn E</td>
-										<td class="d-none d-xl-table-cell">20/01/2023</td>
-										<td>34 Đường MNO, Bình Dương</td>
-										<td><span class="badge bg-success">Hoàn tất</span></td>
-									</tr>
+									<th:block th:each="item : ${order}">
+										<tr>
+											<td th:text="${item.id}"></td>
+											<td class="d-none d-xl-table-cell" th:text="${item.name}"></td>
+											<td class="d-none d-xl-table-cell" th:text="${item.createdAt}"></td>
+											<td th:text="${item.address}"></td>
+											<td>
+								                <span th:switch="${item.status}">
+								                    <span th:case="0" class="badge bg-secondary">Chờ xác nhận</span>
+								                    <span th:case="1" class="badge bg-primary">Đã xác nhận</span>
+								                    <span th:case="2" class="badge bg-info">Đang giao</span>
+								                    <span th:case="3" class="badge bg-warning">Đã giao hàng</span>
+								                    <span th:case="4" class="badge bg-success">Đã nhận hàng</span>
+								                    <span th:case="5" class="badge bg-danger">Trả hàng</span>
+								                    <span th:case="6" class="badge bg-dark">Hủy đơn</span>
+								                    <span th:case="*" class="badge bg-light">Trạng thái không xác định</span>
+								                </span>
+								            </td>
+								            <td>
+											    <form action="/admin/update-statusOrder" method="post" style="display: inline;">
+											        <input type="hidden" name="id" th:value="${item.id}">
+											        <select name="status" class="form-select" onchange="this.form.submit()">
+											            <option value="0" th:selected="${item.status == 0}">Chờ xác nhận</option>
+											            <option value="1" th:selected="${item.status == 1}">Đã xác nhận</option>
+											            <option value="2" th:selected="${item.status == 2}">Đang giao</option>
+											            <option value="3" th:selected="${item.status == 3}">Đã giao hàng</option>
+											            <option value="4" th:selected="${item.status == 4}">Đã nhận hàng</option>
+											            <option value="6" th:selected="${item.status == 6}">Hủy đơn</option>
+											        </select>
+											    </form>
+											</td>
+								            <td>
+											    <button type="button" class="btn btn-outline-success" th:onclick="|window.location.href='/admin/order-detail?id=' + ${item.id}|">Chi tiết</button>
+											</td>
+										</tr>
+									</th:block>
 								</tbody>
 							</table>
+							<div class="mt-4">
+					            <a href="/user/profile" class="btn btn-secondary">Quay lại</a>
+					        </div>
 						</div>
 					</div>
 				</div>

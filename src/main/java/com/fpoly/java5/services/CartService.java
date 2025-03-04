@@ -38,6 +38,19 @@ public class CartService {
 
 	@Autowired
 	HttpServletResponse resp;
+	
+	
+	
+	
+	
+	public void clearCart() {
+	    CartEntity cart = getCart();
+	    if (cart != null) {
+	        cartDetailJPA.deleteByCartId(cart.getId());
+	    } else {
+	        throw new RuntimeException("Cart not found");
+	    }
+	}
 
 	public UserEntity getUser() {
 		Cookie[] cookies = req.getCookies();
@@ -140,4 +153,12 @@ public class CartService {
 		}
 		return true;
 	}
+	
+	public double getTotalPrice() {
+        double total = 0;
+        for (CartDetailEntity item : getList()) {
+            total += item.getProduct().getPrice() * item.getQuantity();
+        }
+        return total;
+    }
 }
