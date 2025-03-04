@@ -295,7 +295,17 @@
 											<td th:text="${item.email}"></td>
 											<td th:text="${item.phone}"></td>
 											<td th:text="${item.avatar}"></td>
-											<td th:text="${item.active ? 'Active' : 'Blocked'}"></td>
+											<td>
+												<form th:action="@{/toggle-status}" method="post">
+													<input type="hidden" name="id" th:value="${item.id}" /> <input
+														type="hidden" name="active" th:value="${!item.active}" />
+													<button type="submit" class="btn btn-link p-0 border-0">
+														<span th:if="${item.active}" class="badge bg-success">Active</span>
+														<span th:unless="${item.active}" class="badge bg-danger">Blocked</span>
+													</button>
+												</form>
+											</td>
+
 											<td th:text="${item.role == 0 ? 'Admin' : 'User'}"></td>
 											<td class="d-flex gap-3"><a name="" id=""
 												class="btn btn-primary"
