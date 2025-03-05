@@ -32,16 +32,17 @@ public class AddressController {
 	private CartService cartService;
 
 	@GetMapping("/user/address-form")
-	public String addressForm(Model model) {
+	public String addressForm(@RequestParam(required = false) String idBack, Model model) {
 		List<Province> provinces = addressService.getProvinces();
+		model.addAttribute("backCheckOout", idBack);
 		model.addAttribute("provinces", provinces);
 		return "/user/edit-address"; 
 	}
 
-	@PostMapping("/user/add-address")
+	@PostMapping("/user/address-form")
 	public String addAddress(@RequestParam String name, @RequestParam String phone, 
 	                         @RequestParam int province, @RequestParam int district, 
-	                         @RequestParam int ward) {
+	                         @RequestParam int ward, @RequestParam(required = false) String idBack) {
 	    UserEntity user = cartService.getUser();
 	    AddressEntity addressEntity = new AddressEntity();
 	    
@@ -70,7 +71,11 @@ public class AddressController {
 	    addressEntity.setAddress(provinceName + ", " + districtName + ", " + wardName);
 	    addressJPA.save(addressEntity);
 
-	    return "redirect:/user/checkout";
+	    if (idBack != null) {
+	        return "redirect:/user/checkout";
+	    } else {
+	        return "redirect:/user/profile";
+	    }
 	}
 
 }

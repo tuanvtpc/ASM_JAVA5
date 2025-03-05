@@ -282,20 +282,18 @@ body {
 				                <div class="col-lg-7">
 				                    <h3>Địa chỉ của tôi</h3>
 				                    <div class="d-flex justify-content-between align-items-center mb-3">
-				                        <form th:action="@{/user/add-address}" method="post" class="w-100">
-				                            <!-- Name Field -->
+				                        <form th:action="@{/user/address-form}" method="post" class="w-100">
+
 				                            <div class="mb-3">
 				                                <label for="name" class="form-label">Họ và tên:</label>
 				                                <input type="text" class="form-control" id="name" name="name" required>
 				                            </div>
 				
-				                            <!-- Phone Field -->
 				                            <div class="mb-3">
 				                                <label for="phone" class="form-label">Số điện thoại:</label>
 				                                <input type="text" class="form-control" id="phone" name="phone" required>
 				                            </div>
 				
-				                            <!-- Province Field -->
 				                            <div class="mb-3">
 				                                <label for="province" class="form-label">Tỉnh/Thành phố:</label>
 				                                <select class="form-select" id="province" name="province" required>
@@ -304,7 +302,6 @@ body {
 				                                </select>
 				                            </div>
 				
-				                            <!-- District Field -->
 				                            <div class="mb-3">
 				                                <label for="district" class="form-label">Quận/Huyện:</label>
 				                                <select class="form-select" id="district" name="district" required>
@@ -312,14 +309,13 @@ body {
 				                                </select>
 				                            </div>
 				
-				                            <!-- Ward Field -->
 				                            <div class="mb-3">
 				                                <label for="ward" class="form-label">Xã/Phường:</label>
 				                                <select class="form-select" id="ward" name="ward" required>
 				                                    <option value="">Chọn xã/phường</option>
 				                                </select>
 				                            </div>
-				
+											<input type="hidden" name="idBack" th:value="${backCheckOout}">
 				                            <!-- Submit Button -->
 				                            <div class="mb-3">
 				                                <button type="submit" class="btn btn-primary">Thêm địa chỉ</button>

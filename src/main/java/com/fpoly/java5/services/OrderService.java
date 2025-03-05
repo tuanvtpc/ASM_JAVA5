@@ -67,5 +67,16 @@ public class OrderService {
 	}
 	
 	
+	public void updateOrderStatus(int orderId, int status) {
+        Optional<OrderEntity> orderOpt = orderJPA.findById(orderId);
+        if (orderOpt.isPresent()) {
+            OrderEntity order = orderOpt.get();
+            order.setStatus(status);
+            orderJPA.save(order);
+        } else {
+            throw new RuntimeException("Order not found");
+        }
+    }
+	
 
 }

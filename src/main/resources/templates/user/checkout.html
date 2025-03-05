@@ -360,8 +360,8 @@
 	            </select>
 	        </div>
 	        <div>
-	            <a class="btn btn-secondary" th:href="@{/user/address-form}">Thêm địa chỉ mới</a>
-	        </div>
+			    <a class="btn btn-secondary" th:href="@{/user/address-form(idBack=backCheckOout)}">Thêm địa chỉ mới</a>
+			</div>
 	        <input type="hidden" id="selectedAddressId" name="selectedAddressId" />
 	    </div>
     	
@@ -385,28 +385,24 @@
 		</div>
 	
 	    <div class="checkout-section">
-        <h2>Phương thức thanh toán</h2>
-        <div class="payment-methods">
-            <label>
-                <input type="radio" name="paymentMethod" value="0" checked onchange="updatePaymentMethod(this)" />
-                Thanh toán khi nhận hàng (COD)
-            </label>
-            <label>
-                <input type="radio" name="paymentMethod" value="1" onchange="updatePaymentMethod(this)" />
-                Chuyển khoản ngân hàng
-            </label>
-            <label>
-                <input type="radio" name="paymentMethod" value="2" onchange="updatePaymentMethod(this)" />
-                Ví điện tử Momo
-            </label>
-        </div>
-    </div>
-
-    <form action="/user/checkout" method="post" onsubmit="return validateForm()">
-        <input type="hidden" name="selectedAddressId" id="formSelectedAddressId" />
-        <input type="hidden" name="paymentMethod" id="formPaymentMethod" />
-        <button type="submit" class="btn-checkout">Đặt hàng</button>
-    </form>
+		    <h2>Phương thức thanh toán</h2>
+		    <div class="payment-methods">
+		        <label>
+		            <input type="radio" name="paymentMethod" value="0" checked onchange="updatePaymentMethod(this)" />
+		            Thanh toán khi nhận hàng (COD)
+		        </label>
+		        <label>
+		            <input type="radio" name="paymentMethod" value="3" onchange="updatePaymentMethod(this)" />
+		            Thanh toán qua VNPay
+		        </label>
+		    </div>
+		</div>
+		
+		<form action="/user/checkout" method="post" onsubmit="return validateForm()">
+		    <input type="hidden" name="selectedAddressId" id="formSelectedAddressId" />
+		    <input type="hidden" name="paymentMethod" id="formPaymentMethod" />
+		    <button type="submit" class="btn-checkout">Đặt hàng</button>
+		</form>
 	</div>
     
     
