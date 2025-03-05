@@ -17,13 +17,15 @@ public class CartController {
 
 	@GetMapping("/cart")
 	public String cartLayout(Model model) {
-		model.addAttribute("items", cartService.getList());
+		model.addAttribute("items", cartService.getList()); 
+		model.addAttribute("totalPrice", cartService.getTotalPrice());
 		return "/user/cart.html";
 	}
 
 	@PostMapping("/add-to-cart")
 	public String addToCart(@RequestParam int prodId) {
 		cartService.addToCart(prodId);
+		
 
 		return "redirect:/homepage";
 	}
@@ -31,7 +33,15 @@ public class CartController {
 	@PostMapping("/delete-cart-item")
 	public String deleteCartItem(@RequestParam int cartItemId) {
 		cartService.deleteCartItem(cartItemId);
-		return "redirect:/user/cart";
+		return "redirect:/cart";
+	}
+	
+	@PostMapping("/update-cart-item")
+	public String updateCartItem(@RequestParam int cartItemId, @RequestParam int quantity) {
+	    cartService.updateQuantityCartItem(cartItemId, quantity);
+	    return "redirect:/cart";
 	}
 
+
+	
 }

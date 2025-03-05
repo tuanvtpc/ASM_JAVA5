@@ -1,6 +1,7 @@
 package com.fpoly.java5.beans;
 
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProductBean {
 
-    private int id;
+    Optional<Integer> id;
 
     @NotBlank(message = "Tên sản phẩm không được bỏ trống")
     @Size(max = 250, message = "Tên sản phẩm không được vượt quá 250 ký tự")

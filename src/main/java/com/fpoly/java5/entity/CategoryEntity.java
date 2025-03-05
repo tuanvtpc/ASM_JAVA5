@@ -11,12 +11,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Category")
+@Table(name = "category") // Đảm bảo đúng tên bảng
 public class CategoryEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "category_id", updatable = false, nullable = false)
+	private int id;
+
 
     @Column(name = "name", nullable = false, columnDefinition = "nvarchar(255)")
     private String name;

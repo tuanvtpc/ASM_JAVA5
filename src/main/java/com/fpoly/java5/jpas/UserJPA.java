@@ -6,10 +6,15 @@ import java.util.Optional;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.fpoly.java5.entity.UserEntity;
 
 public interface UserJPA extends JpaRepository<UserEntity, Integer> {
+	@Query("SELECT u FROM UserEntity u WHERE u.username LIKE %:keyword% OR u.email LIKE %:keyword% OR u.name LIKE %:keyword%")
+	List<UserEntity> searchUsers(@Param("keyword") String keyword, Sort sort);
+
+	
 	@Query(name = "SELECT * FROM users WHERE username=?1 OR email=?2", nativeQuery = true)
 	public List<UserEntity> findByUsernameAndEmail(String username, String email);
 
@@ -18,7 +23,10 @@ public interface UserJPA extends JpaRepository<UserEntity, Integer> {
 
 	List<UserEntity> findByNameContainingIgnoreCaseAndUsernameContainingIgnoreCaseAndEmailContainingIgnoreCase(
 			String name, String username, String email, Sort sort);
-
+	
+	@Query(value = "SELECT * FROM Users  WHERE username =?1 AND is_active = 1", nativeQuery = true)
 	Optional<UserEntity> findByUsername(String username);
+	
+	Optional<UserEntity> findByEmail(String email);
 
 }

@@ -48,7 +48,7 @@
       </div>
 
       <div class="logo-shop">
-        <a href="index.html">
+        <a href="/homepage">
           <img
             src="https://www.flowercorner.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
             title="FlowerCorner.vn - Shop hoa tươi"
@@ -197,45 +197,71 @@
     </div>
 
     <table id="cart-table" class="table">
-      <thead>
-        <tr>
-          <th>Hình ảnh</th>
-          <th>Tên sản phẩm</th>
-          <th>Số lượng</th>
-          <th style="text-align: right">Đơn giá</th>
-          <th style="text-align: right">Tổng cộng</th>
-        </tr>
-      </thead>
-      <tbody>
-      	<th:block th:each="item : ${items}">
-            <tr>
-	            <td>
-	                <img th:src="${'/images/' + item.product.images[0].imageName}"
-	                    alt="Endless Love" style="width: 70px;">
-	            </td>
-	            <td th:text="${item.product.name}"></td>
-	            <td th:text="${item.quantity}"></td>
-	            <td style="text-align: right" th:text="${item.product.price}"></td>
-	            <td style="text-align: right" th:text="${item.product.price * item.quantity}"></td>
+	    <thead>
+	        <tr>
+	            <th>Hình ảnh</th>
+	            <th>Tên sản phẩm</th>
+	            <th>Số lượng</th>
+	            <th style="text-align: right">Đơn giá</th>
+	            <th style="text-align: right">Tổng cộng</th>
+	            <th>Xóa</th>
 	        </tr>
-         </th:block>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4" style="text-align: right"><strong>Tổng phụ</strong></td>
-          <td id="sub-total">0 VND</td>
-        </tr>
-        <tr>
-          <td colspan="4" style="text-align: right"><strong>Tổng cộng</strong></td>
-          <td id="total">0 VND</td>
-        </tr>
-        <tr>
-         <td colspan="5" style="text-align: right">
-          <a href="payment-sussess.html" class="btn btn-primary float-end">Thanh toán</a>
-         </td>
-        </tr>
-      </tfoot>
-    </table>
+	    </thead>
+	    <tbody>
+	        <th:block th:each="item : ${items}">
+	            <tr>
+	                <td style="vertical-align: middle;">
+	                    <img th:src="${'/images/' + item.product.images[0].imageName}" alt="Endless Love" style="width: 70px;">
+	                </td>
+	                <td style="vertical-align: middle;" th:text="${item.product.name}"></td>
+	                <td style="vertical-align: middle;">
+				        <div class="d-flex justify-content-center align-items-center">
+				            <!-- Form giảm số lượng -->
+				            <form action="/update-cart-item" method="post" style="display:inline;">
+				                <input type="hidden" name="cartItemId" th:value="${item.id}" />
+				                <input type="hidden" name="quantity" th:value="${item.quantity - 1}" />
+				                <button type="submit" class="btn btn-outline-secondary btn-sm" 
+				                    th:disabled="${item.quantity <= 1}">-</button>
+				            </form>
+				            
+				            <input type="text" class="form-control text-center mx-2" style="width: 50px;" 
+				                th:value="${item.quantity}" readonly>
+				            
+				            <!-- Form tăng số lượng -->
+				            <form action="/update-cart-item" method="post" style="display:inline;">
+				                <input type="hidden" name="cartItemId" th:value="${item.id}" />
+				                <input type="hidden" name="quantity" th:value="${item.quantity + 1}" />
+				                <button type="submit" class="btn btn-outline-secondary btn-sm">+</button>
+				            </form>
+				        </div>
+				    </td>
+	                <td style="text-align: right; vertical-align: middle;" th:text="${item.product.price}"></td>
+	                <td style="text-align: right; vertical-align: middle;" th:text="${item.product.price * item.quantity}"></td>
+	                <td style="vertical-align: middle; text-align: center;">
+	                    <form action="/delete-cart-item" method="post" style="display: inline;">
+	                        <input type="hidden" name="cartItemId" th:value="${item.id}" />
+	                        <button type="submit" class="btn btn-danger btn-sm">X</button>
+	                    </form>
+	                </td>
+	            </tr>
+	        </th:block>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4" style="text-align: right"><strong>Tổng phụ</strong></td>
+	            <td id="sub-total"><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span></td>
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align: right"><strong>Tổng cộng</strong></td>
+	            <td id="total"><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span></td>
+	        </tr>
+	        <tr>
+	            <td colspan="5" style="text-align: right">
+	                <a href="/user/checkout" class="btn btn-primary float-end">Thanh toán</a>
+	            </td>
+	        </tr>
+	    </tfoot>
+	</table>
     
     
     
