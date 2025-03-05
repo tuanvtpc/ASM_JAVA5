@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fpoly.java5.entity.OrderDetailEntity;
@@ -21,7 +19,6 @@ import com.fpoly.java5.jpas.OrderDetailJPA;
 import com.fpoly.java5.jpas.OrderJPA;
 import com.fpoly.java5.jpas.UserJPA;
 import com.fpoly.java5.services.CartService;
-import com.fpoly.java5.services.ImageService;
 import com.fpoly.java5.services.UserService;
 
 
@@ -42,12 +39,6 @@ public class ProfileController {
 
 	@Autowired
 	OrderDetailJPA orderDetailJPA;
- @Autowired
-	    private ImageService imageService;
-
- 
-		 @Autowired
-		 private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/user/profile")
 	public String profileUser(Model model) {
@@ -114,31 +105,6 @@ public class ProfileController {
 	    return "redirect:/profile";
 	}
 	
-	    @PostMapping("/user/update-avatar")
-	    public String updateAvatar(@RequestParam("avatar") MultipartFile avatar, Model model) {
-	        UserEntity user = cartService.getUser();
-	        if (user == null) {
-	            return "redirect:/login";
-	        }
-
-	        if (avatar.isEmpty()) {
-	            model.addAttribute("avatarError", "Vui lòng chọn ảnh");
-	            return "/user/edit-profile.html";
-	        }
-
-	        // Lưu ảnh vào thư mục và lấy tên file
-	        String fileName = imageService.saveImage(avatar);
-	        if (fileName == null) {
-	            model.addAttribute("avatarError", "Lỗi khi lưu ảnh");
-	            return "/user/edit-profile.html";
-	        }
-
-	        // Cập nhật avatar cho user
-	        user.setAvatar(fileName);
-	        userJPA.save(user);
-
-	        return "redirect:/user/profile";
-	    }
 	
 	
 	
@@ -246,43 +212,9 @@ public class ProfileController {
 	}
 	
 
-	@GetMapping("/user/change-password")
-	public String changePassword(Model model) {
-	    UserEntity user = cartService.getUser(); 
-	    if (user == null) {
-	        return "redirect:/login"; 
-	    }
-	    model.addAttribute("user", user);
-	    return "user/change-password.html";
+	@GetMapping("/change-password")
+	public String changePassword() {
+		return "/user/change-password.html";
 	}
-
-	  
-    @PostMapping("/user/change-password")
-    public String updatePassword(@RequestParam("currentPassword") String currentPassword,
-                                 @RequestParam("newPassword") String newPassword,
-                                 @RequestParam("confirmPassword") String confirmPassword,
-                                 Model model) {
-        UserEntity user = cartService.getUser();
-        if (user == null) {
-            return "redirect:/login";
-        }
-
-        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-
-            model.addAttribute("passwordError", "Mật khẩu hiện tại không đúng");
-            return "user/change-password.html";
-        }
-
-        if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("passwordError", "Mật khẩu mới và xác nhận mật khẩu không khớp");
-            return "user/change-password.html";
-        }
-
-        user.setPassword(passwordEncoder.encode(newPassword));
-
-        userJPA.save(user);
-
-        return "redirect:/user/profile";
-    }
-    
+	
 }

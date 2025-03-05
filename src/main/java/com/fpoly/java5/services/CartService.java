@@ -53,22 +53,18 @@ public class CartService {
 	}
 
 	public UserEntity getUser() {
-	    Cookie[] cookies = req.getCookies();
-	    if (cookies == null) {
-	        return null;
-	    }
-	    for (Cookie cookie : cookies) {
-	        if (cookie.getName().equals("user_id")) {
-	            Optional<UserEntity> userOptional = userJPA.findById(Integer.parseInt(cookie.getValue()));
-	            if (userOptional.isPresent()) {
-	                UserEntity user = userOptional.get();
-	                return user;
-	            }
-	        }
-	    }
-	    return null;
+		Cookie[] cookies = req.getCookies();
+		if (cookies == null) {
+			return null;
+		}
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("user_id")) {
+				Optional<UserEntity> userOptional = userJPA.findById(Integer.parseInt(cookie.getValue()));
+				return userOptional.isPresent() ? userOptional.get() : null;
+			}
+		}
+		return null;
 	}
-
 
 	private CartEntity getCart(){
 	    try{

@@ -49,9 +49,13 @@ public class CheckOutController {
 
 	@PostMapping("/user/checkout")
 	public String checkout(
+<<<<<<< HEAD
 			@RequestParam("paymentMethod") int paymentMethod, 
 			@RequestParam("selectedAddressId") int selectedAddressId,
 			Model model) {
+=======
+			@RequestParam("paymentMethod") int paymentMethod, Model model) {
+>>>>>>> parent of b094af6 (profile-user)
 		try {
 			
 			
@@ -60,7 +64,7 @@ public class CheckOutController {
 	            return "/user/checkout.html";
 	        }
 
-			orderService.CreateOrder(selectedAddressId, paymentMethod);
+			orderService.CreateOrder(2, paymentMethod);
 			return "redirect:/cart";
 		} catch (Exception e) {
 			model.addAttribute("error", "Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại.");
