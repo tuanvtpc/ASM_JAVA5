@@ -49,13 +49,9 @@ public class CheckOutController {
 
 	@PostMapping("/user/checkout")
 	public String checkout(
-<<<<<<< HEAD
 			@RequestParam("paymentMethod") int paymentMethod, 
 			@RequestParam("selectedAddressId") int selectedAddressId,
 			Model model) {
-=======
-			@RequestParam("paymentMethod") int paymentMethod, Model model) {
->>>>>>> parent of b094af6 (profile-user)
 		try {
 			
 			
