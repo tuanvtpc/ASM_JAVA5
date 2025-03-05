@@ -23,7 +23,8 @@ public interface UserJPA extends JpaRepository<UserEntity, Integer> {
 
 	List<UserEntity> findByNameContainingIgnoreCaseAndUsernameContainingIgnoreCaseAndEmailContainingIgnoreCase(
 			String name, String username, String email, Sort sort);
-
+	
+	@Query(value = "SELECT * FROM Users  WHERE username =?1 AND is_active = 1", nativeQuery = true)
 	Optional<UserEntity> findByUsername(String username);
 	
 	Optional<UserEntity> findByEmail(String email);

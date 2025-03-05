@@ -50,8 +50,8 @@ public class CheckOutController {
 	@PostMapping("/user/checkout")
 	public String checkout(
 			@RequestParam("paymentMethod") int paymentMethod, 
-			@RequestParam("paymentMethod") int selectedAddressId,
-			Model model ) {
+			@RequestParam("selectedAddressId") int selectedAddressId,
+			Model model) {
 		try {
 			
 			

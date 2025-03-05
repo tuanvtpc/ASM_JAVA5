@@ -23,7 +23,7 @@ label {
 }
 
 .error-text {
-    font-size: 1px; /* Chỉnh kích thước nhỏ hơn */
+    font-size: 1px;
 }
 
 
@@ -271,7 +271,6 @@ body {
 										<th>Mã Đơn Hàng</th>
 										<th class="d-none d-xl-table-cell">Tên Người Đặt Hàng</th>
 										<th class="d-none d-xl-table-cell">Ngày Đặt</th>
-										<th>Địa Chỉ</th>
 										<th class="d-none d-md-table-cell">Trạng Thái</th>
 										<th class="d-none d-md-table-cell">Cập nhật</th>
 										<th class="d-none d-md-table-cell">Chi tiết</th>
@@ -283,7 +282,6 @@ body {
 											<td th:text="${item.id}"></td>
 											<td class="d-none d-xl-table-cell" th:text="${item.name}"></td>
 											<td class="d-none d-xl-table-cell" th:text="${item.createdAt}"></td>
-											<td th:text="${item.address}"></td>
 											<td>
 								                <span th:switch="${item.status}">
 								                    <span th:case="0" class="badge bg-secondary">Chờ xác nhận</span>
