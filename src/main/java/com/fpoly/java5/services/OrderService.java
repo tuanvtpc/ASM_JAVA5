@@ -14,9 +14,11 @@ import com.fpoly.java5.entity.AddressEntity;
 import com.fpoly.java5.entity.CartDetailEntity;
 import com.fpoly.java5.entity.OrderDetailEntity;
 import com.fpoly.java5.entity.OrderEntity;
+import com.fpoly.java5.entity.ProductEntity;
 import com.fpoly.java5.jpas.AddressJPA;
 import com.fpoly.java5.jpas.OrderDetailJPA;
 import com.fpoly.java5.jpas.OrderJPA;
+import com.fpoly.java5.jpas.ProductJPA;
 
 @Service
 public class OrderService {
@@ -33,38 +35,48 @@ public class OrderService {
 	@Autowired
 	AddressJPA addressJPA;
 
-	public void CreateOrder(int addressId, int paymentMethod) {
-		AddressEntity address = addressJPA.findById(addressId)
-				.orElseThrow(() -> new RuntimeException("Address not found"));
+	@Autowired
+    ProductJPA productJPA; 
 
-		OrderEntity orderEntity = new OrderEntity();
-		orderEntity.setUser(cartService.getUser());
-		orderEntity.setPhone(address.getPhone());
-		orderEntity.setAddress(address.getAddress());
-		orderEntity.setName(address.getName());
-		orderEntity.setStatus(0);
-		orderEntity.setTotalAmount(cartService.getTotalPrice());
-		orderEntity.setPaymentMethod(paymentMethod);
-		orderEntity.setPaymentStatus(0);
-		orderEntity.setTransactionId(0);
-		orderEntity.setCreatedAt(new Date());
+    public void CreateOrder(int addressId, int paymentMethod) {
+        AddressEntity address = addressJPA.findById(addressId)
+                .orElseThrow(() -> new RuntimeException("Address not found"));
 
-		OrderEntity saveOder = orderJPA.save(orderEntity);
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setUser(cartService.getUser());
+        orderEntity.setPhone(address.getPhone());
+        orderEntity.setAddress(address.getAddress());
+        orderEntity.setName(address.getName());
+        orderEntity.setStatus(0);
+        orderEntity.setTotalAmount(cartService.getTotalPrice());
+        orderEntity.setPaymentMethod(paymentMethod);
+        orderEntity.setPaymentStatus(0);
+        orderEntity.setTransactionId(0);
+        orderEntity.setCreatedAt(new Date());
 
-		List<CartDetailEntity> cartDetailEntity = cartService.getList();
+        OrderEntity saveOder = orderJPA.save(orderEntity);
 
-		for (CartDetailEntity item : cartDetailEntity) {
-			OrderDetailEntity orderDetailEntity = new OrderDetailEntity();
-			orderDetailEntity.setOrder(orderEntity);
-			orderDetailEntity.setProduct(item.getProduct());
-			orderDetailEntity.setPrice(item.getProduct().getPrice());
-			orderDetailEntity.setQuantity(item.getQuantity());
+        List<CartDetailEntity> cartDetailEntity = cartService.getList();
 
-			orderDetailJPA.save(orderDetailEntity);
-		}
-		cartService.clearCart();
+        for (CartDetailEntity item : cartDetailEntity) {
+            ProductEntity product = item.getProduct();
+            int remainingQuantity = product.getQuantity() - item.getQuantity();
+            if (remainingQuantity < 0) {
+                throw new RuntimeException("Số lượng sản phẩm " + product.getName() + " không đủ");
+            }
+            product.setQuantity(remainingQuantity);
+            productJPA.save(product); 
 
-	}
+            OrderDetailEntity orderDetailEntity = new OrderDetailEntity();
+            orderDetailEntity.setOrder(orderEntity);
+            orderDetailEntity.setProduct(item.getProduct());
+            orderDetailEntity.setPrice(item.getProduct().getPrice());
+            orderDetailEntity.setQuantity(item.getQuantity());
+
+            orderDetailJPA.save(orderDetailEntity);
+        }
+        cartService.clearCart();
+    }
 	
 	
 	public void updateOrderStatus(int orderId, int status) {
@@ -77,6 +89,10 @@ public class OrderService {
             throw new RuntimeException("Order not found");
         }
     }
+	
+	 public Double getTotalAmountByStatus() {
+	        return orderJPA.sumTotalAmountByStatus();
+	    }
 	
 
 }

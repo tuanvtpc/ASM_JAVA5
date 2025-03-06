@@ -19,5 +19,16 @@ public interface OrderJPA extends JpaRepository<OrderEntity, Integer>{
 	@Query(value = "SELECT * FROM Orders WHERE user_id = ?1 AND status = ?2", nativeQuery = true)
 	List<OrderEntity> findByUserIdAndStatus(Integer userId, int status);
 	
+	@Query(value = "SELECT COUNT(*) FROM Orders", nativeQuery = true)
+	int countAllOrders();
+	
+	@Query(value = "SELECT SUM(total_amount) FROM Orders WHERE status IN (4, 5)", nativeQuery = true)
+    Double sumTotalAmountByStatus();
+	
+	@Query(value = "SELECT COUNT(*) FROM Orders WHERE status = 2", nativeQuery = true)
+	int countAllOrderByStatus();
+	
+	
+
 	
 }

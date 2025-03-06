@@ -18,6 +18,7 @@ import com.fpoly.java5.jpas.UserJPA;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CartService {
@@ -42,7 +43,7 @@ public class CartService {
 	
 	
 	
-	
+	@Transactional
 	public void clearCart() {
 	    CartEntity cart = getCart();
 	    if (cart != null) {
@@ -66,7 +67,7 @@ public class CartService {
 		return null;
 	}
 
-	private CartEntity getCart(){
+	public CartEntity getCart(){
 	    try{
 	      UserEntity userEntity = getUser();
 	      if(userEntity != null && userEntity.getCarts() != null){

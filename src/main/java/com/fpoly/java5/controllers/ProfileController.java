@@ -9,14 +9,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fpoly.java5.entity.CartEntity;
+import com.fpoly.java5.entity.CategoryEntity;
 import com.fpoly.java5.entity.OrderDetailEntity;
 import com.fpoly.java5.entity.OrderEntity;
 import com.fpoly.java5.entity.UserEntity;
+import com.fpoly.java5.jpas.CartDetailJPA;
+import com.fpoly.java5.jpas.CategoryJPA;
 import com.fpoly.java5.jpas.OrderDetailJPA;
 import com.fpoly.java5.jpas.OrderJPA;
 import com.fpoly.java5.jpas.UserJPA;
@@ -46,6 +51,28 @@ public class ProfileController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	CategoryJPA categoryJPA;
+	
+	@Autowired
+	CartDetailJPA cartDetailJPA;
+	
+	
+	
+	@ModelAttribute("categories")
+	public List<CategoryEntity> getCategory() {
+		return categoryJPA.findAll();
+	}
+	
+	@ModelAttribute("totalCartItem")
+	public int getTotalCartItem() {
+	    CartEntity cartEntity = cartService.getCart();
+	    if (cartEntity != null) {
+	        return cartDetailJPA.sumQuantityByCartId(cartEntity.getId());
+	    }
+	    return 0; 
+	}
 
 	@GetMapping("/user/profile")
 	public String profileUser(Model model) {

@@ -166,178 +166,90 @@
   </head>
   <body>
     <header>
-	    <div class="menu-main">
-	      <div class="contact-numbers">HOTLINE: 1900 633 045 | 0865 160 360</div>
-	      <div class="nav-items">
-	      	<a href="/profile" class="customeText">
-	            <i class="fa-solid fa-user" style="color: #4f4f4f"></i>Tài khoản
-	        </a>
-	        <a href="/shopping-cart" class="customeText">
-	            <i class="fa-solid fa-cart-shopping" style="color: #4f4f4f"></i>Giỏ hàng
-	        </a>
-	        <a href="/login" class="customeText">
-	        	<i class="fa-solid fa-right-to-bracket" style="color: #4f4f4f"></i>Đăng nhập
-	        </a>
-	      </div>
-	    </div>
-	  </header>
-
-    <div class="header-container">
-      <div class="social-media">
-        <a href="">
-          <i class="fa-brands fa-facebook fa-2xl" style="color: #3b5998"></i>
+    <div class="menu-main">
+      <div class="contact-numbers">HOTLINE: 1900 633 045 | 0865 160 360</div>
+      <div class="nav-items">
+      	<a href="/user/profile" class="customeText">
+            <i class="fa-solid fa-user" style="color: #4f4f4f"></i>Tài khoản
         </a>
-        <a href="">
-          <i class="fa-brands fa-twitter fa-2xl" style="color: #38a1f3"></i>
+        <a href="/cart" class="customeText">
+            <i class="fa-solid fa-cart-shopping" style="color: #4f4f4f"></i>Giỏ hàng
         </a>
-        <a href="">
-          <i class="fa-brands fa-instagram fa-2xl" style="color: #cd486b"></i>
+        <a href="/login" class="customeText">
+        	<i class="fa-solid fa-right-to-bracket" style="color: #4f4f4f"></i>Đăng nhập
         </a>
       </div>
+    </div>
+  </header>
 
-      <div class="logo-shop">
-        <a href="/homepage">
-          <img
-            src="https://www.flowercorner.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
-            title="FlowerCorner.vn - Shop hoa tươi"
-            alt="FlowerCorner.vn - Shop hoa tươi"
-            class="img-fluid"
-            width="300"
-            height="62"
-          />
-        </a>
+  <div class="header-container">
+    <div class="social-media">
+      <a href="">
+        <i class="fa-brands fa-facebook fa-2xl" style="color: #3b5998"></i>
+      </a>
+      <a href="">
+        <i class="fa-brands fa-twitter fa-2xl" style="color: #38a1f3"></i>
+      </a>
+      <a href="">
+        <i class="fa-brands fa-instagram fa-2xl" style="color: #cd486b"></i>
+      </a>
+    </div>
+
+    <div class="logo-shop">
+      <a href="/homepage">
+        <img src="https://www.flowercorner.vn/image/catalog/common/shop-hoa-tuoi-flowercorner-logo.png.webp"
+          title="FlowerCorner.vn - Shop hoa tươi" alt="FlowerCorner.vn - Shop hoa tươi" class="img-fluid" width="300"
+          height="62" />
+      </a>
+    </div>
+
+    <div class="purchase-bar">
+      <div class="search-bar">
+        <input type="text" placeholder="Tìm kiếm" class="text-control" />
+        <button type="button" class="search-button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </div>
 
-      <div class="purchase-bar">
-        <div class="search-bar">
-          <input type="text" placeholder="Tìm kiếm" class="text-control" />
-          <button type="button" class="search-button">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+      <div class="buy-bar">
+        <div class="buy-icon">
+          <button type="button" class="btn btn-inverse btn-block" onclick="window.location.href='/cart'">
+		  <i class="fa-solid fa-bag-shopping"></i>
+		</button>
+          <span id="cart-count" class="mini-cart-count" th:text="${totalCartItem}"></span>
         </div>
-
-        <div class="buy-bar">
-          <div class="buy-icon" onclick="toggleCartDropdown()">
-            <button type="button" class="btn btn-inverse btn-block">
-              <i class="fa-solid fa-bag-shopping"></i>
-            </button>
-            <span id="cart-count" class="mini-cart-count">0</span>
-          </div>
-          <div id="cart-dropdown">
-            <div id="cart-items"></div>
-            <div id="cart-total"></div>
-            <div class="cart-actions">
-              <a href="checkout.html" class="">
-                <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
-              </a>
-              <span class="line-cart">|</span>
-              <a href="checkout.html" class="">
-                <i class="fa-solid fa-share"></i> Thanh toán
-              </a>
-            </div>
+        <div id="cart-dropdown">
+          <div id="cart-items"></div>
+          <div id="cart-total"></div>
+          <div class="cart-actions">
+            <a href="/shopping-cart" class="">
+              <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+            </a>
+            <span class="line-cart">|</span>
+            <a href="/shopping-cart" class="">
+              <i class="fa-solid fa-share"></i> Thanh toán
+            </a>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="main-menu">
-      <nav class="nav-menu">
-        <ul class="nav-links">
-          <li class="dropdown">
-            <a href="hoa-sinh-nhat.html" class="drop">HOA SINH NHẬT</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">HOA SINH NHẬT SANG TRỌNG</a></li>
-              <li><a href="#">HOA SINH NHẬT GIÁ RẺ</a></li>
-              <li><a href="#">HOA TẶNG SINH NHẬT NGƯỜI YÊU</a></li>
-              <li><a href="#">HOA TẶNG SINH NHẬT MẸ</a></li>
-              <li><a href="#">HOA TẶNG SINH NHẬT BẠN</a></li>
-              <li><a href="#">LẴNG HOA TẶNG SINH NHẬT</a></li>
-              <li><a href="#">HOA HỒNG TẶNG SINH NHẬT</a></li>
-              <li><a href="#">GIỎ HOA SINH NHẬT</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="hoa-khai-truong.html" class="drop">HOA KHAI TRƯƠNG</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">HOA KHAI TRƯƠNG ĐỂ BÀN</a></li>
-              <li><a href="#">KỆ HOA KHAI TRƯƠNG</a></li>
-              <li><a href="#">KỆ HOA KHAI TRƯƠNG HIỆN ĐẠI</a></li>
-              <li><a href="#">HOA KHAI TRƯƠNG GIÁ RẺ</a></li>
-              <li><a href="#">LẴNG HOA 2 TẦNG MỪNG KHAI TRƯƠNG</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="lan-ho-diep.html" class="drop">LAN HỒ ĐIỆP</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">LAN HỒ ĐIỆP MINI</a></li>
-              <li><a href="#">LAN HỒ ĐIỆP VÀNG</a></li>
-              <li><a href="#">LAN HỒ ĐIỆP TRẮNG</a></li>
-              <li><a href="#">LAN HỒ ĐIỆP TÍM</a></li>
-              <li><a href="#">CHẬU LAN HỒ ĐIỆP 3 CÀNH</a></li>
-              <li><a href="#">CHẬU LAN HỒ ĐIỆP 5 CÀNH</a></li>
-              <li><a href="#">CHẬU LAN HỒ ĐIỆP 10 CÀNH</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="#" class="drop">CHỦ ĐỀ</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">HOA CHÚC MỪNG</a></li>
-              <li><a href="#">HOA CƯỚI CẦM TAY</a></li>
-              <li><a href="#">HOA TANG LỄ - HOA CHIA BUỒN</a></li>
-              <li><a href="#">HOA TÌNH YÊU</a></li>
-              <li><a href="#">HOA VALENTINE</a></li>
-              <li><a href="#">HOA KỶ NIỆM NGÀY CƯỚI</a></li>
-              <li><a href="#">NGÀY CỦA MẸ</a></li>
-              <li><a href="#">HOA CHÚC MỪNG 8-3</a></li>
-              <li><a href="#">HOA CHÚC MỪNG 20-10</a></li>
-              <li><a href="#">NGÀY NHÀ GIÁO VN</a></li>
-              <li><a href="#">GIÁNG SINH</a></li>
-              <li><a href="#">TẾT ÂM LỊCH</a></li>
-              <li><a href="#">HOA TỐT NGHIỆP</a></li>
-              <li><a href="#">HOA ĐỊNH KỲ</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="#" class="drop">THIẾT KẾ</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">BÓ HOA</a></li>
-              <li><a href="#">LẴNG HOA</a></li>
-              <li><a href="#">GIỎ HOA</a></li>
-              <li><a href="#">KỆ HOA</a></li>
-              <li><a href="#">BÌNH HOA</a></li>
-              <li><a href="#">HỘP HOA</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="#" class="drop">HOA TƯƠI</a>
-            <ul class="dropdown-menu">
-              <li><a href="hoa-hong.html">HOA HỒNG</a></li>
-              <li><a href="#">HOA BABY</a></li>
-              <li><a href="#">HOA HƯỚNG DƯƠNG</a></li>
-              <li><a href="#">HOA LAN HỒ ĐIỆP</a></li>
-              <li><a href="#">HOA TULIP</a></li>
-              <li><a href="#">HOA CÚC TANA</a></li>
-              <li><a href="#">HOA THẠCH THẢO</a></li>
-              <li><a href="#">HOA MẪU ĐƠN</a></li>
-              <li><a href="#">CÚC MẪU ĐƠN</a></li>
-              <li><a href="#">HOA CẨM TÚ CẦU</a></li>
-              <li><a href="#">HOA LY</a></li>
-              <li><a href="#">HOA SEN</a></li>
-              <li><a href="#">HOA ĐỒNG TIỀN</a></li>
-              <li><a href="#">HOA CẨM CHƯỚNG</a></li>
-              <li><a href="#">HOA CÚC HỌA MI</a></li>
-            </ul>
-          </li>
-
-          <li><a href="hoa-tuoi-giam-gia.html">HOA TƯƠI GIẢM 30%</a></li>
-        </ul>
-      </nav>
-    </div>
+  <div class="main-menu">
+    <nav class="nav-menu">
+      <ul class="nav-links">
+        <li class="dropdown">
+            <a th:href="@{/homepage}" class="drop">TẤT CẢ</a>
+        </li>
+        
+      	<th:block th:each="item : ${categories}">
+      		<li class="dropdown">
+	          <a th:href="@{/homepage(categoryId=${item.id})}" class="drop" th:text="${item.name}"></a>
+	        </li>
+      	</th:block>
+      </ul>
+    </nav>
+	</div>
 
     <div class="header-notice">
       ĐẶT HOA ONLINE - GIAO MIỄN PHÍ TP HCM & HÀ NỘI - GỌI NGAY 1900 633 045
@@ -392,7 +304,7 @@
 		            Thanh toán khi nhận hàng (COD)
 		        </label>
 		        <label>
-		            <input type="radio" name="paymentMethod" value="3" onchange="updatePaymentMethod(this)" />
+		            <input type="radio" name="paymentMethod" value="1" onchange="updatePaymentMethod(this)" />
 		            Thanh toán qua VNPay
 		        </label>
 		    </div>

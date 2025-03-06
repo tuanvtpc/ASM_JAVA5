@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.fpoly.java5.entity.AddressEntity;
+import com.fpoly.java5.entity.CartEntity;
+import com.fpoly.java5.entity.CategoryEntity;
 import com.fpoly.java5.entity.OrderEntity;
 import com.fpoly.java5.entity.UserEntity;
 import com.fpoly.java5.jpas.AddressJPA;
+import com.fpoly.java5.jpas.CartDetailJPA;
+import com.fpoly.java5.jpas.CategoryJPA;
 import com.fpoly.java5.jpas.OrderDetailJPA;
 import com.fpoly.java5.jpas.OrderJPA;
 import com.fpoly.java5.services.CartService;
@@ -39,6 +43,27 @@ public class CheckOutController {
 
 	@Autowired
 	OrderService orderService;
+	
+	
+	@Autowired
+	CategoryJPA categoryJPA;
+	
+	@Autowired
+	CartDetailJPA cartDetailJPA;
+	
+	@ModelAttribute("categories")
+	public List<CategoryEntity> getCategory() {
+		return categoryJPA.findAll();
+	}
+	
+	@ModelAttribute("totalCartItem")
+	public int getTotalCartItem() {
+	    CartEntity cartEntity = cartService.getCart();
+	    if (cartEntity != null) {
+	        return cartDetailJPA.sumQuantityByCartId(cartEntity.getId());
+	    }
+	    return 0; 
+	}
 
 	@GetMapping("/user/checkout")
 	public String checkoutLayout(Model model) {
@@ -49,25 +74,24 @@ public class CheckOutController {
 
 	@PostMapping("/user/checkout")
 	public String checkout(
-			@RequestParam("paymentMethod") int paymentMethod, 
-			@RequestParam("selectedAddressId") int selectedAddressId,
-			Model model) {
-		try {
-			
-			
-			if (paymentMethod < 0 || paymentMethod > 2) {
+	        @RequestParam("paymentMethod") int paymentMethod, 
+	        @RequestParam("selectedAddressId") int selectedAddressId,
+	        Model model) {
+	    try {
+	        if (paymentMethod < 0 || paymentMethod > 2) {
 	            model.addAttribute("error", "Phương thức thanh toán không hợp lệ.");
 	            return "/user/checkout.html";
 	        }
 
-			orderService.CreateOrder(2, paymentMethod);
-			return "redirect:/cart";
-		} catch (Exception e) {
-			model.addAttribute("error", "Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại.");
-			return "/user/checkout.html";
-		}
+	        orderService.CreateOrder(selectedAddressId, paymentMethod); 
+	        return "redirect:/cart";
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        model.addAttribute("error", "Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại. Chi tiết: " + e.getMessage());
+	        return "/user/checkout.html";
+	    }
 	}
-
+	
 	@ModelAttribute("addressList")
 	public List<AddressEntity> getListAddress() {
 		UserEntity user = cartService.getUser();

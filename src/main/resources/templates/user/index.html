@@ -65,7 +65,7 @@
           <button type="button" class="btn btn-inverse btn-block" onclick="window.location.href='/cart'">
 		  <i class="fa-solid fa-bag-shopping"></i>
 		</button>
-          <span id="cart-count" class="mini-cart-count">0</span>
+          <span id="cart-count" class="mini-cart-count" th:text="${totalCartItem}"></span>
         </div>
         <div id="cart-dropdown">
           <div id="cart-items"></div>

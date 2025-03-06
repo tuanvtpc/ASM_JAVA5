@@ -1,17 +1,22 @@
 package com.fpoly.java5.controllers;
 
 import com.fpoly.java5.entity.AddressEntity;
+import com.fpoly.java5.entity.CartEntity;
+import com.fpoly.java5.entity.CategoryEntity;
 import com.fpoly.java5.entity.District;
 import com.fpoly.java5.entity.Province;
 import com.fpoly.java5.entity.UserEntity;
 import com.fpoly.java5.entity.Ward;
 import com.fpoly.java5.jpas.AddressJPA;
+import com.fpoly.java5.jpas.CartDetailJPA;
+import com.fpoly.java5.jpas.CategoryJPA;
 import com.fpoly.java5.services.AddressService;
 import com.fpoly.java5.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +35,27 @@ public class AddressController {
 
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	CategoryJPA categoryJPA;
+	
+	@Autowired
+	CartDetailJPA cartDetailJPA;	
+	
+	
+	@ModelAttribute("categories")
+	public List<CategoryEntity> getCategory() {
+		return categoryJPA.findAll();
+	}
+	
+	@ModelAttribute("totalCartItem")
+	public int getTotalCartItem() {
+	    CartEntity cartEntity = cartService.getCart();
+	    if (cartEntity != null) {
+	        return cartDetailJPA.sumQuantityByCartId(cartEntity.getId());
+	    }
+	    return 0; 
+	}
 
 	@GetMapping("/user/address-form")
 	public String addressForm(@RequestParam(required = false) String idBack, Model model) {

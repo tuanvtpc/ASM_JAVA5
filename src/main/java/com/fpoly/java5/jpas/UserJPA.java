@@ -28,5 +28,7 @@ public interface UserJPA extends JpaRepository<UserEntity, Integer> {
 	Optional<UserEntity> findByUsername(String username);
 	
 	Optional<UserEntity> findByEmail(String email);
-
+	
+	@Query(value = "SELECT COUNT(*) FROM users", nativeQuery = true)
+	int countAllUsers();
 }
