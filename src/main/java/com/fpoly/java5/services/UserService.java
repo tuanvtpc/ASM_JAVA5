@@ -69,7 +69,6 @@ public class UserService {
 				return "Error image";
 			}
 
-			// Mã hóa mật khẩu với số vòng băm cao hơn
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 			String hashedPassword = passwordEncoder.encode(userBean.getPassword());
 

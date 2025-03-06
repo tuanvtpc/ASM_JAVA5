@@ -43,26 +43,25 @@ public class CheckOutController {
 
 	@Autowired
 	OrderService orderService;
-	
-	
+
 	@Autowired
 	CategoryJPA categoryJPA;
-	
+
 	@Autowired
 	CartDetailJPA cartDetailJPA;
-	
+
 	@ModelAttribute("categories")
 	public List<CategoryEntity> getCategory() {
 		return categoryJPA.findAll();
 	}
-	
+
 	@ModelAttribute("totalCartItem")
 	public int getTotalCartItem() {
-	    CartEntity cartEntity = cartService.getCart();
-	    if (cartEntity != null) {
-	        return cartDetailJPA.sumQuantityByCartId(cartEntity.getId());
-	    }
-	    return 0; 
+		CartEntity cartEntity = cartService.getCart();
+		if (cartEntity != null) {
+			return cartDetailJPA.sumQuantityByCartId(cartEntity.getId());
+		}
+		return 0;
 	}
 
 	@GetMapping("/user/checkout")
@@ -73,25 +72,29 @@ public class CheckOutController {
 	}
 
 	@PostMapping("/user/checkout")
-	public String checkout(
-	        @RequestParam("paymentMethod") int paymentMethod, 
-	        @RequestParam("selectedAddressId") int selectedAddressId,
-	        Model model) {
-	    try {
-	        if (paymentMethod < 0 || paymentMethod > 2) {
-	            model.addAttribute("error", "Phương thức thanh toán không hợp lệ.");
-	            return "/user/checkout.html";
-	        }
+	public String checkout(@RequestParam(value = "paymentMethod", required = false) Integer paymentMethod,
+			@RequestParam(value = "selectedAddressId", required = false) Integer selectedAddressId, Model model) {
+		try {
+			model.addAttribute("items", cartService.getList());
+			if (selectedAddressId == null || selectedAddressId <= 0) {
+				model.addAttribute("error", "Vui lòng chọn địa chỉ nhận hàng.");
+				return "/user/checkout.html";
+			}
 
-	        orderService.CreateOrder(selectedAddressId, paymentMethod); 
-	        return "redirect:/cart";
-	    } catch (Exception e) {
-	        e.printStackTrace(); 
-	        model.addAttribute("error", "Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại. Chi tiết: " + e.getMessage());
-	        return "/user/checkout.html";
-	    }
+			if (paymentMethod == null || paymentMethod < 0 || paymentMethod > 2) {
+				model.addAttribute("error", "Phương thức thanh toán không hợp lệ.");
+				return "/user/checkout.html";
+			}
+
+			orderService.CreateOrder(selectedAddressId, paymentMethod);
+			return "redirect:/cart";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("error", "Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại. Chi tiết: " + e.getMessage());
+			return "/user/checkout.html";
+		}
 	}
-	
+
 	@ModelAttribute("addressList")
 	public List<AddressEntity> getListAddress() {
 		UserEntity user = cartService.getUser();

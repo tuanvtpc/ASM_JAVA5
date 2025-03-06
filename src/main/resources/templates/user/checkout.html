@@ -257,6 +257,10 @@
     </div>
 
     <div class="checkout-container">
+    	<th:block th:if="${error}">
+		    <div class="alert alert-danger" th:text="${error}"></div>
+		</th:block>
+		<div id="error-message" class="alert alert-danger" style="display: none;"></div>
     	<div class="dropdown">
 	        <div class="form-group">
 	            <label for="addressSelect">Chọn thông tin nhận hàng:</label>
@@ -497,22 +501,30 @@
         }
 
         function validateForm() {
+            var errorMessage = document.getElementById("error-message");
+            errorMessage.style.display = "none"; // Ẩn thông báo lỗi trước khi kiểm tra
+
             var addressSelect = document.getElementById("addressSelect");
             var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
 
+            // Kiểm tra địa chỉ
             if (addressSelect.value === "") {
-                alert("Vui lòng chọn địa chỉ nhận hàng.");
-                return false;
+                errorMessage.innerText = "Vui lòng chọn địa chỉ nhận hàng.";
+                errorMessage.style.display = "block"; // Hiển thị thông báo lỗi
+                return false; // Ngăn form gửi đi
             }
 
+            // Kiểm tra phương thức thanh toán
             if (!paymentMethod) {
-                alert("Vui lòng chọn phương thức thanh toán.");
-                return false;
+                errorMessage.innerText = "Vui lòng chọn phương thức thanh toán.";
+                errorMessage.style.display = "block"; // Hiển thị thông báo lỗi
+                return false; // Ngăn form gửi đi
             }
 
             // Đảm bảo input hidden cập nhật đúng giá trị
             document.getElementById("formPaymentMethod").value = paymentMethod.value;
 
+            // Nếu mọi thứ hợp lệ, cho phép form gửi đi
             return true;
         }
     </script>

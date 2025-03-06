@@ -155,8 +155,8 @@ public class CartService {
 		return true;
 	}
 	
-	public double getTotalPrice() {
-        double total = 0;
+	public int getTotalPrice() {
+        int total = 0;
         for (CartDetailEntity item : getList()) {
             total += item.getProduct().getPrice() * item.getQuantity();
         }
