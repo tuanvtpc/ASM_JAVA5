@@ -131,5 +131,52 @@ public class ProductController {
 
 		return "redirect:/admin/product";
 	}
+	
+	@PostMapping("/admin/update-product-price")
+	public String updateProductPrice(@RequestParam("id") int id,
+	                                 @RequestParam("price") int price,
+	                                 RedirectAttributes redirectAttributes) {
+	    Optional<ProductEntity> productOptional = productJPA.findById(id);
+	    if (productOptional.isPresent()) {
+	        ProductEntity product = productOptional.get();
+	        product.setPrice(price);
+	        productJPA.save(product);
+	        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật giá thành công!");
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy sản phẩm!");
+	    }
+	    return "redirect:/admin/product";
+	}
 
+	@PostMapping("/admin/update-product-quantity")
+	public String updateProductQuantity(@RequestParam("id") int id,
+	                                    @RequestParam("quantity") int quantity,
+	                                    RedirectAttributes redirectAttributes) {
+	    Optional<ProductEntity> productOptional = productJPA.findById(id);
+	    if (productOptional.isPresent()) {
+	        ProductEntity product = productOptional.get();
+	        product.setQuantity(quantity);
+	        productJPA.save(product);
+	        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật số lượng thành công!");
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy sản phẩm!");
+	    }
+	    return "redirect:/admin/product";
+	}
+
+	@PostMapping("/admin/update-product-status")
+	public String updateProductStatus(@RequestParam("id") int id,
+	                                  @RequestParam("isActive") boolean isActive,
+	                                  RedirectAttributes redirectAttributes) {
+	    Optional<ProductEntity> productOptional = productJPA.findById(id);
+	    if (productOptional.isPresent()) {
+	        ProductEntity product = productOptional.get();
+	        product.setActive(isActive);
+	        productJPA.save(product);
+	        redirectAttributes.addFlashAttribute("successMessage", "Cập nhật trạng thái thành công!");
+	    } else {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Không tìm thấy sản phẩm!");
+	    }
+	    return "redirect:/admin/product";
+	}
 }

@@ -12,6 +12,7 @@ import lombok.Data;
 public class PasswordResetTokenBean {
 	 private Map<String, String> tokenMap = new HashMap<>();
 
+	 
 	    // Lưu token vào bộ nhớ tạm
 	    public void saveToken(String token, String email) {
 	        tokenMap.put(token, email); // Lưu token cùng với email của người dùng
